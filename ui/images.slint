@@ -12,7 +12,7 @@ export component ImageRS inherits Rectangle {
 }
 
 export component StaticImage inherits Rectangle {
-    callback clicked;
+    callback clicked <=> touch.clicked;
     in property <image> icon;
     in property <length> x_pos;
     in property <length> y_pos;
@@ -29,10 +29,5 @@ export component StaticImage inherits Rectangle {
         height: 100%;
         image-fit: contain;
     }
-
-    TouchArea {
-        clicked => {
-            root.clicked();
-        }
-    }
+    touch:= TouchArea { }
 }

@@ -1,6 +1,5 @@
 import { SettingsMenu} from "settings.slint";
 import { PrimeWindow } from "window.slint";
-//import { Theme} from "theme.slint";
 
 struct ButtonData {
     text: string,
@@ -10,13 +9,11 @@ struct ButtonData {
 export component MainWindow inherits Window {
     callback button-clicked(int);
     callback update-window;
-    in-out property <[ButtonData]> button-data: [
-        { text: "One", color: #dddddd},
-        { text: "Two", color: #dddddd},
-        { text: "Three", color: #dddddd},
-        { text: "Four", color: #dddddd}
-    ];
+    callback checkbox-continent-clicked;
+    in-out property <[ButtonData]> button-data: [ {},{},{},{} ];
+    in-out property <[bool]> checkbox-continent-checked: [true, false, false, false, false, false];
     in property <image> loaded_image;
+
     private property <bool> settings-window: false;
     
     title: "Countries";
@@ -31,9 +28,7 @@ export component MainWindow inherits Window {
     }
 
     if !root.settings-window: PrimeWindow {
-        settings-window => {
-            root.settings-window = true
-        }
+        settings-window => { root.settings-window = true }
         button-clicked(index) => {
             root.button-clicked(index);
             timer.running = true;
@@ -43,9 +38,9 @@ export component MainWindow inherits Window {
     }
 
     if root.settings-window: SettingsMenu {
-        settings-window => {
-            root.settings-window = false
-        }
+        settings-window => { root.settings-window = false }
+        continent-clicked => { root.checkbox-continent-clicked() }
+        continent-checked: root.checkbox-continent-checked;
     }
 
 }

@@ -33,9 +33,9 @@ pub struct Country {
     #[allow(dead_code)]
     pub name: String,
 }
-pub struct In;
+pub struct Input;
 
-impl In {
+impl Input {
     #[allow(dead_code)]
     pub fn parse_json(json_str: &str) -> Result<Vec<Country>> {
         let countries = serde_json::from_str(json_str)?;
@@ -48,9 +48,7 @@ impl In {
         Ok(countries)
     }
 
-    pub fn filter_by_continents(
-        countries: Vec<Country>,
-        target_continents: &[Continent],
+    pub fn filter_by_continents(countries: Vec<Country>, target_continents: &[Continent],
     ) -> Vec<Country> {
         countries
             .into_iter()
@@ -74,6 +72,7 @@ impl In {
 
 use rand::{rngs::ThreadRng, Rng};
 use std::{cell::Cell, rc::Rc};
+use crate::loadconfig::InputConfig;
 pub struct GameLogic;
 
 impl GameLogic {
@@ -94,6 +93,20 @@ impl GameLogic {
     pub fn get_rand_to_image_cell(rng: &mut ThreadRng) -> Rc<Cell<usize>> {
         let random_number: usize = rng.random_range(0..4);
         Rc::new(Cell::new(random_number))
+    }
+
+    pub fn create_continents_list(input_config: &InputConfig) -> Result<Vec<Continent>> {
+        use Continent::*;
+        const CONTINENTS: [Continent; 6] = [Europe, Asia, Africa, NorthAmerica, SouthAmerica, Oceania];
+
+        let mut out = Vec::new();
+        
+        for i in 0..CONTINENTS.len() {
+            if input_config.continents[i] {
+                out.push(CONTINENTS[i].clone());
+            }
+        }
+        Ok(out)
     }
 
 }

@@ -2,6 +2,14 @@ import { VerticalBox, CheckBox } from "std-widgets.slint";
 import { StaticImage } from "images.slint";
 export component SettingsMenu inherits Rectangle {
     callback settings-window;
+    callback continent-clicked;
+    in property <[bool]> continent-checked;
+
+    in property <[string]> continent-names: [
+        "Europe", "Asia", "Africa", 
+        "North America", "South America", "Oceania"
+    ];
+
     background: @linear-gradient(180deg,#fff1fc 0%, #e0cc3a 100%);
 
     StaticImage {
@@ -16,33 +24,22 @@ export component SettingsMenu inherits Rectangle {
         horizontal-alignment: center;
         font-size: 24px;
         text: "Settings";
+        font-family: "Times";
     }
 
     VerticalBox {
         padding-right: 20px;
         padding-left: 20px;
         padding-top: 50px;
-        // Text {
-        //     text: "Select preferred regions";
-        // }
-        CheckBox {
-            text: "Europe";
+        Text {
+            text: "Select preferred regions";
+            font-size: 14px;
+            height: 16px;
         }
-        CheckBox {
-            text: "Asia";
+        for name[idx] in root.continent-names : CheckBox {
+            text: name;
+            checked: root.continent-checked[idx];
+            toggled => { root.continent-clicked() }
         }
-        CheckBox {
-            text: "Africa";
-        }
-        CheckBox {
-            text: "North America";
-        }
-        CheckBox {
-            text: "South America";
-        }
-        CheckBox {
-            text: "Oceania";
-        }
-
     }
 }
