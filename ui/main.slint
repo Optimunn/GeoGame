@@ -1,0 +1,51 @@
+import { SettingsMenu} from "settings.slint";
+import { PrimeWindow } from "window.slint";
+//import { Theme} from "theme.slint";
+
+struct ButtonData {
+    text: string,
+    color: color
+}
+
+export component MainWindow inherits Window {
+    callback button-clicked(int);
+    callback update-window;
+    in-out property <[ButtonData]> button-data: [
+        { text: "One", color: #dddddd},
+        { text: "Two", color: #dddddd},
+        { text: "Three", color: #dddddd},
+        { text: "Four", color: #dddddd}
+    ];
+    in property <image> loaded_image;
+    private property <bool> settings-window: false;
+    
+    title: "Countries";
+    preferred-width:  550px;
+    preferred-height: 400px;
+    background: @linear-gradient(135deg,#fff1fc 0%, #4e4e4e 100%);
+
+    timer:= Timer {
+        interval: 1s;
+        running: false;
+        triggered => { update-window(); timer.running = false;}
+    }
+
+    if !root.settings-window: PrimeWindow {
+        settings-window => {
+            root.settings-window = true
+        }
+        button-clicked(index) => {
+            root.button-clicked(index);
+            timer.running = true;
+        }
+        button-data: root.button-data;
+        icon: loaded_image;
+    }
+
+    if root.settings-window: SettingsMenu {
+        settings-window => {
+            root.settings-window = false
+        }
+    }
+
+}

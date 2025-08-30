@@ -1,0 +1,50 @@
+import { VerticalBox, GridBox } from "std-widgets.slint";
+import { ImageRS, StaticImage} from "images.slint";
+import { MyButton } from "mybutton.slint";
+
+struct ButtonData {
+    text: string,
+    color: color
+}
+
+export component PrimeWindow inherits Rectangle {
+    callback settings-window;
+    callback button-clicked(int);
+    in property <[ButtonData]> button-data: [];
+    in property <image> icon;
+
+    StaticImage {
+        icon: @image-url("../assets/icons/settings.svg");
+        x_pos: 0px;
+        y_pos: 0px;
+        clicked => {root.settings-window()}
+    }
+
+    VerticalBox {
+        alignment: center;
+        padding-right: 20px;
+        padding-left: 20px;
+
+        Text {
+            vertical-alignment: center;
+            horizontal-alignment: center;
+            font-size: 32px;
+            text: "What is country?";
+        }
+
+        ImageRS {
+            icon: icon;
+        }
+
+        GridBox {
+            Row {
+                MyButton { border-color: root.button-data[0].color; height: 40px; text: root.button-data[0].text; clicked => {root.button-clicked(0)} }
+                MyButton { border-color: root.button-data[1].color; height: 40px; text: root.button-data[1].text; clicked => {root.button-clicked(1)} }
+            }
+            Row {
+                MyButton { border-color: root.button-data[2].color; height: 40px; text: root.button-data[2].text; clicked => {root.button-clicked(2)} }
+                MyButton { border-color: root.button-data[3].color; height: 40px; text: root.button-data[3].text; clicked => {root.button-clicked(3)} }
+            }
+        }
+    }
+}
