@@ -3,7 +3,7 @@ import { StaticImage } from "images.slint";
 export component SettingsMenu inherits Rectangle {
     callback settings-window;
     callback continent-clicked;
-    in property <[bool]> continent-checked;
+    in-out property <[bool]> continent-checked;
 
     in property <[string]> continent-names: [
         "Europe", "Asia", "Africa", 
@@ -39,7 +39,10 @@ export component SettingsMenu inherits Rectangle {
         for name[idx] in root.continent-names : CheckBox {
             text: name;
             checked: root.continent-checked[idx];
-            toggled => { root.continent-clicked() }
+            toggled => { 
+                root.continent-checked[idx] = !root.continent-checked[idx];
+                root.continent-clicked();
+            }
         }
     }
 }

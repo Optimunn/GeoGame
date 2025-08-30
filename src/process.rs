@@ -72,7 +72,6 @@ impl Input {
 
 use rand::{rngs::ThreadRng, Rng};
 use std::{cell::Cell, rc::Rc};
-use crate::loadconfig::InputConfig;
 pub struct GameLogic;
 
 impl GameLogic {
@@ -95,14 +94,14 @@ impl GameLogic {
         Rc::new(Cell::new(random_number))
     }
 
-    pub fn create_continents_list(input_config: &InputConfig) -> Result<Vec<Continent>> {
+    pub fn create_continents_list(input_config: &Vec<bool>) -> Result<Vec<Continent>> {
         use Continent::*;
         const CONTINENTS: [Continent; 6] = [Europe, Asia, Africa, NorthAmerica, SouthAmerica, Oceania];
 
         let mut out = Vec::new();
         
         for i in 0..CONTINENTS.len() {
-            if input_config.continents[i] {
+            if input_config[i] {
                 out.push(CONTINENTS[i].clone());
             }
         }

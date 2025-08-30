@@ -3,6 +3,7 @@ use std::{cell::Cell, fs, rc::Rc};
 
 use process::{Input, GameLogic, Country};
 use uipart::{COLOR_RED, COLOR_GREEN, COLOR_GRAY};
+use loadconfig::ConfigurationSettings as CF;
 
 mod process;
 mod uipart;
@@ -10,14 +11,20 @@ mod loadconfig;
 
 slint::include_modules!();
 
+macro_rules! simplified_rc {
+    ($model:expr) => {
+        ModelRc::from(Rc::new(VecModel::from($model)))
+    };
+}
+
 fn main() -> Result<(), slint::PlatformError> {
     let main_window = MainWindow::new().unwrap();
 
-    let loaded_config = loadconfig::read_input_config("save/config.json").unwrap();
+    let loaded_config = CF::read_input_config("save/config.json").unwrap();
     let serialized_countries = Input::read_from_file("data/country.json").unwrap();
     
 
-    let continent = GameLogic::create_continents_list(&loaded_config).unwrap();
+    let continent = GameLogic::create_continents_list(&loaded_config.continents).unwrap();
     let filtered_cont = Input::filter_by_continents(serialized_countries, &continent);
     
     let mut rand_thread = GameLogic::start_rand_to_image();
@@ -26,6 +33,9 @@ fn main() -> Result<(), slint::PlatformError> {
 
     let board_model = update_country(&main_window, &filtered_cont, random_number.get());
     main_window.set_button_data(board_model);
+
+    let checkbox_model = simplified_rc!(loaded_config.continents);
+    main_window.set_checkbox_continent_checked(checkbox_model);
 
 
     let _ = main_window.on_button_clicked({
@@ -47,7 +57,7 @@ fn main() -> Result<(), slint::PlatformError> {
                 }
             }
 
-            let board_model = ModelRc::from(Rc::new(VecModel::from(model)));
+            let board_model = simplified_rc!(model);
             main_window.set_button_data(board_model);
         }
     });
@@ -57,7 +67,9 @@ fn main() -> Result<(), slint::PlatformError> {
 
         move || {
             let main_window = main_window_handle.unwrap();
-            let mut checkbox: Vec<bool> = main_window.get_checkbox_continent_checked().iter().collect();
+            let checkbox: Vec<bool> = main_window.get_checkbox_continent_checked().iter().collect();
+            println!("{:?}", checkbox);
+            //continent = GameLogic::create_continents_list(&checkbox).unwrap();
         }
     });
 
@@ -93,5 +105,5 @@ fn update_country(main_window: &MainWindow, countries: &[Country], _random_numbe
         model[i].color = COLOR_GRAY;
         model[i].text = out4[i].name.to_shared_string();
     }
-    ModelRc::from(Rc::new(VecModel::from(model)))
+    simplified_rc!(model)
 }
