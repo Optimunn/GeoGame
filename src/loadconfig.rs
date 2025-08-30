@@ -16,7 +16,7 @@ impl ConfigurationSettings {
         Ok(input)
     }
 
-    #[allow(dead_code)]
+#[allow(dead_code)]
     pub fn write_input_config(path: &str, input: &InputConfig) -> Result<()> {
         let file = fs::File::create(path).unwrap();
         let output = serde_json::to_writer_pretty(file, input)?;

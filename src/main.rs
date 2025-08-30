@@ -1,9 +1,10 @@
 use slint::{Image, Model, ModelRc, ToSharedString, VecModel};
-use std::{cell::Cell, fs, rc::Rc};
+use std::{cell::{Cell, RefCell}, fs, rc::Rc};
 
 use process::{Input, GameLogic, Country};
 use uipart::{COLOR_RED, COLOR_GREEN, COLOR_GRAY};
-use loadconfig::ConfigurationSettings as CF;
+use loadconfig::ConfigurationSettings as CnSs;
+use loadconfig::InputConfig;
 
 mod process;
 mod uipart;
@@ -17,21 +18,24 @@ macro_rules! simplified_rc {
     };
 }
 
+const LOAD_CONFIG: &str = "save/config.json";
+const LOAD_DATA: &str = "data/country.json";
+
 fn main() -> Result<(), slint::PlatformError> {
     let main_window = MainWindow::new().unwrap();
 
-    let loaded_config = CF::read_input_config("save/config.json").unwrap();
-    let serialized_countries = Input::read_from_file("data/country.json").unwrap();
+    let loaded_config = CnSs::read_input_config(LOAD_CONFIG).unwrap();
+    let serialized_countries = Input::read_from_file(LOAD_DATA).unwrap();
     
 
     let continent = GameLogic::create_continents_list(&loaded_config.continents).unwrap();
-    let filtered_cont = Input::filter_by_continents(serialized_countries, &continent);
+    let filtered_cont = Input::filter_by_continents(&serialized_countries, &continent);
+    let filtered_cont = Rc::new(RefCell::new(filtered_cont));
     
     let mut rand_thread = GameLogic::start_rand_to_image();
     let random_number: Rc<Cell<usize>> = GameLogic::get_rand_to_image_cell(&mut rand_thread);
-    let random_number_clone = random_number.clone();
 
-    let board_model = update_country(&main_window, &filtered_cont, random_number.get());
+    let board_model = update_country(&main_window, &filtered_cont.borrow(), random_number.get());
     main_window.set_button_data(board_model);
 
     let checkbox_model = simplified_rc!(loaded_config.continents);
@@ -40,6 +44,7 @@ fn main() -> Result<(), slint::PlatformError> {
 
     let _ = main_window.on_button_clicked({
         let main_window_handle = main_window.as_weak();
+        let random_number_clone = random_number.clone();
 
         move |index| { 
             let main_window = main_window_handle.unwrap();
@@ -56,36 +61,57 @@ fn main() -> Result<(), slint::PlatformError> {
                     model[_random_number].color = COLOR_GREEN;
                 }
             }
-
-            let board_model = simplified_rc!(model);
-            main_window.set_button_data(board_model);
+            main_window.set_button_data(simplified_rc!(model));
         }
     });
 
+    //let filtered_cont_clone = Rc::clone(&filtered_cont);
     let _ = main_window.on_checkbox_continent_clicked({
         let main_window_handle = main_window.as_weak();
+        let filtered_cont = Rc::clone(&filtered_cont);
 
         move || {
             let main_window = main_window_handle.unwrap();
+
             let checkbox: Vec<bool> = main_window.get_checkbox_continent_checked().iter().collect();
-            println!("{:?}", checkbox);
-            //continent = GameLogic::create_continents_list(&checkbox).unwrap();
+            // let mut _count = 0;
+            // for i in 0..6 { if checkbox[i] { _count += 1; }}
+            // if _count == 0 { for i in 0..6 { checkbox[i] = true; }}
+            // println!("{:?}", checkbox);
+            let continent = GameLogic::create_continents_list(&checkbox).unwrap();
+            *filtered_cont.borrow_mut() = Input::filter_by_continents(&serialized_countries, &continent);
+            //main_window.set_checkbox_continent_checked(simplified_rc!(checkbox));
         }
     });
 
     let _ = main_window.on_update_window({
         let main_window_handle = main_window.as_weak();
+        //let filtered_cont = Rc::clone(&filtered_cont_clone);
 
         move || {
             let main_window = main_window_handle.unwrap();
-            
-            random_number.set(GameLogic::get_rand_to_image(&mut rand_thread));
 
+            random_number.set(GameLogic::get_rand_to_image(&mut rand_thread));
             let _random_number = random_number.get();
-            let board_model = update_country(&main_window, &filtered_cont, _random_number);
+            let board_model = update_country(&main_window, &filtered_cont.borrow(), _random_number);
+
             main_window.set_button_data(board_model);
         }
     });
+
+    let _ = main_window.window().on_close_requested({
+        let main_window_handle = main_window.as_weak();
+
+        move || {
+            let main_window = main_window_handle.unwrap();
+
+            let checkbox: Vec<bool> = main_window.get_checkbox_continent_checked().iter().collect();
+
+            CnSs::write_input_config(LOAD_CONFIG, &InputConfig { continents: checkbox }).unwrap();
+            slint::CloseRequestResponse::HideWindow
+        }
+    });
+
     main_window.run()
 }
 

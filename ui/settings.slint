@@ -1,11 +1,12 @@
 import { VerticalBox, CheckBox } from "std-widgets.slint";
 import { StaticImage } from "images.slint";
+
 export component SettingsMenu inherits Rectangle {
     callback settings-window;
     callback continent-clicked;
     in-out property <[bool]> continent-checked;
 
-    in property <[string]> continent-names: [
+    private property <[string]> continent-names: [
         "Europe", "Asia", "Africa", 
         "North America", "South America", "Oceania"
     ];

@@ -8,35 +8,35 @@ pub enum Continent {
     Africa,
     Asia,
     Europe,
-    #[serde(rename = "North America")]
+#[serde(rename = "North America")]
     NorthAmerica,
-    #[serde(rename = "South America")]
+#[serde(rename = "South America")]
     SouthAmerica,
     Oceania,
-    #[serde(other)]
+#[serde(other)]
     Other,
 }
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct Country {
-    #[allow(dead_code)]
+#[allow(dead_code)]
     pub capital: Option<String>,
-    #[allow(dead_code)]
+#[allow(dead_code)]
     pub code: String,
     pub continent: Option<Continent>,
-    #[allow(dead_code)]
+#[allow(dead_code)]
     flag_1x1: String,
-    #[allow(dead_code)]
+#[allow(dead_code)]
     pub flag_4x3: String,
-    #[allow(dead_code)]
+#[allow(dead_code)]
     iso: bool,
-    #[allow(dead_code)]
+#[allow(dead_code)]
     pub name: String,
 }
 pub struct Input;
 
 impl Input {
-    #[allow(dead_code)]
+#[allow(dead_code)]
     pub fn parse_json(json_str: &str) -> Result<Vec<Country>> {
         let countries = serde_json::from_str(json_str)?;
         Ok(countries)
@@ -48,14 +48,15 @@ impl Input {
         Ok(countries)
     }
 
-    pub fn filter_by_continents(countries: Vec<Country>, target_continents: &[Continent],
+    pub fn filter_by_continents(countries: &Vec<Country>, target_continents: &[Continent],
     ) -> Vec<Country> {
         countries
             .into_iter()
             .filter(|country| match &country.continent {
                 Some(cont) => target_continents.contains(cont),
-                None => false, // Игнорируем страны без континента
+                None => false,
             })
+            .cloned()
             .collect()
     }
 
@@ -79,7 +80,7 @@ impl GameLogic {
         let patch = format!("assets/{}", part_of_way_to_image);
         patch
     }
-
+#[inline(always)]
     pub fn start_rand_to_image() -> ThreadRng {
         rand::rng()
     }
@@ -107,5 +108,4 @@ impl GameLogic {
         }
         Ok(out)
     }
-
 }
