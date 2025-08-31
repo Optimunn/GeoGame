@@ -10,13 +10,13 @@ struct ButtonData {
 export component PrimeWindow inherits Rectangle {
     callback settings-window;
     callback button-clicked(int);
-    in property <[ButtonData]> button-data: [];
+    in property <[ButtonData]> button-data;
     in property <image> icon;
 
     StaticImage {
         icon: @image-url("../assets/icons/settings.svg");
-        x_pos: 0px;
-        y_pos: 0px;
+        x: 0px;
+        y: 0px;
         clicked => {root.settings-window()}
     }
 
@@ -37,14 +37,15 @@ export component PrimeWindow inherits Rectangle {
         }
 
         GridBox {
-            Row {
-                MyButton { border-color: root.button-data[0].color; height: 40px; text: root.button-data[0].text; clicked => {root.button-clicked(0)} }
-                MyButton { border-color: root.button-data[1].color; height: 40px; text: root.button-data[1].text; clicked => {root.button-clicked(1)} }
-            }
-            Row {
-                MyButton { border-color: root.button-data[2].color; height: 40px; text: root.button-data[2].text; clicked => {root.button-clicked(2)} }
-                MyButton { border-color: root.button-data[3].color; height: 40px; text: root.button-data[3].text; clicked => {root.button-clicked(3)} }
-            }
+            MyButton {row: 0; border-color: root.button-data[0].color;
+                my_hight: root.height / 10; text: root.button-data[0].text; clicked => {root.button-clicked(0)} }
+            MyButton { border-color: root.button-data[1].color;
+                my_hight: root.height / 10; text: root.button-data[1].text; clicked => {root.button-clicked(1)} }
+
+            MyButton {row: 1; border-color: root.button-data[2].color;
+                my_hight: root.height / 10; text: root.button-data[2].text; clicked => {root.button-clicked(2)} }
+            MyButton { border-color: root.button-data[3].color;
+                my_hight: root.height / 10; text: root.button-data[3].text; clicked => {root.button-clicked(3)} }
         }
     }
 }

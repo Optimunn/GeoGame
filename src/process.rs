@@ -1,52 +1,13 @@
 use rand::seq::IteratorRandom;
-use serde::Deserialize;
 use serde_json::Result;
-use std::fs;
+use rand::{rngs::ThreadRng, Rng};
+use std::{cell::Cell, rc::Rc};
 
-#[derive(Debug, Deserialize, PartialEq, Clone)]
-pub enum Continent {
-    Africa,
-    Asia,
-    Europe,
-#[serde(rename = "North America")]
-    NorthAmerica,
-#[serde(rename = "South America")]
-    SouthAmerica,
-    Oceania,
-#[serde(other)]
-    Other,
-}
+use crate::configure::{Country, Continent};
 
-#[derive(Debug, Deserialize, Clone)]
-pub struct Country {
-#[allow(dead_code)]
-    pub capital: Option<String>,
-#[allow(dead_code)]
-    pub code: String,
-    pub continent: Option<Continent>,
-#[allow(dead_code)]
-    flag_1x1: String,
-#[allow(dead_code)]
-    pub flag_4x3: String,
-#[allow(dead_code)]
-    iso: bool,
-#[allow(dead_code)]
-    pub name: String,
-}
-pub struct Input;
+pub struct GameLogic;
 
-impl Input {
-#[allow(dead_code)]
-    pub fn parse_json(json_str: &str) -> Result<Vec<Country>> {
-        let countries = serde_json::from_str(json_str)?;
-        Ok(countries)
-    }
-
-    pub fn read_from_file(path: &str) -> Result<Vec<Country>> {
-        let data = fs::read_to_string(path).unwrap();
-        let countries = serde_json::from_str(&data)?;
-        Ok(countries)
-    }
+impl GameLogic {
 
     pub fn filter_by_continents(countries: &Vec<Country>, target_continents: &[Continent],
     ) -> Vec<Country> {
@@ -69,13 +30,7 @@ impl Input {
         .cloned()
         .collect()
     }
-}
 
-use rand::{rngs::ThreadRng, Rng};
-use std::{cell::Cell, rc::Rc};
-pub struct GameLogic;
-
-impl GameLogic {
     pub fn get_image_path(part_of_way_to_image: &String) -> String {
         let patch = format!("assets/{}", part_of_way_to_image);
         patch

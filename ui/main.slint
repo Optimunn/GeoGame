@@ -10,8 +10,9 @@ export component MainWindow inherits Window {
     callback button-clicked(int);
     callback update-window;
     callback checkbox-continent-clicked;
-    in-out property <[ButtonData]> button-data: [ {},{},{},{} ];
+    in-out property <[ButtonData]> button-data: [{},{},{},{}];
     in-out property <[bool]> checkbox-continent-checked: [true, false, false, false, false, false];
+    in-out property <bool> checkbox-continent-blocked: false;
     in property <image> loaded_image;
 
     private property <bool> settings-window: false;
@@ -41,6 +42,7 @@ export component MainWindow inherits Window {
         settings-window => { root.settings-window = false }
         continent-clicked => { root.checkbox-continent-clicked() }
         continent-checked: root.checkbox-continent-checked;
+        checkbox-block: root.checkbox-continent-blocked;
     }
 
 }

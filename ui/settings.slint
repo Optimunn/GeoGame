@@ -5,6 +5,7 @@ export component SettingsMenu inherits Rectangle {
     callback settings-window;
     callback continent-clicked;
     in-out property <[bool]> continent-checked;
+    in-out property <bool> checkbox-block;
 
     private property <[string]> continent-names: [
         "Europe", "Asia", "Africa", 
@@ -15,8 +16,8 @@ export component SettingsMenu inherits Rectangle {
 
     StaticImage {
         icon: @image-url("../assets/icons/cross.svg");
-        x_pos: 0px;
-        y_pos: 0px;
+        x: 0px;
+        y: 0px;
         clicked => {root.settings-window()}
     }
 
@@ -40,8 +41,9 @@ export component SettingsMenu inherits Rectangle {
         for name[idx] in root.continent-names : CheckBox {
             text: name;
             checked: root.continent-checked[idx];
-            toggled => { 
-                root.continent-checked[idx] = !root.continent-checked[idx];
+            toggled => {
+                if (root.checkbox-block) { root.continent-checked[idx] = true; self.checked = true; debug("if") }
+                else { root.continent-checked[idx] = !root.continent-checked[idx]; debug("else") }
                 root.continent-clicked();
             }
         }
