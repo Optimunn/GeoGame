@@ -1,14 +1,18 @@
 export component MyButton inherits Rectangle {
     in-out property text <=> txt.text;
-    in property <length> my_hight;
+    in property <length> my_height;
     callback clicked <=> touch.clicked;
     border-radius: root.height / 2;
     border-width: root.height / 8;
-    height: my_hight < 40px ? 40px : my_hight;
+    height: my_height < 40px ? 40px : my_height;
     background: touch.pressed ? #cfcfcf : #ffffff;
     txt := Text {
-        font-size: 18px;
+        font-size: parent.height / 2;
+        width: parent.width - self.font-size;
+        horizontal-alignment: center;
+        vertical-alignment: center;
         color: #000000;
+        font-weight: 800;
     }
     touch := TouchArea { }
 }

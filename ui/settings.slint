@@ -1,5 +1,5 @@
 import { VerticalBox, CheckBox } from "std-widgets.slint";
-import { StaticImage } from "images.slint";
+import { ImageStatic } from "images.slint";
 
 export component SettingsMenu inherits Rectangle {
     callback settings-window;
@@ -14,10 +14,11 @@ export component SettingsMenu inherits Rectangle {
 
     background: @linear-gradient(180deg,#fff1fc 0%, #e0cc3a 100%);
 
-    StaticImage {
+    ImageStatic {
         icon: @image-url("../assets/icons/cross.svg");
         x: 0px;
         y: 0px;
+        my_size: 30px;
         clicked => {root.settings-window()}
     }
 
@@ -42,8 +43,8 @@ export component SettingsMenu inherits Rectangle {
             text: name;
             checked: root.continent-checked[idx];
             toggled => {
-                if (root.checkbox-block) { root.continent-checked[idx] = true; self.checked = true; debug("if") }
-                else { root.continent-checked[idx] = !root.continent-checked[idx]; debug("else") }
+                if (root.checkbox-block) { root.continent-checked[idx] = true; self.checked = true; }
+                else { root.continent-checked[idx] = !root.continent-checked[idx]; }
                 root.continent-clicked();
             }
         }

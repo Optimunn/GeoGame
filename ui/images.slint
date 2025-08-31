@@ -1,4 +1,4 @@
-export component ImageRS inherits Rectangle {
+export component ImageResizable inherits Rectangle {
     in property <image> icon;
 
     background: #ffffff00;
@@ -11,12 +11,14 @@ export component ImageRS inherits Rectangle {
     }
 }
 
-export component StaticImage inherits Rectangle {
+export component ImageStatic inherits Rectangle {
     callback clicked <=> touch.clicked;
     in property <image> icon;
+    in property <length> my_size;
+
+    width: my_size;
+    height: my_size;
     
-    width: 30px;
-    height: 30px;
     background: #ffffff00;
 
     Image {

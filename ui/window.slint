@@ -1,5 +1,5 @@
 import { VerticalBox, GridBox } from "std-widgets.slint";
-import { ImageRS, StaticImage} from "images.slint";
+import { ImageResizable, ImageStatic} from "images.slint";
 import { MyButton } from "mybutton.slint";
 
 struct ButtonData {
@@ -13,14 +13,15 @@ export component PrimeWindow inherits Rectangle {
     in property <[ButtonData]> button-data;
     in property <image> icon;
 
-    StaticImage {
+    ImageStatic {
         icon: @image-url("../assets/icons/settings.svg");
         x: 0px;
         y: 0px;
+        my_size: 30px;
         clicked => {root.settings-window()}
     }
 
-    VerticalBox {
+    v_box:= VerticalBox {
         alignment: center;
         padding-right: 20px;
         padding-left: 20px;
@@ -32,20 +33,30 @@ export component PrimeWindow inherits Rectangle {
             text: "What is country?";
         }
 
-        ImageRS {
+        ImageResizable {
             icon: icon;
         }
 
-        GridBox {
-            MyButton {row: 0; border-color: root.button-data[0].color;
-                my_hight: root.height / 10; text: root.button-data[0].text; clicked => {root.button-clicked(0)} }
-            MyButton { border-color: root.button-data[1].color;
-                my_hight: root.height / 10; text: root.button-data[1].text; clicked => {root.button-clicked(1)} }
+        function ret_width() -> length {
+            return (root.width - grid_box.spacing * 3 -
+                v_box.padding-left - v_box.padding-right) / 2;
+        }
 
-            MyButton {row: 1; border-color: root.button-data[2].color;
-                my_hight: root.height / 10; text: root.button-data[2].text; clicked => {root.button-clicked(2)} }
-            MyButton { border-color: root.button-data[3].color;
-                my_hight: root.height / 10; text: root.button-data[3].text; clicked => {root.button-clicked(3)} }
+        function ret_height() -> length {
+            return root.height / 10;
+        }
+
+        grid_box:= GridBox {
+            //spacing: 10px;
+            MyButton {row: 0; border-color: root.button-data[0].color; width: ret_width();
+                my_height: ret_height(); text: root.button-data[0].text; clicked => {root.button-clicked(0)} }
+            MyButton { border-color: root.button-data[1].color; width: ret_width();
+                my_height: ret_height(); text: root.button-data[1].text; clicked => {root.button-clicked(1)} }
+
+            MyButton {row: 1; border-color: root.button-data[2].color; width: ret_width();
+                my_height: ret_height(); text: root.button-data[2].text; clicked => {root.button-clicked(2)} }
+            MyButton { border-color: root.button-data[3].color; width: ret_width();
+                my_height: ret_height(); text: root.button-data[3].text; clicked => {root.button-clicked(3)} }
         }
     }
 }
