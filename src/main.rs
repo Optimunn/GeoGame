@@ -28,8 +28,14 @@ macro_rules! block_checkbox {
     }};
 }
 
+// #[cfg(debug_assertions)]
 const LOAD_CONFIG: &str = "save/config.json";
+// #[cfg(not(debug_assertions))]
+// const LOAD_CONFIG: &str = "./../../save/config.json";
+// #[cfg(debug_assertions)]
 const LOAD_DATA: &str = "data/country.json";
+// #[cfg(not(debug_assertions))]
+// const LOAD_DATA: &str = "./../../data/country.json";
 
 fn main() -> Result<(), slint::PlatformError> {
     let main_window: MainWindow = MainWindow::new().unwrap();
