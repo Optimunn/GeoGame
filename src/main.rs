@@ -1,50 +1,44 @@
 use slint::{Image, Model, ModelRc, ToSharedString, VecModel, Weak};
 use std::cell::{Cell, RefCell};
+#[cfg(not(debug_assertions))]
+use std::path::Path;
+use std::path::PathBuf;
 use std::{fs, rc::Rc};
 use rand::rngs::ThreadRng;
 
 use process::GameLogic;
-use uipart::{COLOR_RED, COLOR_GREEN, COLOR_GRAY};
+use consts::*;
 use configure::ConfigurationSettings as ConfSet;
 use configure::{InputConfig, Country, Continent};
 
 mod process;
-mod uipart;
+mod consts;
 mod configure;
 
 slint::include_modules!();
 
-macro_rules! simplified_rc {
-    ($model:expr) => {
-        ModelRc::from(Rc::new(VecModel::from($model)))
-    };
-}
-
-macro_rules! block_checkbox {
-    ($checkbox:expr, $len:expr) => {{
-        let slice = &$checkbox[..$len];
-        let count = slice.iter().filter(|&&x| x).count();
-        count <= 1
-    }};
-}
-
-// #[cfg(debug_assertions)]
-const LOAD_CONFIG: &str = "save/config.json";
-// #[cfg(not(debug_assertions))]
-// const LOAD_CONFIG: &str = "./../../save/config.json";
-// #[cfg(debug_assertions)]
-const LOAD_DATA: &str = "data/country.json";
-// #[cfg(not(debug_assertions))]
-// const LOAD_DATA: &str = "./../../data/country.json";
-
 fn main() -> Result<(), slint::PlatformError> {
     let main_window: MainWindow = MainWindow::new().unwrap();
 
-    let loaded_config: InputConfig = match ConfSet::read_from_file(LOAD_CONFIG) {
+#[cfg(not(debug_assertions))]
+    let exe_path: PathBuf = std::env::current_exe().unwrap();
+#[cfg(not(debug_assertions))]
+    let exe_dir: &Path = exe_path.parent().unwrap();
+#[cfg(not(debug_assertions))]
+    let config_path_string: PathBuf = exe_dir.join("save/config.json");
+#[cfg(not(debug_assertions))]
+    let data_path_string: PathBuf = exe_dir.join("data/country.json");
+#[cfg(not(debug_assertions))]
+    let image_path_string: PathBuf = exe_dir.join("assets/flags/4x3/");
+
+
+    let loaded_config: InputConfig = match ConfSet::read_from_file(
+            #[cfg(debug_assertions)] path_buf!(LOAD_CONFIG), #[cfg(not(debug_assertions))] &config_path_string) {
         Ok(config) => config,
         Err(_) => InputConfig { continents: vec![true; 6] },
     };
-    let serialized_countries: Vec<Country> = match ConfSet::read_from_file(LOAD_DATA) {
+    let serialized_countries: Vec<Country> = match ConfSet::read_from_file(
+            #[cfg(debug_assertions)] path_buf!(LOAD_DATA), #[cfg(not(debug_assertions))] &data_path_string) {
         Ok(config) => config,
         Err(_) => panic!("Failed to load app data"),
     };
@@ -62,7 +56,8 @@ fn main() -> Result<(), slint::PlatformError> {
     let checkbox_model: ModelRc<bool> = simplified_rc!(loaded_config.continents);
     main_window.set_checkbox_continent_checked(checkbox_model);
 
-    let board_model: ModelRc<ButtonData> = update_country(&main_window, &filtered_cont.borrow(), random_number.get());
+    let board_model: ModelRc<ButtonData> = update_country(&main_window, &filtered_cont.borrow(),
+        random_number.get(), #[cfg(not(debug_assertions))] &image_path_string);
     main_window.set_button_data(board_model);
 
     let _ = main_window.on_button_clicked({
@@ -111,7 +106,8 @@ fn main() -> Result<(), slint::PlatformError> {
 
             random_number.set(GameLogic::get_rand_to_image(&mut rand_thread));
             let _random_number: usize = random_number.get();
-            let board_model: ModelRc<ButtonData> = update_country(&main_window, &filtered_cont.borrow(), _random_number);
+            let board_model: ModelRc<ButtonData> = update_country(&main_window, &filtered_cont.borrow(),
+                _random_number, #[cfg(not(debug_assertions))] &image_path_string);
 
             main_window.set_button_data(board_model);
         }
@@ -125,7 +121,8 @@ fn main() -> Result<(), slint::PlatformError> {
 
             let checkbox: Vec<bool> = main_window.get_checkbox_continent_checked().iter().collect();
 
-            ConfSet::write_input_config(LOAD_CONFIG, &InputConfig { continents: checkbox }).unwrap();
+            ConfSet::write_input_config(#[cfg(debug_assertions)] path_buf!(LOAD_CONFIG),
+                #[cfg(not(debug_assertions))] &config_path_string, &InputConfig { continents: checkbox }).unwrap();
             slint::CloseRequestResponse::HideWindow
         }
     });
@@ -133,16 +130,22 @@ fn main() -> Result<(), slint::PlatformError> {
     main_window.run()
 }
 
-fn update_country(main_window: &MainWindow, countries: &[Country], _random_number: usize) -> ModelRc<ButtonData> {
+fn update_country(main_window: &MainWindow, countries: &[Country], _random_number: usize,
+        #[cfg(not(debug_assertions))] _image_patch: &PathBuf) -> ModelRc<ButtonData> {
     let mut model: Vec<ButtonData> = main_window.get_button_data().iter().collect();
 
     let out4: Vec<Country> = GameLogic::get_random_countries(countries, 4);
-    let patch: String = GameLogic::get_image_path(&out4[_random_number].flag_4x3);
+#[cfg(debug_assertions)]
+    let patch: String = out4[_random_number].flag_4x3.to_string();
+#[cfg(debug_assertions)]
+    let patch: String = format!("{LOAD_IMAGE}{}", patch);
+#[cfg(not(debug_assertions))]
+    let patch: PathBuf = _image_patch.join(out4[_random_number].flag_4x3.as_str());
 
     let image_data: Vec<u8> = fs::read(patch).unwrap();
     match Image::load_from_svg_data(&image_data) {
         Ok(image) => main_window.set_loaded_image(image),
-        Err(e) => println!("ELI: {}", e),
+        Err(_) => println!("Failed to load image data"),
     }
 
     for i in 0..4 {

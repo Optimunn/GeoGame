@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use serde_json::Result;
-use std::fs;
+use std::{fs, path::PathBuf};
 
 #[derive(Debug, Deserialize, PartialEq, Clone)]
 pub enum Continent {
@@ -24,8 +24,6 @@ pub struct Country {
     pub code: String,
     pub continent: Option<Continent>,
 #[allow(dead_code)]
-    flag_1x1: String,
-#[allow(dead_code)]
     pub flag_4x3: String,
 #[allow(dead_code)]
     iso: bool,
@@ -41,7 +39,7 @@ pub struct ConfigurationSettings;
 
 impl ConfigurationSettings {
 
-    pub fn read_from_file<T: DeserializeOwned>(path: &str) -> Result<T> {
+    pub fn read_from_file<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
         let data: String = match fs::read_to_string(path) {
             Ok(data) => data,
             Err(_) => String::from(""),
@@ -51,7 +49,7 @@ impl ConfigurationSettings {
     }
 
 #[allow(dead_code)]
-    pub fn write_input_config(path: &str, input: &InputConfig) -> Result<()> {
+    pub fn write_input_config(path: &PathBuf, input: &InputConfig) -> Result<()> {
         let file: fs::File = fs::File::create(path).unwrap();
         let output = serde_json::to_writer_pretty(file, input)?;
         Ok(output)

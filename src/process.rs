@@ -31,10 +31,6 @@ impl GameLogic {
         .collect()
     }
 
-    pub fn get_image_path(part_of_way_to_image: &String) -> String {
-        let patch = format!("assets/{}", part_of_way_to_image);
-        patch
-    }
 #[inline(always)]
     pub fn start_rand_to_image() -> ThreadRng {
         rand::rng()
