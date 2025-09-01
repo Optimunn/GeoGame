@@ -1,6 +1,7 @@
+/macos/Geographical game.app
+/save/config.json
 .DS_Store
 /target
 /Cargo.lock
 /.vscode
 /assets/flags/1x1
-/macos

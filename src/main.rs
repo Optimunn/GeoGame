@@ -25,11 +25,11 @@ fn main() -> Result<(), slint::PlatformError> {
 #[cfg(not(debug_assertions))]
     let exe_dir: &Path = exe_path.parent().unwrap();
 #[cfg(not(debug_assertions))]
-    let config_path_string: PathBuf = exe_dir.join("save/config.json");
+    let config_path_string: PathBuf = exe_dir.join(LOAD_CONFIG);
 #[cfg(not(debug_assertions))]
-    let data_path_string: PathBuf = exe_dir.join("data/country.json");
+    let data_path_string: PathBuf = exe_dir.join(LOAD_DATA);
 #[cfg(not(debug_assertions))]
-    let image_path_string: PathBuf = exe_dir.join("assets/flags/4x3/");
+    let image_path_string: PathBuf = exe_dir.join(LOAD_IMAGE);
 
 
     let loaded_config: InputConfig = match ConfSet::read_from_file(

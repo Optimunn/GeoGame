@@ -5,6 +5,13 @@ pub const LOAD_DATA: &str = "data/country.json";
 #[cfg(debug_assertions)]
 pub const LOAD_IMAGE: &str = "assets/flags/4x3/";
 
+#[cfg(not(debug_assertions))]
+pub const LOAD_CONFIG: &str = "../Resources/Save/config.json";
+#[cfg(not(debug_assertions))]
+pub const LOAD_DATA: &str = "../Resources/Data/country.json";
+#[cfg(not(debug_assertions))]
+pub const LOAD_IMAGE: &str = "../Assets/flags/";
+
 
 use slint::{Color};
 
