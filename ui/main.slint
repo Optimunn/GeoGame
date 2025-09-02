@@ -33,19 +33,22 @@ export component MainWindow inherits Window {
         }
     }
 
+    private property <bool> visible_touch_in_prime_window: false;
+
     if (root.settings-window == 2): PrimeWindow {
         settings-window => { root.settings-window = 1 }
         button-clicked(index) => { root.button-clicked(index) }
         click-continue => { root.update-window() }
         button-data: root.button-data;
-        icon: loaded_image;
+        icon: root.loaded_image;
+        visible_touch <=> root.visible_touch_in_prime_window;
     }
 
     if (root.settings-window == 3): SettingsMenu {
         settings-window => { root.settings-window = 1 }
         continent-clicked => { root.checkbox-continent-clicked() }
-        continent-checked: root.checkbox-continent-checked;
-        checkbox-block: root.checkbox-continent-blocked;
+        continent-checked <=> root.checkbox-continent-checked;
+        checkbox-block <=> root.checkbox-continent-blocked;
     }
 
     if (root.settings-window == 4): AboutApplication {

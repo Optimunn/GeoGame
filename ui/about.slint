@@ -19,14 +19,6 @@ export component AboutApplication inherits Rectangle {
 
     background: @radial-gradient(circle, #e4dd0d 0%, #bbdaa2 50%, #3ca5f6c8 100%);
 
-    ImageStatic {
-        icon: @image-url("../assets/icons/cross.svg");
-        x: 0px;
-        y: 0px;
-        my_size: 30px;
-        clicked => { root.settings-window() }
-    }
-
     VerticalBox {
         padding-left: 20px;
         padding-right: 20px;
@@ -37,7 +29,6 @@ export component AboutApplication inherits Rectangle {
             font-size: 24px;
             horizontal-alignment: center;
         }
-
         MyBox { 
             icon: @image-url("../assets/icons/github-logo.svg");
             text: "Author: Alex";
@@ -53,5 +44,13 @@ export component AboutApplication inherits Rectangle {
             text:  "#MadeWitchSlint";
             clicked => { root.open-url(3) }
         }
+    }
+
+    ImageStatic {
+        icon: @image-url("../assets/icons/cross.svg");
+        x: 0px;
+        y: 0px;
+        my_size: 30px;
+        clicked => { root.settings-window() }
     }
 }

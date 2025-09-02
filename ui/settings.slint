@@ -14,14 +14,6 @@ export component SettingsMenu inherits Rectangle {
 
     background: @linear-gradient(180deg,#fff1fc 0%, #e0cc3a 100%);
 
-    ImageStatic {
-        icon: @image-url("../assets/icons/cross.svg");
-        x: 0px;
-        y: 0px;
-        my_size: 30px;
-        clicked => { root.settings-window() }
-    }
-
     Text {
         y: 5px;
         horizontal-alignment: center;
@@ -48,5 +40,13 @@ export component SettingsMenu inherits Rectangle {
                 root.continent-clicked();
             }
         }
+    }
+
+    ImageStatic {
+        icon: @image-url("../assets/icons/cross.svg");
+        x: 0px;
+        y: 0px;
+        my_size: 30px;
+        clicked => { root.settings-window() }
     }
 }

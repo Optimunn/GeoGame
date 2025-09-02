@@ -14,15 +14,9 @@ export component PrimeWindow inherits Rectangle {
     in property <[ButtonData]> button-data;
     in property <image> icon;
 
-    background: @linear-gradient(135deg,#fff1fc 0%, #4e4e4e 100%);
+    in-out property <bool> visible_touch;
 
-    ImageStatic {
-        icon: @image-url("../assets/icons/settings.svg");
-        x: 0px;
-        y: 0px;
-        my_size: 30px;
-        clicked => { root.settings-window() }
-    }
+    background: @linear-gradient(135deg,#fff1fc 0%, #4e4e4e 100%);
 
     v_box:= VerticalBox {
         alignment: center;
@@ -51,25 +45,33 @@ export component PrimeWindow inherits Rectangle {
 
         grid_box:= GridBox {
             MyButton {row: 0; border-color: root.button-data[0].color; width: ret_width();
-                my_height: ret_height(); text: root.button-data[0].text; clicked =>
-                {root.button-clicked(0); screen.visible = true} }
+                my_height: ret_height(); text: root.button-data[0].text;
+                clicked => {root.button-clicked(0); root.visible_touch = true} }
             MyButton { border-color: root.button-data[1].color; width: ret_width();
-                my_height: ret_height(); text: root.button-data[1].text; clicked =>
-                {root.button-clicked(1); screen.visible = true} }
+                my_height: ret_height(); text: root.button-data[1].text;
+                clicked => {root.button-clicked(1); root.visible_touch = true} }
             MyButton {row: 1; border-color: root.button-data[2].color; width: ret_width();
-                my_height: ret_height(); text: root.button-data[2].text; clicked =>
-                {root.button-clicked(2); screen.visible = true} }
+                my_height: ret_height(); text: root.button-data[2].text;
+                clicked => {root.button-clicked(2); root.visible_touch = true} }
             MyButton { border-color: root.button-data[3].color; width: ret_width();
-                my_height: ret_height(); text: root.button-data[3].text; clicked =>
-                {root.button-clicked(3); screen.visible = true} }
+                my_height: ret_height(); text: root.button-data[3].text;
+                clicked => {root.button-clicked(3); root.visible_touch = true} }
         }
     }
 
-    screen:= TouchArea {
-        visible: false;
+    TouchArea {
+        visible: root.visible_touch;
         clicked => {
-            self.visible = false;
+            root.visible_touch = false;
             root.click-continue();
         }
+    }
+
+    ImageStatic {
+        icon: @image-url("../assets/icons/settings.svg");
+        x: 0px;
+        y: 0px;
+        my_size: 30px;
+        clicked => { root.settings-window() }
     }
 }
