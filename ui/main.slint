@@ -12,6 +12,7 @@ export component MainWindow inherits Window {
     callback button-clicked(int);
     callback update-window;
     callback checkbox-continent-clicked;
+    callback open-url-info(int);
     in-out property <[ButtonData]> button-data: [{},{},{},{}];
     in-out property <[bool]> checkbox-continent-checked: [true, false, false, false, false, false];
     in-out property <bool> checkbox-continent-blocked: false;
@@ -22,6 +23,7 @@ export component MainWindow inherits Window {
     title: "Geographical game";
     preferred-width:  550px;
     preferred-height: 550px;
+    background: #ffffff00;
 
     if (root.settings-window == 1): WelcomeWindow {
         settings-window(input) => {
@@ -33,7 +35,7 @@ export component MainWindow inherits Window {
 
     if (root.settings-window == 2): PrimeWindow {
         settings-window => { root.settings-window = 1 }
-        button-clicked(index) => { root.button-clicked(index); }
+        button-clicked(index) => { root.button-clicked(index) }
         click-continue => { root.update-window() }
         button-data: root.button-data;
         icon: loaded_image;
@@ -48,5 +50,6 @@ export component MainWindow inherits Window {
 
     if (root.settings-window == 4): AboutApplication {
         settings-window => { root.settings-window = 1 }
+        open-url(item) => { root.open-url-info(item) }
     }
 }

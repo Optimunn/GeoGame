@@ -49,3 +49,7 @@ macro_rules! path_buf {
         &PathBuf::from(($str.to_string()))
     };
 }
+
+pub const LINK_TO_GITHUB: &str = "https://github.com/Optimunn/GeoGame";
+pub const LINK_TO_RUST: &str = "https://www.rust-lang.org";    
+pub const LINK_TO_SLINT: &str = "https://slint.dev";

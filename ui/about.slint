@@ -1,10 +1,23 @@
-import { VerticalBox, AboutSlint } from "std-widgets.slint";
-import { ImageStatic } from "images.slint";
+import { VerticalBox } from "std-widgets.slint";
+import { ImageStatic, ImageResizable } from "images.slint";
+
+component MyBox inherits VerticalBox {
+    in property icon <=> img.icon;
+    in property text <=> txt.text;
+    callback clicked <=> touch.clicked;
+
+    img := ImageResizable { touch := TouchArea { } }
+    txt := Text { 
+        horizontal-alignment: center;
+        font-size: 18px;
+    }
+}
 
 export component AboutApplication inherits Rectangle {
     callback settings-window;
+    callback open-url(int);
 
-    background: @radial-gradient(circle, #e4dd0d 0%, #bbdaa2 50%, #3ca5f6 100%);
+    background: @radial-gradient(circle, #e4dd0d 0%, #bbdaa2 50%, #3ca5f6c8 100%);
 
     ImageStatic {
         icon: @image-url("../assets/icons/cross.svg");
@@ -15,10 +28,30 @@ export component AboutApplication inherits Rectangle {
     }
 
     VerticalBox {
+        padding-left: 20px;
+        padding-right: 20px;
+        width: 300px;
+
         Text {
-            text: "Author: Alex";
-            horizontal-alignment: center; font-size: 16px;
+            text: "Geographical game\n\nVersion: 0.1.0";
+            font-size: 24px;
+            horizontal-alignment: center;
         }
-    AboutSlint { }
+
+        MyBox { 
+            icon: @image-url("../assets/icons/github-logo.svg");
+            text: "Author: Alex";
+            clicked => { root.open-url(1) }
+        }
+        MyBox { 
+            icon: @image-url("../assets/icons/rust-logo.svg");
+            text: "#RustBackend";
+            clicked => { root.open-url(2) }
+        }
+        MyBox { 
+            icon: @image-url("../assets/icons/slint-logo.svg");
+            text:  "#MadeWitchSlint";
+            clicked => { root.open-url(3) }
+        }
     }
 }

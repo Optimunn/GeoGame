@@ -113,6 +113,17 @@ fn main() -> Result<(), slint::PlatformError> {
         }
     });
 
+    let _ = main_window.on_open_url_info({
+        move |item| {
+            match item {
+                1 => open::that(LINK_TO_GITHUB).unwrap(),
+                2 => open::that(LINK_TO_RUST).unwrap(),
+                3 => open::that(LINK_TO_SLINT).unwrap(),
+                _ => (),
+            }
+        }
+    });
+
     let _ = main_window.window().on_close_requested({
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
 

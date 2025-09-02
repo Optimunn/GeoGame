@@ -14,7 +14,7 @@ export component ImageResizable inherits Rectangle {
 export component ImageStatic inherits Rectangle {
     callback clicked <=> touch.clicked;
     in property <image> icon;
-    in property <length> my_size;
+    in property <length> my_size: 30px;
 
     width: my_size;
     height: my_size;
