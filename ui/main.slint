@@ -22,18 +22,10 @@ export component MainWindow inherits Window {
     preferred-height: 400px;
     background: @linear-gradient(135deg,#fff1fc 0%, #4e4e4e 100%);
 
-    timer:= Timer {
-        interval: 1s;
-        running: false;
-        triggered => { update-window(); timer.running = false;}
-    }
-
     if !root.settings-window: PrimeWindow {
         settings-window => { root.settings-window = true }
-        button-clicked(index) => {
-            root.button-clicked(index);
-            timer.running = true;
-        }
+        button-clicked(index) => { root.button-clicked(index); }
+        click-continue => { root.update-window() }
         button-data: root.button-data;
         icon: loaded_image;
     }

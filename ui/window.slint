@@ -10,6 +10,7 @@ struct ButtonData {
 export component PrimeWindow inherits Rectangle {
     callback settings-window;
     callback button-clicked(int);
+    callback click-continue;
     in property <[ButtonData]> button-data;
     in property <image> icon;
 
@@ -49,14 +50,22 @@ export component PrimeWindow inherits Rectangle {
         grid_box:= GridBox {
             //spacing: 10px;
             MyButton {row: 0; border-color: root.button-data[0].color; width: ret_width();
-                my_height: ret_height(); text: root.button-data[0].text; clicked => {root.button-clicked(0)} }
+                my_height: ret_height(); text: root.button-data[0].text; clicked => {root.button-clicked(0); screen.visible = true} }
             MyButton { border-color: root.button-data[1].color; width: ret_width();
-                my_height: ret_height(); text: root.button-data[1].text; clicked => {root.button-clicked(1)} }
+                my_height: ret_height(); text: root.button-data[1].text; clicked => {root.button-clicked(1); screen.visible = true} }
 
             MyButton {row: 1; border-color: root.button-data[2].color; width: ret_width();
-                my_height: ret_height(); text: root.button-data[2].text; clicked => {root.button-clicked(2)} }
+                my_height: ret_height(); text: root.button-data[2].text; clicked => {root.button-clicked(2); screen.visible = true} }
             MyButton { border-color: root.button-data[3].color; width: ret_width();
-                my_height: ret_height(); text: root.button-data[3].text; clicked => {root.button-clicked(3)} }
+                my_height: ret_height(); text: root.button-data[3].text; clicked => {root.button-clicked(3); screen.visible = true} }
+        }
+    }
+
+    screen:= TouchArea {
+        visible: false;
+        clicked => {
+            self.visible = false;
+            root.click-continue();
         }
     }
 }
