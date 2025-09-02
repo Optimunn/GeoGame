@@ -1,5 +1,6 @@
 import { SettingsMenu} from "settings.slint";
 import { PrimeWindow } from "window.slint";
+import { PrePlayWindow } from "preplay.slint";
 import { WelcomeWindow } from "welcome.slint";
 import { AboutApplication } from "about.slint";
 
@@ -25,6 +26,15 @@ export component MainWindow inherits Window {
     preferred-height: 550px;
     background: #ffffff00;
 
+    if (root.settings-window == 0): PrimeWindow {
+        settings-window => { root.settings-window = 1 }
+        button-clicked(index) => { root.button-clicked(index) }
+        click-continue => { root.update-window() }
+        button-data: root.button-data;
+        icon: root.loaded_image;
+        visible_touch <=> root.visible_touch_in_prime_window;
+    }
+
     if (root.settings-window == 1): WelcomeWindow {
         settings-window(input) => {
             if input == 2 { root.settings-window = 2 }
@@ -35,20 +45,18 @@ export component MainWindow inherits Window {
 
     private property <bool> visible_touch_in_prime_window: false;
 
-    if (root.settings-window == 2): PrimeWindow {
-        settings-window => { root.settings-window = 1 }
-        button-clicked(index) => { root.button-clicked(index) }
-        click-continue => { root.update-window() }
-        button-data: root.button-data;
-        icon: root.loaded_image;
-        visible_touch <=> root.visible_touch_in_prime_window;
+    if (root.settings-window == 2): PrePlayWindow {
+        settings-window(item) => { 
+            if item == 1 { root.settings-window = 1 }
+            else { root.settings-window = 0 }
+        }
+        continent-clicked => { root.checkbox-continent-clicked() }
+        continent-checked <=> root.checkbox-continent-checked;
+        checkbox-block <=> root.checkbox-continent-blocked;
     }
 
     if (root.settings-window == 3): SettingsMenu {
         settings-window => { root.settings-window = 1 }
-        continent-clicked => { root.checkbox-continent-clicked() }
-        continent-checked <=> root.checkbox-continent-checked;
-        checkbox-block <=> root.checkbox-continent-blocked;
     }
 
     if (root.settings-window == 4): AboutApplication {

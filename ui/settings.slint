@@ -3,42 +3,17 @@ import { ImageStatic } from "images.slint";
 
 export component SettingsMenu inherits Rectangle {
     callback settings-window;
-    callback continent-clicked;
-    in-out property <[bool]> continent-checked;
-    in-out property <bool> checkbox-block;
-
-    private property <[string]> continent-names: [
-        "Europe", "Asia", "Africa", 
-        "North America", "South America", "Oceania"
-    ];
 
     background: @linear-gradient(180deg,#fff1fc 0%, #e0cc3a 100%);
-
-    Text {
-        y: 5px;
-        horizontal-alignment: center;
-        font-size: 24px;
-        text: "Settings";
-        font-family: "Times";
-    }
 
     VerticalBox {
         padding-right: 20px;
         padding-left: 20px;
-        padding-top: 50px;
         Text {
-            text: "Select preferred regions";
-            font-size: 14px;
-            height: 16px;
-        }
-        for name[idx] in root.continent-names : CheckBox {
-            text: name;
-            checked: root.continent-checked[idx];
-            toggled => {
-                if (root.checkbox-block) { root.continent-checked[idx] = true; self.checked = true; }
-                else { root.continent-checked[idx] = !root.continent-checked[idx]; }
-                root.continent-clicked();
-            }
+            text: "Settings";
+            font-size: 24px;
+            horizontal-alignment: center;
+            height: self.font-size * 1.3;
         }
     }
 

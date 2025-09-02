@@ -1,0 +1,83 @@
+import { VerticalBox, CheckBox, HorizontalBox, TabWidget } from "std-widgets.slint";
+import { ImageStatic } from "images.slint";
+import { MyButton, ToggleSwitch } from "mybutton.slint";
+
+export component PrePlayWindow inherits Rectangle {
+    callback settings-window(int);
+    callback continent-clicked;
+    in-out property <[bool]> continent-checked;
+    in-out property <bool> checkbox-block;
+
+    private property <[string]> continent-names-one: [
+        "Europe", "Asia", "Africa", 
+    ];
+    private property <[string]> continent-names-two: [
+        "North America", "South America", "Oceania"
+    ];
+
+    background: @linear-gradient(0deg, #6ee9e1 0%, #eaef6f 100%);
+
+    VerticalBox {
+        alignment: center;
+        padding-right: 20px;
+        padding-left: 20px;
+
+        Text {
+            text: "Select preferred regions";
+            font-size: 32px;
+            horizontal-alignment: center;
+            height: self.font-size * 1.3;
+        }
+
+        HorizontalBox {
+            for name[idx] in root.continent-names-one : ToggleSwitch {
+                text: name;
+                checked: root.continent-checked[idx];
+                height: 20px;
+                toggled => {
+                    if (root.checkbox-block) { root.continent-checked[idx] = true; self.checked = true; }
+                    else { root.continent-checked[idx] = !root.continent-checked[idx]; }
+                    root.continent-clicked();
+                }
+            }
+        }
+        
+        HorizontalBox {
+            for name[idx] in root.continent-names-two : ToggleSwitch {
+                text: name;
+                checked: root.continent-checked[idx + 3];
+                height: 20px;
+                toggled => {
+                    if (root.checkbox-block) { root.continent-checked[idx + 3] = true; self.checked = true; }
+                    else { root.continent-checked[idx + 3] = !root.continent-checked[idx + 3]; }
+                    root.continent-clicked();
+                }
+            }
+        }
+
+        function ret_height() -> length {
+            return root.height / 10;
+        }
+
+        MyButton { text: "Play 10";
+            height: ret_height(); border-color: root.background.darker(50%);
+            clicked => { root.settings-window(0) }
+        }
+        MyButton { text: "Play 25";
+            height: ret_height(); border-color: root.background.darker(50%);
+            clicked => { root.settings-window(0) }
+        }
+        MyButton { text: "Play hard";
+            height: ret_height(); border-color: root.background.darker(50%); 
+            clicked => { root.settings-window(0) }
+        }
+    }
+
+    ImageStatic {
+        icon: @image-url("../assets/icons/menu.svg");
+        x: 0px;
+        y: 0px;
+        my_size: 30px;
+        clicked => { root.settings-window(1) }
+    }
+}
