@@ -14,12 +14,14 @@ export component PrimeWindow inherits Rectangle {
     in property <[ButtonData]> button-data;
     in property <image> icon;
 
+    background: @linear-gradient(135deg,#fff1fc 0%, #4e4e4e 100%);
+
     ImageStatic {
         icon: @image-url("../assets/icons/settings.svg");
         x: 0px;
         y: 0px;
         my_size: 30px;
-        clicked => {root.settings-window()}
+        clicked => { root.settings-window() }
     }
 
     v_box:= VerticalBox {
@@ -48,16 +50,18 @@ export component PrimeWindow inherits Rectangle {
         }
 
         grid_box:= GridBox {
-            //spacing: 10px;
             MyButton {row: 0; border-color: root.button-data[0].color; width: ret_width();
-                my_height: ret_height(); text: root.button-data[0].text; clicked => {root.button-clicked(0); screen.visible = true} }
+                my_height: ret_height(); text: root.button-data[0].text; clicked =>
+                {root.button-clicked(0); screen.visible = true} }
             MyButton { border-color: root.button-data[1].color; width: ret_width();
-                my_height: ret_height(); text: root.button-data[1].text; clicked => {root.button-clicked(1); screen.visible = true} }
-
+                my_height: ret_height(); text: root.button-data[1].text; clicked =>
+                {root.button-clicked(1); screen.visible = true} }
             MyButton {row: 1; border-color: root.button-data[2].color; width: ret_width();
-                my_height: ret_height(); text: root.button-data[2].text; clicked => {root.button-clicked(2); screen.visible = true} }
+                my_height: ret_height(); text: root.button-data[2].text; clicked =>
+                {root.button-clicked(2); screen.visible = true} }
             MyButton { border-color: root.button-data[3].color; width: ret_width();
-                my_height: ret_height(); text: root.button-data[3].text; clicked => {root.button-clicked(3); screen.visible = true} }
+                my_height: ret_height(); text: root.button-data[3].text; clicked =>
+                {root.button-clicked(3); screen.visible = true} }
         }
     }
 

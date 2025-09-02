@@ -1,0 +1,24 @@
+import { VerticalBox, AboutSlint } from "std-widgets.slint";
+import { ImageStatic } from "images.slint";
+
+export component AboutApplication inherits Rectangle {
+    callback settings-window;
+
+    background: @radial-gradient(circle, #e4dd0d 0%, #bbdaa2 50%, #3ca5f6 100%);
+
+    ImageStatic {
+        icon: @image-url("../assets/icons/cross.svg");
+        x: 0px;
+        y: 0px;
+        my_size: 30px;
+        clicked => { root.settings-window() }
+    }
+
+    VerticalBox {
+        Text {
+            text: "Author: Alex";
+            horizontal-alignment: center; font-size: 16px;
+        }
+    AboutSlint { }
+    }
+}

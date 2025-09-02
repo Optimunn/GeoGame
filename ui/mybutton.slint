@@ -1,11 +1,12 @@
 export component MyButton inherits Rectangle {
     in-out property text <=> txt.text;
-    in property <length> my_height;
+    in property <length> my_height: 40px;
+    in property <color> my_color: #ffffff;
     callback clicked <=> touch.clicked;
     border-radius: root.height / 2;
     border-width: root.height / 8;
     height: my_height < 40px ? 40px : my_height;
-    background: touch.pressed ? #cfcfcf : #ffffff;
+    background: touch.pressed ? my_color.darker(25%) : my_color;
     txt := Text {
         font-size: parent.height / 2;
         width: parent.width - self.font-size;

@@ -1,0 +1,30 @@
+import { VerticalBox } from "std-widgets.slint";
+import { ImageResizable } from "images.slint";
+import { MyButton } from "mybutton.slint";
+export component WelcomeWindow inherits Rectangle {
+    callback settings-window(int);
+    background: @linear-gradient(0deg,#5dca68 0%, #5792b6 100%);
+
+    VerticalBox {
+        alignment: center;
+        padding-right: 20px;
+        padding-left: 20px;
+
+        ImageResizable {
+            icon: @image-url("../assets/icons/earth.svg");
+        }
+        MyButton {
+            text: "Play";
+            clicked => { root.settings-window(2) }
+        }
+        MyButton {
+            text: "Settings";
+            clicked => { root.settings-window(3) }
+        }
+        MyButton {
+            text: "About";
+            clicked => { root.settings-window(4) }
+        }
+    }
+    
+}

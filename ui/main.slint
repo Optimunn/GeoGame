@@ -1,5 +1,7 @@
 import { SettingsMenu} from "settings.slint";
 import { PrimeWindow } from "window.slint";
+import { WelcomeWindow } from "welcome.slint";
+import { AboutApplication } from "about.slint";
 
 struct ButtonData {
     text: string,
@@ -15,26 +17,36 @@ export component MainWindow inherits Window {
     in-out property <bool> checkbox-continent-blocked: false;
     in property <image> loaded_image;
 
-    private property <bool> settings-window: false;
+    private property <int> settings-window: 1;
     
-    title: "Countries";
+    title: "Geographical game";
     preferred-width:  550px;
-    preferred-height: 400px;
-    background: @linear-gradient(135deg,#fff1fc 0%, #4e4e4e 100%);
+    preferred-height: 550px;
 
-    if !root.settings-window: PrimeWindow {
-        settings-window => { root.settings-window = true }
+    if (root.settings-window == 1): WelcomeWindow {
+        settings-window(input) => {
+            if input == 2 { root.settings-window = 2 }
+            else if input == 3 { root.settings-window = 3 }
+            else if input == 4 { root.settings-window = 4 }
+        }
+    }
+
+    if (root.settings-window == 2): PrimeWindow {
+        settings-window => { root.settings-window = 1 }
         button-clicked(index) => { root.button-clicked(index); }
         click-continue => { root.update-window() }
         button-data: root.button-data;
         icon: loaded_image;
     }
 
-    if root.settings-window: SettingsMenu {
-        settings-window => { root.settings-window = false }
+    if (root.settings-window == 3): SettingsMenu {
+        settings-window => { root.settings-window = 1 }
         continent-clicked => { root.checkbox-continent-clicked() }
         continent-checked: root.checkbox-continent-checked;
         checkbox-block: root.checkbox-continent-blocked;
     }
 
+    if (root.settings-window == 4): AboutApplication {
+        settings-window => { root.settings-window = 1 }
+    }
 }
