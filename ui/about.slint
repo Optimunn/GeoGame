@@ -14,7 +14,7 @@ component MyBox inherits VerticalBox {
 }
 
 export component AboutApplication inherits Rectangle {
-    callback settings-window;
+    callback scene-visible;
     callback open-url(int);
 
     background: @radial-gradient(circle, #e4dd0d 0%, #bbdaa2 50%, #3ca5f6c8 100%);
@@ -37,7 +37,7 @@ export component AboutApplication inherits Rectangle {
         }
         MyBox { 
             icon: @image-url("../assets/icons/rust-logo.svg");
-            text: "#RustBackend";
+            text: "#RustGame";
             clicked => { root.open-url(2) }
         }
         MyBox { 
@@ -52,6 +52,6 @@ export component AboutApplication inherits Rectangle {
         x: 0px;
         y: 0px;
         my_size: 30px;
-        clicked => { root.settings-window() }
+        clicked => { root.scene-visible() }
     }
 }

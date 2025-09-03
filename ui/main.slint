@@ -14,53 +14,45 @@ export component MainWindow inherits Window {
     callback update-window;
     callback checkbox-continent-clicked;
     callback open-url-info(int);
-    in-out property <[ButtonData]> button-data: [{},{},{},{}];
-    in-out property <[bool]> checkbox-continent-checked: [true, false, false, false, false, false];
-    in-out property <bool> checkbox-continent-blocked: false;
-    in property <image> loaded_image;
+    in-out property button-data <=> window-game.button-data;
+    in-out property checkbox-continent-checked <=> window-preplay.cnt-check;
+    in-out property checkbox-continent-blocked <=> window-preplay.checkbox-block;
+    in property loaded_image <=> window-game.icon;
 
-    private property <int> settings-window: 1;
+    private property visible-touch-in-prime-window <=> window-game.visible_touch;
+    private property <int> scene-visible: 1;
     
     title: "Geographical game";
     preferred-width:  550px;
     preferred-height: 550px;
     background: #ffffff00;
 
-    if (root.settings-window == 0): PrimeWindow {
-        settings-window => { root.settings-window = 1 }
+    window-game := PrimeWindow {
+        visible: scene-visible == 0;
         button-clicked(index) => { root.button-clicked(index) }
         click-continue => { root.update-window() }
-        button-data: root.button-data;
-        icon: root.loaded_image;
-        visible_touch <=> root.visible_touch_in_prime_window;
+        scene-visible => { root.scene-visible = 1 }
     }
 
-    if (root.settings-window == 1): WelcomeWindow {
-        settings-window(input) => {
-            if input == 2 { root.settings-window = 2 }
-            else if input == 3 { root.settings-window = 3 }
-            else if input == 4 { root.settings-window = 4 }
-        }
+    window-welcome := WelcomeWindow {
+        visible: scene-visible == 1;
+        scene-visible(item) => { root.scene-visible = item; }
     }
 
-    private property <bool> visible_touch_in_prime_window: false;
-
-    if (root.settings-window == 2): PrePlayWindow {
-        settings-window(item) => { 
-            if item == 1 { root.settings-window = 1 }
-            else { root.settings-window = 0 }
-        }
+    window-preplay := PrePlayWindow {
+        visible: scene-visible == 2;
         continent-clicked => { root.checkbox-continent-clicked() }
-        continent-checked <=> root.checkbox-continent-checked;
-        checkbox-block <=> root.checkbox-continent-blocked;
+        scene-visible(item) => { root.scene-visible = item; }
     }
 
-    if (root.settings-window == 3): SettingsMenu {
-        settings-window => { root.settings-window = 1 }
+    window-settings := SettingsMenu {
+        visible: scene-visible == 3;
+        scene-visible => { root.scene-visible = 1 }
     }
 
-    if (root.settings-window == 4): AboutApplication {
-        settings-window => { root.settings-window = 1 }
+    window_about := AboutApplication {
+        visible: scene-visible == 4;
         open-url(item) => { root.open-url-info(item) }
+        scene-visible => { root.scene-visible = 1 }
     }
 }

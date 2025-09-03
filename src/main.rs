@@ -90,7 +90,8 @@ fn main() -> Result<(), slint::PlatformError> {
         move || {
             let main_window: MainWindow = main_window_handle.unwrap();
             let checkbox: Vec<bool> = main_window.get_checkbox_continent_checked().iter().collect();
-
+#[cfg(debug_assertions)]
+            println!("{:?}", checkbox);
             let blocked: bool = block_checkbox!(checkbox, 6);
             let continent: Vec<Continent> = GameLogic::create_continents_list(&checkbox).unwrap();
             *filtered_cont.borrow_mut() = GameLogic::filter_by_continents(&serialized_countries, &continent);

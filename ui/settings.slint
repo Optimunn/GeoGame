@@ -2,7 +2,7 @@ import { VerticalBox, CheckBox } from "std-widgets.slint";
 import { ImageStatic } from "images.slint";
 
 export component SettingsMenu inherits Rectangle {
-    callback settings-window;
+    callback scene-visible;
 
     background: @linear-gradient(180deg,#fff1fc 0%, #e0cc3a 100%);
 
@@ -22,6 +22,6 @@ export component SettingsMenu inherits Rectangle {
         x: 0px;
         y: 0px;
         my_size: 30px;
-        clicked => { root.settings-window() }
+        clicked => { root.scene-visible() }
     }
 }

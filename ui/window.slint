@@ -8,13 +8,13 @@ struct ButtonData {
 }
 
 export component PrimeWindow inherits Rectangle {
-    callback settings-window;
+    callback scene-visible;
     callback button-clicked(int);
     callback click-continue;
-    in property <[ButtonData]> button-data;
-    in property <image> icon;
 
-    in-out property <bool> visible_touch;
+    in-out property <bool> visible_touch: false;
+    in property <[ButtonData]> button-data: [ {},{},{},{} ];
+    in property icon <=> img-res.icon;
 
     background: @linear-gradient(135deg,#fff1fc 0%, #4e4e4e 100%);
 
@@ -30,9 +30,7 @@ export component PrimeWindow inherits Rectangle {
             text: "What is country?";
         }
 
-        ImageResizable {
-            icon: icon;
-        }
+        img-res := ImageResizable { }
 
         function ret_width() -> length {
             return (root.width - grid_box.spacing * 3 -
@@ -72,6 +70,6 @@ export component PrimeWindow inherits Rectangle {
         x: 0px;
         y: 0px;
         my_size: 30px;
-        clicked => { root.settings-window() }
+        clicked => { root.scene-visible() }
     }
 }
