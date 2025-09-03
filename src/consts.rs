@@ -1,14 +1,14 @@
 #[cfg(debug_assertions)]
 pub const LOAD_CONFIG: &str = "save/config.json";
 #[cfg(debug_assertions)]
-pub const LOAD_DATA: &str = "data/country.json";
+pub const LOAD_DATA: &str = "data/country_en.json";
 #[cfg(debug_assertions)]
 pub const LOAD_IMAGE: &str = "assets/flags/4x3/";
 
 #[cfg(not(debug_assertions))]
 pub const LOAD_CONFIG: &str = "../Resources/Save/config.json";
 #[cfg(not(debug_assertions))]
-pub const LOAD_DATA: &str = "../Resources/Data/country.json";
+pub const LOAD_DATA: &str = "../Resources/Data/country_en.json";
 #[cfg(not(debug_assertions))]
 pub const LOAD_IMAGE: &str = "../Assets/flags/";
 

@@ -34,7 +34,7 @@ export component MyCheckBox inherits Rectangle {
         width: parent.width - self.font-size;
         horizontal-alignment: center;
         color: #000000;
-        font-weight: 400;
+        font-weight: 600;
     }
     Rectangle {
         y: root.height - self.height;
@@ -48,4 +48,11 @@ export component MyCheckBox inherits Rectangle {
             root.toggled();
         }
     }
+}
+
+export component MyText inherits Text {
+    horizontal-alignment: center;
+    font-size: self.height / 1.3;
+    color: #000000;
+    font-weight: 600;
 }

@@ -1,6 +1,6 @@
 import { VerticalBox, CheckBox, HorizontalBox, TabWidget, GridBox } from "std-widgets.slint";
 import { ImageStatic } from "images.slint";
-import { MyButton, MyCheckBox } from "mybutton.slint";
+import { MyButton, MyCheckBox, MyText } from "mywidget.slint";
 
 export component PrePlayWindow inherits Rectangle {
     callback scene-visible(int);
@@ -8,8 +8,10 @@ export component PrePlayWindow inherits Rectangle {
     in-out property <[bool]> cnt-check: [true, false, false, false, false, false];
     in-out property <bool> checkbox-block: false;
     
-    private property <[string]> cnt: ["Europe", "Asia", "Africa",
-        "North America", "South America", "Oceania"];
+    private property <[string]> cnt: [ "Europe", "Asia", "Africa",
+        "North America", "South America", "Oceania" ];
+
+    private property <[string]> mode: [ "Flags", "Capitals", "F and C" ];
 
     background: @linear-gradient(0deg, #6ee9e1 0%, #eaef6f 100%);
 
@@ -18,52 +20,87 @@ export component PrePlayWindow inherits Rectangle {
         padding-right: 20px;
         padding-left: 20px;
 
-        Text {
-            text: "Select preferred regions";
-            font-size: 32px;
-            horizontal-alignment: center;
-            height: self.font-size * 1.3;
-        }
-
         function ret_h() -> length {
             return root.height / 20;
         }
 
-        GridBox {
-            MyCheckBox { height: ret_h(); text: cnt[0]; checked: root.cnt-check[0]; row: 0;
-                toggled => { if root.checkbox-block { root.cnt-check[0] = true; self.checked = true; }
-                    else { root.cnt-check[0] = !root.cnt-check[0]; }
-                    root.continent-clicked(); 
+        HorizontalLayout {
+            padding-bottom: 10px;
+
+            VerticalLayout {
+
+                MyText {
+                    text: "Select preferred regions";
+                    height: root.height / 30;
+                }
+
+                GridLayout {
+                    spacing: 10px;
+                    padding-right: 10px;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+
+                    MyCheckBox { height: ret_h(); text: cnt[0]; checked: root.cnt-check[0]; row: 0;
+                        toggled => { if root.checkbox-block { root.cnt-check[0] = true; self.checked = true; }
+                            else { root.cnt-check[0] = !root.cnt-check[0]; }
+                            root.continent-clicked(); 
+                        }
+                    }
+                    MyCheckBox { height: ret_h(); text: cnt[1]; checked: root.cnt-check[1];
+                        toggled => { if root.checkbox-block { root.cnt-check[1] = true; self.checked = true; }
+                            else { root.cnt-check[1] = !root.cnt-check[1]; }
+                            root.continent-clicked();
+                        }
+                    }
+                    MyCheckBox { height: ret_h(); text: cnt[2]; checked: root.cnt-check[2]; row: 1;
+                        toggled => { if root.checkbox-block { root.cnt-check[2] = true; self.checked = true; }
+                            else { root.cnt-check[2] = !root.cnt-check[2]; }
+                            root.continent-clicked();
+                        }
+                    }
+                    MyCheckBox { height: ret_h(); text: cnt[3]; checked: root.cnt-check[3];  
+                        toggled => { if root.checkbox-block { root.cnt-check[3] = true; self.checked = true; }
+                            else { root.cnt-check[3] = !root.cnt-check[3]; }
+                            root.continent-clicked();
+                        }
+                    }
+                    MyCheckBox { height: ret_h(); text: cnt[4]; checked: root.cnt-check[4]; row: 2;
+                        toggled => { if root.checkbox-block { root.cnt-check[4] = true; self.checked = true; }
+                            else { root.cnt-check[4] = !root.cnt-check[4]; }
+                            root.continent-clicked();
+                        }
+                    }
+                    MyCheckBox { height: ret_h(); text: cnt[5]; checked: root.cnt-check[5];
+                        toggled => { if root.checkbox-block { root.cnt-check[5] = true; self.checked = true; }
+                            else { root.cnt-check[5] = !root.cnt-check[5]; }
+                            root.continent-clicked();
+                        }
+                    }
                 }
             }
-            MyCheckBox { height: ret_h(); text: cnt[1]; checked: root.cnt-check[1];
-                toggled => { if root.checkbox-block { root.cnt-check[1] = true; self.checked = true; }
-                    else { root.cnt-check[1] = !root.cnt-check[1]; }
-                    root.continent-clicked();
-                }
+
+            Rectangle {
+                width: 5px;
+                border-radius: self.width / 2;
+                background: root.background.darker(50%);
             }
-            MyCheckBox { height: ret_h(); text: cnt[2]; checked: root.cnt-check[2]; row: 1;
-                toggled => { if root.checkbox-block { root.cnt-check[2] = true; self.checked = true; }
-                    else { root.cnt-check[2] = !root.cnt-check[2]; }
-                    root.continent-clicked();
+
+            VerticalLayout {
+
+                MyText {
+                    text: "Select mode";
+                    height: root.height / 30;
                 }
-            }
-            MyCheckBox { height: ret_h(); text: cnt[3]; checked: root.cnt-check[3];  
-                toggled => { if root.checkbox-block { root.cnt-check[3] = true; self.checked = true; }
-                    else { root.cnt-check[3] = !root.cnt-check[3]; }
-                    root.continent-clicked();
-                }
-            }
-            MyCheckBox { height: ret_h(); text: cnt[4]; checked: root.cnt-check[4]; row: 2;
-                toggled => { if root.checkbox-block { root.cnt-check[4] = true; self.checked = true; }
-                    else { root.cnt-check[4] = !root.cnt-check[4]; }
-                    root.continent-clicked();
-                }
-            }
-            MyCheckBox { height: ret_h(); text: cnt[5]; checked: root.cnt-check[5];
-                toggled => { if root.checkbox-block { root.cnt-check[5] = true; self.checked = true; }
-                    else { root.cnt-check[5] = !root.cnt-check[5]; }
-                    root.continent-clicked();
+
+                VerticalLayout {
+                    spacing: 10px;
+                    padding-left: 10px;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    
+                    for index[item] in mode: MyCheckBox {
+                        height: ret_h(); text: index;
+                    }
                 }
             }
         }

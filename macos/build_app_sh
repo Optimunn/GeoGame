@@ -69,7 +69,7 @@ MACOS_DIR="$CONTENTS_DIR/MacOS"
 
 APP_BIN_NAME="main"
 
-if [ "$MACOS_DIR/$BIN_NAME" ]; then
+if [ -d "$MACOS_DIR/$BIN_NAME" ]; then
     echo "Changing binary file..."
     cp "$BINARY_PATH" "$MACOS_DIR/$APP_BIN_NAME"
     chmod +x "$MACOS_DIR/$APP_BIN_NAME"
@@ -99,7 +99,7 @@ mkdir -p "$ASSETS_DIR"
 mkdir -p "$ASSETS_DIR_FLAGS"
 
 IMG_PATH="../assets/flags/4x3/."
-DATA_PATH="../data/country.json"
+DATA_PATH="../data/."
 
 echo "Copying files..."
 cp "$BINARY_PATH" "$MACOS_DIR/$APP_BIN_NAME"
@@ -107,7 +107,7 @@ chmod +x "$MACOS_DIR/$APP_BIN_NAME"
 
 cp "$ICON_PATH" "$RESOURCES_DIR/AppIcon.png"
 cp -a "$IMG_PATH" "$ASSETS_DIR_FLAGS/"
-cp "$DATA_PATH" "$RESOURCES_DIR_DATA/"
+cp -a "$DATA_PATH" "$RESOURCES_DIR_DATA/"
 
 echo "Creating Info.plist..."
 cat > "$CONTENTS_DIR/Info.plist" << EOF

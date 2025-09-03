@@ -1,0 +1,2136 @@
+[
+  {
+    "capital": "Кабул",
+    "code": "af",
+    "continent": "Asia",
+    "flag_4x3": "af.svg",
+    "iso": true,
+    "name": "Афганистан"
+  },
+  {
+    "capital": "Мариехамн",
+    "code": "ax",
+    "continent": "Europe",
+    "flag_4x3": "ax.svg",
+    "iso": true,
+    "name": "Аландские острова"
+  },
+  {
+    "capital": "Тирана",
+    "code": "al",
+    "continent": "Europe",
+    "flag_4x3": "al.svg",
+    "iso": true,
+    "name": "Албания"
+  },
+  {
+    "capital": "Алжир",
+    "code": "dz",
+    "continent": "Africa",
+    "flag_4x3": "dz.svg",
+    "iso": true,
+    "name": "Алжир"
+  },
+  {
+    "capital": "Паго-Паго",
+    "code": "as",
+    "continent": "Oceania",
+    "flag_4x3": "as.svg",
+    "iso": true,
+    "name": "Американское Самоа"
+  },
+  {
+    "capital": "Андорра-ла-Велья",
+    "code": "ad",
+    "continent": "Europe",
+    "flag_4x3": "ad.svg",
+    "iso": true,
+    "name": "Андорра"
+  },
+  {
+    "capital": "Луанда",
+    "code": "ao",
+    "continent": "Africa",
+    "flag_4x3": "ao.svg",
+    "iso": true,
+    "name": "Ангола"
+  },
+  {
+    "capital": "Валли",
+    "code": "ai",
+    "continent": "North America",
+    "flag_4x3": "ai.svg",
+    "iso": true,
+    "name": "Ангилья"
+  },
+  {
+    "code": "aq",
+    "flag_4x3": "aq.svg",
+    "iso": true,
+    "name": "Антарктида"
+  },
+  {
+    "capital": "Сент-Джонс",
+    "code": "ag",
+    "continent": "North America",
+    "flag_4x3": "ag.svg",
+    "iso": true,
+    "name": "Антигуа и Барбуда"
+  },
+  {
+    "capital": "Буэнос-Айрес",
+    "code": "ar",
+    "continent": "South America",
+    "flag_4x3": "ar.svg",
+    "iso": true,
+    "name": "Аргентина"
+  },
+  {
+    "capital": "Ереван",
+    "code": "am",
+    "continent": "Asia",
+    "flag_4x3": "am.svg",
+    "iso": true,
+    "name": "Армения"
+  },
+  {
+    "capital": "Ораньестад",
+    "code": "aw",
+    "continent": "South America",
+    "flag_4x3": "aw.svg",
+    "iso": true,
+    "name": "Аруба"
+  },
+  {
+    "capital": "Джорджтаун",
+    "code": "sh-ac",
+    "continent": "Africa",
+    "flag_4x3": "sh-ac.svg",
+    "iso": false,
+    "name": "Остров Вознесения"
+  },
+  {
+    "code": "asean",
+    "flag_4x3": "asean.svg",
+    "iso": false,
+    "name": "Ассоциация государств Юго-Восточной Азии"
+  },
+  {
+    "capital": "Канберра",
+    "code": "au",
+    "continent": "Oceania",
+    "flag_4x3": "au.svg",
+    "iso": true,
+    "name": "Австралия"
+  },
+  {
+    "capital": "Вена",
+    "code": "at",
+    "continent": "Europe",
+    "flag_4x3": "at.svg",
+    "iso": true,
+    "name": "Австрия"
+  },
+  {
+    "capital": "Баку",
+    "code": "az",
+    "continent": "Asia",
+    "flag_4x3": "az.svg",
+    "iso": true,
+    "name": "Азербайджан"
+  },
+  {
+    "capital": "Нассау",
+    "code": "bs",
+    "continent": "North America",
+    "flag_4x3": "bs.svg",
+    "iso": true,
+    "name": "Багамские острова"
+  },
+  {
+    "capital": "Манама",
+    "code": "bh",
+    "continent": "Asia",
+    "flag_4x3": "bh.svg",
+    "iso": true,
+    "name": "Бахрейн"
+  },
+  {
+    "capital": "Дакка",
+    "code": "bd",
+    "continent": "Asia",
+    "flag_4x3": "bd.svg",
+    "iso": true,
+    "name": "Бангладеш"
+  },
+  {
+    "capital": "Бриджтаун",
+    "code": "bb",
+    "continent": "North America",
+    "flag_4x3": "bb.svg",
+    "iso": true,
+    "name": "Барбадос"
+  },
+  {
+    "code": "es-pv",
+    "flag_4x3": "es-pv.svg",
+    "iso": false,
+    "name": "Страна Басков"
+  },
+  {
+    "capital": "Минск",
+    "code": "by",
+    "continent": "Europe",
+    "flag_4x3": "by.svg",
+    "iso": true,
+    "name": "Беларусь"
+  },
+  {
+    "capital": "Брюссель",
+    "code": "be",
+    "continent": "Europe",
+    "flag_4x3": "be.svg",
+    "iso": true,
+    "name": "Бельгия"
+  },
+  {
+    "capital": "Бельмопан",
+    "code": "bz",
+    "continent": "North America",
+    "flag_4x3": "bz.svg",
+    "iso": true,
+    "name": "Белиз"
+  },
+  {
+    "capital": "Порто-Ново",
+    "code": "bj",
+    "continent": "Africa",
+    "flag_4x3": "bj.svg",
+    "iso": true,
+    "name": "Бенин"
+  },
+  {
+    "capital": "Гамильтон",
+    "code": "bm",
+    "continent": "North America",
+    "flag_4x3": "bm.svg",
+    "iso": true,
+    "name": "Бермудские острова"
+  },
+  {
+    "capital": "Тхимпху",
+    "code": "bt",
+    "continent": "Asia",
+    "flag_4x3": "bt.svg",
+    "iso": true,
+    "name": "Бутан"
+  },
+  {
+    "capital": "Сукре",
+    "code": "bo",
+    "continent": "South America",
+    "flag_4x3": "bo.svg",
+    "iso": true,
+    "name": "Боливия"
+  },
+  {
+    "capital": "Кралендейк",
+    "code": "bq",
+    "continent": "South America",
+    "flag_4x3": "bq.svg",
+    "iso": true,
+    "name": "Бонайре, Синт-Эстатиус и Саба"
+  },
+  {
+    "capital": "Сараево",
+    "code": "ba",
+    "continent": "Europe",
+    "flag_4x3": "ba.svg",
+    "iso": true,
+    "name": "Босния и Герцеговина"
+  },
+  {
+    "capital": "Габороне",
+    "code": "bw",
+    "continent": "Africa",
+    "flag_4x3": "bw.svg",
+    "iso": true,
+    "name": "Ботсвана"
+  },
+  {
+    "code": "bv",
+    "flag_4x3": "bv.svg",
+    "iso": true,
+    "name": "Остров Буве"
+  },
+  {
+    "capital": "Бразилиа",
+    "code": "br",
+    "continent": "South America",
+    "flag_4x3": "br.svg",
+    "iso": true,
+    "name": "Бразилия"
+  },
+  {
+    "capital": "Диего-Гарсия",
+    "code": "io",
+    "continent": "Asia",
+    "flag_4x3": "io.svg",
+    "iso": true,
+    "name": "Британская территория в Индийском океане"
+  },
+  {
+    "capital": "Бандар-Сери-Бегаван",
+    "code": "bn",
+    "continent": "Asia",
+    "flag_4x3": "bn.svg",
+    "iso": true,
+    "name": "Бруней-Даруссалам"
+  },
+  {
+    "capital": "София",
+    "code": "bg",
+    "continent": "Europe",
+    "flag_4x3": "bg.svg",
+    "iso": true,
+    "name": "Болгария"
+  },
+  {
+    "capital": "Уагадугу",
+    "code": "bf",
+    "continent": "Africa",
+    "flag_4x3": "bf.svg",
+    "iso": true,
+    "name": "Буркина-Фасо"
+  },
+  {
+    "capital": "Бужумбура",
+    "code": "bi",
+    "continent": "Africa",
+    "flag_4x3": "bi.svg",
+    "iso": true,
+    "name": "Бурунди"
+  },
+  {
+    "capital": "Прая",
+    "code": "cv",
+    "continent": "Africa",
+    "flag_4x3": "cv.svg",
+    "iso": true,
+    "name": "Кабо-Верде"
+  },
+  {
+    "capital": "Пномпень",
+    "code": "kh",
+    "continent": "Asia",
+    "flag_4x3": "kh.svg",
+    "iso": true,
+    "name": "Камбоджа"
+  },
+  {
+    "capital": "Яунде",
+    "code": "cm",
+    "continent": "Africa",
+    "flag_4x3": "cm.svg",
+    "iso": true,
+    "name": "Камерун"
+  },
+  {
+    "capital": "Оттава",
+    "code": "ca",
+    "continent": "North America",
+    "flag_4x3": "ca.svg",
+    "iso": true,
+    "name": "Канада"
+  },
+  {
+    "code": "ic",
+    "flag_4x3": "ic.svg",
+    "iso": false,
+    "name": "Канарские острова"
+  },
+  {
+    "code": "es-ct",
+    "flag_4x3": "es-ct.svg",
+    "iso": false,
+    "name": "Каталония"
+  },
+  {
+    "capital": "Джорджтаун",
+    "code": "ky",
+    "continent": "North America",
+    "flag_4x3": "ky.svg",
+    "iso": true,
+    "name": "Каймановы острова"
+  },
+  {
+    "capital": "Банги",
+    "code": "cf",
+    "continent": "Africa",
+    "flag_4x3": "cf.svg",
+    "iso": true,
+    "name": "Центральноафриканская Республика"
+  },
+  {
+    "code": "cefta",
+    "flag_4x3": "cefta.svg",
+    "iso": false,
+    "name": "Центральноевропейское соглашение о свободной торговле"
+  },
+  {
+    "capital": "Нджамена",
+    "code": "td",
+    "continent": "Africa",
+    "flag_4x3": "td.svg",
+    "iso": true,
+    "name": "Чад"
+  },
+  {
+    "capital": "Сантьяго",
+    "code": "cl",
+    "continent": "South America",
+    "flag_4x3": "cl.svg",
+    "iso": true,
+    "name": "Чили"
+  },
+  {
+    "capital": "Пекин",
+    "code": "cn",
+    "continent": "Asia",
+    "flag_4x3": "cn.svg",
+    "iso": true,
+    "name": "Китай"
+  },
+  {
+    "capital": "Флайинг-Фиш-Коув",
+    "code": "cx",
+    "continent": "Asia",
+    "flag_4x3": "cx.svg",
+    "iso": true,
+    "name": "Остров Рождества"
+  },
+  {
+    "code": "cp",
+    "flag_4x3": "cp.svg",
+    "iso": false,
+    "name": "Остров Клиппертон"
+  },
+  {
+    "capital": "Уэст-Айленд",
+    "code": "cc",
+    "continent": "Asia",
+    "flag_4x3": "cc.svg",
+    "iso": true,
+    "name": "Кокосовые острова"
+  },
+  {
+    "capital": "Богота",
+    "code": "co",
+    "continent": "South America",
+    "flag_4x3": "co.svg",
+    "iso": true,
+    "name": "Колумбия"
+  },
+  {
+    "capital": "Морони",
+    "code": "km",
+    "continent": "Africa",
+    "flag_4x3": "km.svg",
+    "iso": true,
+    "name": "Коморы"
+  },
+  {
+    "capital": "Аваруа",
+    "code": "ck",
+    "continent": "Oceania",
+    "flag_4x3": "ck.svg",
+    "iso": true,
+    "name": "Острова Кука"
+  },
+  {
+    "capital": "Сан-Хосе",
+    "code": "cr",
+    "continent": "North America",
+    "flag_4x3": "cr.svg",
+    "iso": true,
+    "name": "Коста-Рика"
+  },
+  {
+    "capital": "Загреб",
+    "code": "hr",
+    "continent": "Europe",
+    "flag_4x3": "hr.svg",
+    "iso": true,
+    "name": "Хорватия"
+  },
+  {
+    "capital": "Гавана",
+    "code": "cu",
+    "continent": "North America",
+    "flag_4x3": "cu.svg",
+    "iso": true,
+    "name": "Куба"
+  },
+  {
+    "capital": "Виллемстад",
+    "code": "cw",
+    "continent": "South America",
+    "flag_4x3": "cw.svg",
+    "iso": true,
+    "name": "Кюрасао"
+  },
+  {
+    "capital": "Никосия",
+    "code": "cy",
+    "continent": "Europe",
+    "flag_4x3": "cy.svg",
+    "iso": true,
+    "name": "Кипр"
+  },
+  {
+    "capital": "Прага",
+    "code": "cz",
+    "continent": "Europe",
+    "flag_4x3": "cz.svg",
+    "iso": true,
+    "name": "Чехия"
+  },
+  {
+    "capital": "Ямусукро",
+    "code": "ci",
+    "continent": "Africa",
+    "flag_4x3": "ci.svg",
+    "iso": true,
+    "name": "Кот-д’Ивуар"
+  },
+  {
+    "capital": "Киншаса",
+    "code": "cd",
+    "continent": "Africa",
+    "flag_4x3": "cd.svg",
+    "iso": true,
+    "name": "Демократическая Республика Конго"
+  },
+  {
+    "capital": "Копенгаген",
+    "code": "dk",
+    "continent": "Europe",
+    "flag_4x3": "dk.svg",
+    "iso": true,
+    "name": "Дания"
+  },
+  {
+    "code": "dg",
+    "flag_4x3": "dg.svg",
+    "iso": false,
+    "name": "Диего-Гарсия"
+  },
+  {
+    "capital": "Джибути",
+    "code": "dj",
+    "continent": "Africa",
+    "flag_4x3": "dj.svg",
+    "iso": true,
+    "name": "Джибути"
+  },
+  {
+    "capital": "Розо",
+    "code": "dm",
+    "continent": "North America",
+    "flag_4x3": "dm.svg",
+    "iso": true,
+    "name": "Доминика"
+  },
+  {
+    "capital": "Санто-Доминго",
+    "code": "do",
+    "continent": "North America",
+    "flag_4x3": "do.svg",
+    "iso": true,
+    "name": "Доминиканская Республика"
+  },
+  {
+    "code": "eac",
+    "flag_4x3": "eac.svg",
+    "iso": false,
+    "name": "Восточноафриканское сообщество"
+  },
+  {
+    "capital": "Кито",
+    "code": "ec",
+    "continent": "South America",
+    "flag_4x3": "ec.svg",
+    "iso": true,
+    "name": "Эквадор"
+  },
+  {
+    "capital": "Каир",
+    "code": "eg",
+    "continent": "Africa",
+    "flag_4x3": "eg.svg",
+    "iso": true,
+    "name": "Египет"
+  },
+  {
+    "capital": "Сан-Сальвадор",
+    "code": "sv",
+    "continent": "North America",
+    "flag_4x3": "sv.svg",
+    "iso": true,
+    "name": "Сальвадор"
+  },
+  {
+    "capital": "Лондон",
+    "code": "gb-eng",
+    "continent": "Europe",
+    "flag_4x3": "gb-eng.svg",
+    "iso": false,
+    "name": "Англия"
+  },
+  {
+    "capital": "Малабо",
+    "code": "gq",
+    "continent": "Africa",
+    "flag_4x3": "gq.svg",
+    "iso": true,
+    "name": "Экваториальная Гвинея"
+  },
+  {
+    "capital": "Асмэра",
+    "code": "er",
+    "continent": "Africa",
+    "flag_4x3": "er.svg",
+    "iso": true,
+    "name": "Эритрея"
+  },
+  {
+    "capital": "Таллин",
+    "code": "ee",
+    "continent": "Europe",
+    "flag_4x3": "ee.svg",
+    "iso": true,
+    "name": "Эстония"
+  },
+  {
+    "capital": "Лобамба, Мбабане",
+    "code": "sz",
+    "continent": "Africa",
+    "flag_4x3": "sz.svg",
+    "iso": true,
+    "name": "Эсватини"
+  },
+  {
+    "capital": "Аддис-Абеба",
+    "code": "et",
+    "continent": "Africa",
+    "flag_4x3": "et.svg",
+    "iso": true,
+    "name": "Эфиопия"
+  },
+  {
+    "code": "eu",
+    "flag_4x3": "eu.svg",
+    "iso": false,
+    "name": "Европа"
+  },
+  {
+    "capital": "Стэнли",
+    "code": "fk",
+    "continent": "South America",
+    "flag_4x3": "fk.svg",
+    "iso": true,
+    "name": "Фолклендские острова"
+  },
+  {
+    "capital": "Торсхавн",
+    "code": "fo",
+    "continent": "Europe",
+    "flag_4x3": "fo.svg",
+    "iso": true,
+    "name": "Фарерские острова"
+  },
+  {
+    "capital": "Паликир",
+    "code": "fm",
+    "continent": "Oceania",
+    "flag_4x3": "fm.svg",
+    "iso": true,
+    "name": "Федеративные Штаты Микронезии"
+  },
+  {
+    "capital": "Сува",
+    "code": "fj",
+    "continent": "Oceania",
+    "flag_4x3": "fj.svg",
+    "iso": true,
+    "name": "Фиджи"
+  },
+  {
+    "capital": "Хельсинки",
+    "code": "fi",
+    "continent": "Europe",
+    "flag_4x3": "fi.svg",
+    "iso": true,
+    "name": "Финляндия"
+  },
+  {
+    "capital": "Париж",
+    "code": "fr",
+    "continent": "Europe",
+    "flag_4x3": "fr.svg",
+    "iso": true,
+    "name": "Франция"
+  },
+  {
+    "capital": "Кайенна",
+    "code": "gf",
+    "continent": "South America",
+    "flag_4x3": "gf.svg",
+    "iso": true,
+    "name": "Французская Гвиана"
+  },
+  {
+    "capital": "Папеэте",
+    "code": "pf",
+    "continent": "Oceania",
+    "flag_4x3": "pf.svg",
+    "iso": true,
+    "name": "Французская Полинезия"
+  },
+  {
+    "capital": "Сен-Пьер, Реюньон",
+    "code": "tf",
+    "continent": "Africa",
+    "flag_4x3": "tf.svg",
+    "iso": true,
+    "name": "Французские Южные территории"
+  },
+  {
+    "capital": "Либревиль",
+    "code": "ga",
+    "continent": "Africa",
+    "flag_4x3": "ga.svg",
+    "iso": true,
+    "name": "Габон"
+  },
+  {
+    "code": "es-ga",
+    "flag_4x3": "es-ga.svg",
+    "iso": false,
+    "name": "Галисия"
+  },
+  {
+    "capital": "Банжул",
+    "code": "gm",
+    "continent": "Africa",
+    "flag_4x3": "gm.svg",
+    "iso": true,
+    "name": "Гамбия"
+  },
+  {
+    "capital": "Тбилиси",
+    "code": "ge",
+    "continent": "Asia",
+    "flag_4x3": "ge.svg",
+    "iso": true,
+    "name": "Грузия"
+  },
+  {
+    "capital": "Берлин",
+    "code": "de",
+    "continent": "Europe",
+    "flag_4x3": "de.svg",
+    "iso": true,
+    "name": "Германия"
+  },
+  {
+    "capital": "Аккра",
+    "code": "gh",
+    "continent": "Africa",
+    "flag_4x3": "gh.svg",
+    "iso": true,
+    "name": "Гана"
+  },
+  {
+    "capital": "Гибралтар",
+    "code": "gi",
+    "continent": "Europe",
+    "flag_4x3": "gi.svg",
+    "iso": true,
+    "name": "Гибралтар"
+  },
+  {
+    "capital": "Афины",
+    "code": "gr",
+    "continent": "Europe",
+    "flag_4x3": "gr.svg",
+    "iso": true,
+    "name": "Греция"
+  },
+  {
+    "capital": "Нуук",
+    "code": "gl",
+    "continent": "North America",
+    "flag_4x3": "gl.svg",
+    "iso": true,
+    "name": "Гренландия"
+  },
+  {
+    "capital": "Сент-Джорджес",
+    "code": "gd",
+    "continent": "North America",
+    "flag_4x3": "gd.svg",
+    "iso": true,
+    "name": "Гренада"
+  },
+  {
+    "capital": "Бас-Тер",
+    "code": "gp",
+    "continent": "North America",
+    "flag_4x3": "gp.svg",
+    "iso": true,
+    "name": "Гваделупа"
+  },
+  {
+    "capital": "Хагатна",
+    "code": "gu",
+    "continent": "Oceania",
+    "flag_4x3": "gu.svg",
+    "iso": true,
+    "name": "Гуам"
+  },
+  {
+    "capital": "Гватемала",
+    "code": "gt",
+    "continent": "North America",
+    "flag_4x3": "gt.svg",
+    "iso": true,
+    "name": "Гватемала"
+  },
+  {
+    "capital": "Сент-Питер-Порт",
+    "code": "gg",
+    "continent": "Europe",
+    "flag_4x3": "gg.svg",
+    "iso": true,
+    "name": "Гернси"
+  },
+  {
+    "capital": "Конакри",
+    "code": "gn",
+    "continent": "Africa",
+    "flag_4x3": "gn.svg",
+    "iso": true,
+    "name": "Гвинея"
+  },
+  {
+    "capital": "Бисау",
+    "code": "gw",
+    "continent": "Africa",
+    "flag_4x3": "gw.svg",
+    "iso": true,
+    "name": "Гвинея-Бисау"
+  },
+  {
+    "capital": "Джорджтаун",
+    "code": "gy",
+    "continent": "South America",
+    "flag_4x3": "gy.svg",
+    "iso": true,
+    "name": "Гайана"
+  },
+  {
+    "capital": "Порт-о-Пренс",
+    "code": "ht",
+    "continent": "North America",
+    "flag_4x3": "ht.svg",
+    "iso": true,
+    "name": "Гаити"
+  },
+  {
+    "code": "hm",
+    "flag_4x3": "hm.svg",
+    "iso": true,
+    "name": "Остров Херд и острова Макдональд"
+  },
+  {
+    "capital": "Ватикан",
+    "code": "va",
+    "continent": "Europe",
+    "flag_4x3": "va.svg",
+    "iso": true,
+    "name": "Святой Престол"
+  },
+  {
+    "capital": "Тегусигальпа",
+    "code": "hn",
+    "continent": "North America",
+    "flag_4x3": "hn.svg",
+    "iso": true,
+    "name": "Гондурас"
+  },
+  {
+    "capital": "Гонконг",
+    "code": "hk",
+    "continent": "Asia",
+    "flag_4x3": "hk.svg",
+    "iso": true,
+    "name": "Гонконг"
+  },
+  {
+    "capital": "Будапешт",
+    "code": "hu",
+    "continent": "Europe",
+    "flag_4x3": "hu.svg",
+    "iso": true,
+    "name": "Венгрия"
+  },
+  {
+    "capital": "Рейкьявик",
+    "code": "is",
+    "continent": "Europe",
+    "flag_4x3": "is.svg",
+    "iso": true,
+    "name": "Исландия"
+  },
+  {
+    "capital": "Нью-Дели",
+    "code": "in",
+    "continent": "Asia",
+    "flag_4x3": "in.svg",
+    "iso": true,
+    "name": "Индия"
+  },
+  {
+    "capital": "Джакарта",
+    "code": "id",
+    "continent": "Asia",
+    "flag_4x3": "id.svg",
+    "iso": true,
+    "name": "Индонезия"
+  },
+  {
+    "capital": "Тегеран",
+    "code": "ir",
+    "continent": "Asia",
+    "flag_4x3": "ir.svg",
+    "iso": true,
+    "name": "Иран"
+  },
+  {
+    "capital": "Багдад",
+    "code": "iq",
+    "continent": "Asia",
+    "flag_4x3": "iq.svg",
+    "iso": true,
+    "name": "Ирак"
+  },
+  {
+    "capital": "Дублин",
+    "code": "ie",
+    "continent": "Europe",
+    "flag_4x3": "ie.svg",
+    "iso": true,
+    "name": "Ирландия"
+  },
+  {
+    "capital": "Дуглас",
+    "code": "im",
+    "continent": "Europe",
+    "flag_4x3": "im.svg",
+    "iso": true,
+    "name": "Остров Мэн"
+  },
+  {
+    "capital": "Иерусалим",
+    "code": "il",
+    "continent": "Asia",
+    "flag_4x3": "il.svg",
+    "iso": true,
+    "name": "Израиль"
+  },
+  {
+    "capital": "Рим",
+    "code": "it",
+    "continent": "Europe",
+    "flag_4x3": "it.svg",
+    "iso": true,
+    "name": "Италия"
+  },
+  {
+    "capital": "Кингстон",
+    "code": "jm",
+    "continent": "North America",
+    "flag_4x3": "jm.svg",
+    "iso": true,
+    "name": "Ямайка"
+  },
+  {
+    "capital": "Токио",
+    "code": "jp",
+    "continent": "Asia",
+    "flag_4x3": "jp.svg",
+    "iso": true,
+    "name": "Япония"
+  },
+  {
+    "capital": "Сент-Хелиер",
+    "code": "je",
+    "continent": "Europe",
+    "flag_4x3": "je.svg",
+    "iso": true,
+    "name": "Джерси"
+  },
+  {
+    "capital": "Амман",
+    "code": "jo",
+    "continent": "Asia",
+    "flag_4x3": "jo.svg",
+    "iso": true,
+    "name": "Иордания"
+  },
+  {
+    "capital": "Астана",
+    "code": "kz",
+    "continent": "Asia",
+    "flag_4x3": "kz.svg",
+    "iso": true,
+    "name": "Казахстан"
+  },
+  {
+    "capital": "Найроби",
+    "code": "ke",
+    "continent": "Africa",
+    "flag_4x3": "ke.svg",
+    "iso": true,
+    "name": "Кения"
+  },
+  {
+    "capital": "Южная Тарава",
+    "code": "ki",
+    "continent": "Oceania",
+    "flag_4x3": "ki.svg",
+    "iso": true,
+    "name": "Кирибати"
+  },
+  {
+    "capital": "Приштина",
+    "code": "xk",
+    "continent": "Europe",
+    "flag_4x3": "xk.svg",
+    "iso": false,
+    "name": "Косово"
+  },
+  {
+    "capital": "Эль-Кувейт",
+    "code": "kw",
+    "continent": "Asia",
+    "flag_4x3": "kw.svg",
+    "iso": true,
+    "name": "Кувейт"
+  },
+  {
+    "capital": "Бишкек",
+    "code": "kg",
+    "continent": "Asia",
+    "flag_4x3": "kg.svg",
+    "iso": true,
+    "name": "Кыргызстан"
+  },
+  {
+    "capital": "Вьентьян",
+    "code": "la",
+    "continent": "Asia",
+    "flag_4x3": "la.svg",
+    "iso": true,
+    "name": "Лаос"
+  },
+  {
+    "capital": "Рига",
+    "code": "lv",
+    "continent": "Europe",
+    "flag_4x3": "lv.svg",
+    "iso": true,
+    "name": "Латвия"
+  },
+  {
+    "code": "arab",
+    "flag_4x3": "arab.svg",
+    "iso": false,
+    "name": "Лига арабских государств"
+  },
+  {
+    "capital": "Бейрут",
+    "code": "lb",
+    "continent": "Asia",
+    "flag_4x3": "lb.svg",
+    "iso": true,
+    "name": "Ливан"
+  },
+  {
+    "capital": "Масеру",
+    "code": "ls",
+    "continent": "Africa",
+    "flag_4x3": "ls.svg",
+    "iso": true,
+    "name": "Лесото"
+  },
+  {
+    "capital": "Монровия",
+    "code": "lr",
+    "continent": "Africa",
+    "flag_4x3": "lr.svg",
+    "iso": true,
+    "name": "Либерия"
+  },
+  {
+    "capital": "Триполи",
+    "code": "ly",
+    "continent": "Africa",
+    "flag_4x3": "ly.svg",
+    "iso": true,
+    "name": "Ливия"
+  },
+  {
+    "capital": "Вадуц",
+    "code": "li",
+    "continent": "Europe",
+    "flag_4x3": "li.svg",
+    "iso": true,
+    "name": "Лихтенштейн"
+  },
+  {
+    "capital": "Вильнюс",
+    "code": "lt",
+    "continent": "Europe",
+    "flag_4x3": "lt.svg",
+    "iso": true,
+    "name": "Литва"
+  },
+  {
+    "capital": "Люксембург",
+    "code": "lu",
+    "continent": "Europe",
+    "flag_4x3": "lu.svg",
+    "iso": true,
+    "name": "Люксембург"
+  },
+  {
+    "capital": "Макао",
+    "code": "mo",
+    "continent": "Asia",
+    "flag_4x3": "mo.svg",
+    "iso": true,
+    "name": "Макао"
+  },
+  {
+    "capital": "Антананариву",
+    "code": "mg",
+    "continent": "Africa",
+    "flag_4x3": "mg.svg",
+    "iso": true,
+    "name": "Мадагаскар"
+  },
+  {
+    "capital": "Лилонгве",
+    "code": "mw",
+    "continent": "Africa",
+    "flag_4x3": "mw.svg",
+    "iso": true,
+    "name": "Малави"
+  },
+  {
+    "capital": "Куала-Лумпур",
+    "code": "my",
+    "continent": "Asia",
+    "flag_4x3": "my.svg",
+    "iso": true,
+    "name": "Малайзия"
+  },
+  {
+    "capital": "Мале",
+    "code": "mv",
+    "continent": "Asia",
+    "flag_4x3": "mv.svg",
+    "iso": true,
+    "name": "Мальдивы"
+  },
+  {
+    "capital": "Бамако",
+    "code": "ml",
+    "continent": "Africa",
+    "flag_4x3": "ml.svg",
+    "iso": true,
+    "name": "Мали"
+  },
+  {
+    "capital": "Валлетта",
+    "code": "mt",
+    "continent": "Europe",
+    "flag_4x3": "mt.svg",
+    "iso": true,
+    "name": "Мальта"
+  },
+  {
+    "capital": "Маджуро",
+    "code": "mh",
+    "continent": "Oceania",
+    "flag_4x3": "mh.svg",
+    "iso": true,
+    "name": "Маршалловы острова"
+  },
+  {
+    "capital": "Фор-де-Франс",
+    "code": "mq",
+    "continent": "North America",
+    "flag_4x3": "mq.svg",
+    "iso": true,
+    "name": "Мартиника"
+  },
+  {
+    "capital": "Нуакшот",
+    "code": "mr",
+    "continent": "Africa",
+    "flag_4x3": "mr.svg",
+    "iso": true,
+    "name": "Мавритания"
+  },
+  {
+    "capital": "Порт-Луи",
+    "code": "mu",
+    "continent": "Africa",
+    "flag_4x3": "mu.svg",
+    "iso": true,
+    "name": "Маврикий"
+  },
+  {
+    "capital": "Мамудзу",
+    "code": "yt",
+    "continent": "Africa",
+    "flag_4x3": "yt.svg",
+    "iso": true,
+    "name": "Майотта"
+  },
+  {
+    "capital": "Мехико",
+    "code": "mx",
+    "continent": "North America",
+    "flag_4x3": "mx.svg",
+    "iso": true,
+    "name": "Мексика"
+  },
+  {
+    "capital": "Кишинёв",
+    "code": "md",
+    "continent": "Europe",
+    "flag_4x3": "md.svg",
+    "iso": true,
+    "name": "Молдова"
+  },
+  {
+    "capital": "Монако",
+    "code": "mc",
+    "continent": "Europe",
+    "flag_4x3": "mc.svg",
+    "iso": true,
+    "name": "Монако"
+  },
+  {
+    "capital": "Улан-Батор",
+    "code": "mn",
+    "continent": "Asia",
+    "flag_4x3": "mn.svg",
+    "iso": true,
+    "name": "Монголия"
+  },
+  {
+    "capital": "Подгорица",
+    "code": "me",
+    "continent": "Europe",
+    "flag_4x3": "me.svg",
+    "iso": true,
+    "name": "Черногория"
+  },
+  {
+    "capital": "Литтл-Бэй, Брадес, Плимут",
+    "code": "ms",
+    "continent": "North America",
+    "flag_4x3": "ms.svg",
+    "iso": true,
+    "name": "Монтсеррат"
+  },
+  {
+    "capital": "Рабат",
+    "code": "ma",
+    "continent": "Africa",
+    "flag_4x3": "ma.svg",
+    "iso": true,
+    "name": "Марокко"
+  },
+  {
+    "capital": "Мапуту",
+    "code": "mz",
+    "continent": "Africa",
+    "flag_4x3": "mz.svg",
+    "iso": true,
+    "name": "Мозамбик"
+  },
+  {
+    "capital": "Нейпьидо",
+    "code": "mm",
+    "continent": "Asia",
+    "flag_4x3": "mm.svg",
+    "iso": true,
+    "name": "Мьянма"
+  },
+  {
+    "capital": "Виндхук",
+    "code": "na",
+    "continent": "Africa",
+    "flag_4x3": "na.svg",
+    "iso": true,
+    "name": "Намибия"
+  },
+  {
+    "capital": "Ярен",
+    "code": "nr",
+    "continent": "Oceania",
+    "flag_4x3": "nr.svg",
+    "iso": true,
+    "name": "Науру"
+  },
+  {
+    "capital": "Катманду",
+    "code": "np",
+    "continent": "Asia",
+    "flag_4x3": "np.svg",
+    "iso": true,
+    "name": "Непал"
+  },
+  {
+    "capital": "Амстердам",
+    "code": "nl",
+    "continent": "Europe",
+    "flag_4x3": "nl.svg",
+    "iso": true,
+    "name": "Нидерланды"
+  },
+  {
+    "capital": "Нумеа",
+    "code": "nc",
+    "continent": "Oceania",
+    "flag_4x3": "nc.svg",
+    "iso": true,
+    "name": "Новая Каледония"
+  },
+  {
+    "capital": "Веллингтон",
+    "code": "nz",
+    "continent": "Oceania",
+    "flag_4x3": "nz.svg",
+    "iso": true,
+    "name": "Новая Зеландия"
+  },
+  {
+    "capital": "Манагуа",
+    "code": "ni",
+    "continent": "North America",
+    "flag_4x3": "ni.svg",
+    "iso": true,
+    "name": "Никарагуа"
+  },
+  {
+    "capital": "Ниамей",
+    "code": "ne",
+    "continent": "Africa",
+    "flag_4x3": "ne.svg",
+    "iso": true,
+    "name": "Нигер"
+  },
+  {
+    "capital": "Абуджа",
+    "code": "ng",
+    "continent": "Africa",
+    "flag_4x3": "ng.svg",
+    "iso": true,
+    "name": "Нигерия"
+  },
+  {
+    "capital": "Алофи",
+    "code": "nu",
+    "continent": "Oceania",
+    "flag_4x3": "nu.svg",
+    "iso": true,
+    "name": "Ниуэ"
+  },
+  {
+    "capital": "Кингстон",
+    "code": "nf",
+    "continent": "Oceania",
+    "flag_4x3": "nf.svg",
+    "iso": true,
+    "name": "Остров Норфолк"
+  },
+  {
+    "capital": "Пхеньян",
+    "code": "kp",
+    "continent": "Asia",
+    "flag_4x3": "kp.svg",
+    "iso": true,
+    "name": "Северная Корея"
+  },
+  {
+    "capital": "Скопье",
+    "code": "mk",
+    "continent": "Europe",
+    "flag_4x3": "mk.svg",
+    "iso": true,
+    "name": "Северная Македония"
+  },
+  {
+    "capital": "Белфаст",
+    "code": "gb-nir",
+    "continent": "Europe",
+    "flag_4x3": "gb-nir.svg",
+    "iso": false,
+    "name": "Северная Ирландия"
+  },
+  {
+    "capital": "Сайпан",
+    "code": "mp",
+    "continent": "Oceania",
+    "flag_4x3": "mp.svg",
+    "iso": true,
+    "name": "Северные Марианские острова"
+  },
+  {
+    "capital": "Осло",
+    "code": "no",
+    "continent": "Europe",
+    "flag_4x3": "no.svg",
+    "iso": true,
+    "name": "Норвегия"
+  },
+  {
+    "capital": "Маскат",
+    "code": "om",
+    "continent": "Asia",
+    "flag_4x3": "om.svg",
+    "iso": true,
+    "name": "Оман"
+  },
+  {
+    "code": "pc",
+    "flag_4x3": "pc.svg",
+    "iso": false,
+    "name": "Тихоокеанское сообщество"
+  },
+  {
+    "capital": "Исламабад",
+    "code": "pk",
+    "continent": "Asia",
+    "flag_4x3": "pk.svg",
+    "iso": true,
+    "name": "Пакистан"
+  },
+  {
+    "capital": "Нгерулмуд",
+    "code": "pw",
+    "continent": "Oceania",
+    "flag_4x3": "pw.svg",
+    "iso": true,
+    "name": "Палау"
+  },
+  {
+    "capital": "Панама",
+    "code": "pa",
+    "continent": "North America",
+    "flag_4x3": "pa.svg",
+    "iso": true,
+    "name": "Панама"
+  },
+  {
+    "capital": "Порт-Морсби",
+    "code": "pg",
+    "continent": "Oceania",
+    "flag_4x3": "pg.svg",
+    "iso": true,
+    "name": "Папуа — Новая Гвинея"
+  },
+  {
+    "capital": "Асунсьон",
+    "code": "py",
+    "continent": "South America",
+    "flag_4x3": "py.svg",
+    "iso": true,
+    "name": "Парагвай"
+  },
+  {
+    "capital": "Лима",
+    "code": "pe",
+    "continent": "South America",
+    "flag_4x3": "pe.svg",
+    "iso": true,
+    "name": "Перу"
+  },
+  {
+    "capital": "Манила",
+    "code": "ph",
+    "continent": "Asia",
+    "flag_4x3": "ph.svg",
+    "iso": true,
+    "name": "Филиппины"
+  },
+  {
+    "capital": "Адамстаун",
+    "code": "pn",
+    "continent": "Oceania",
+    "flag_4x3": "pn.svg",
+    "iso": true,
+    "name": "Питкэрн"
+  },
+  {
+    "capital": "Варшава",
+    "code": "pl",
+    "continent": "Europe",
+    "flag_4x3": "pl.svg",
+    "iso": true,
+    "name": "Польша"
+  },
+  {
+    "capital": "Лиссабон",
+    "code": "pt",
+    "continent": "Europe",
+    "flag_4x3": "pt.svg",
+    "iso": true,
+    "name": "Португалия"
+  },
+  {
+    "capital": "Сан-Хуан",
+    "code": "pr",
+    "continent": "North America",
+    "flag_4x3": "pr.svg",
+    "iso": true,
+    "name": "Пуэрто-Рико"
+  },
+  {
+    "capital": "Доха",
+    "code": "qa",
+    "continent": "Asia",
+    "flag_4x3": "qa.svg",
+    "iso": true,
+    "name": "Катар"
+  },
+  {
+    "capital": "Браззавиль",
+    "code": "cg",
+    "continent": "Africa",
+    "flag_4x3": "cg.svg",
+    "iso": true,
+    "name": "Республика Конго"
+  },
+  {
+    "capital": "Бухарест",
+    "code": "ro",
+    "continent": "Europe",
+    "flag_4x3": "ro.svg",
+    "iso": true,
+    "name": "Румыния"
+  },
+  {
+    "capital": "Москва",
+    "code": "ru",
+    "continent": "Europe",
+    "flag_4x3": "ru.svg",
+    "iso": true,
+    "name": "Россия"
+  },
+  {
+    "capital": "Кигали",
+    "code": "rw",
+    "continent": "Africa",
+    "flag_4x3": "rw.svg",
+    "iso": true,
+    "name": "Руанда"
+  },
+  {
+    "capital": "Сен-Дени",
+    "code": "re",
+    "continent": "Africa",
+    "flag_4x3": "re.svg",
+    "iso": true,
+    "name": "Реюньон"
+  },
+  {
+    "capital": "Густавия",
+    "code": "bl",
+    "continent": "North America",
+    "flag_4x3": "bl.svg",
+    "iso": true,
+    "name": "Сен-Бартелеми"
+  },
+  {
+    "capital": "Джеймстаун",
+    "code": "sh-hl",
+    "continent": "Africa",
+    "flag_4x3": "sh-hl.svg",
+    "iso": false,
+    "name": "Остров Святой Елены"
+  },
+  {
+    "capital": "Джеймстаун",
+    "code": "sh",
+    "continent": "Africa",
+    "flag_4x3": "sh.svg",
+    "iso": true,
+    "name": "Острова Святой Елены, Вознесения и Тристан-да-Кунья"
+  },
+  {
+    "capital": "Бастер",
+    "code": "kn",
+    "continent": "North America",
+    "flag_4x3": "kn.svg",
+    "iso": true,
+    "name": "Сент-Китс и Невис"
+  },
+  {
+    "capital": "Кастри",
+    "code": "lc",
+    "continent": "North America",
+    "flag_4x3": "lc.svg",
+    "iso": true,
+    "name": "Сент-Люсия"
+  },
+  {
+    "capital": "Мариго",
+    "code": "mf",
+    "continent": "North America",
+    "flag_4x3": "mf.svg",
+    "iso": true,
+    "name": "Сен-Мартен"
+  },
+  {
+    "capital": "Сен-Пьер",
+    "code": "pm",
+    "continent": "North America",
+    "flag_4x3": "pm.svg",
+    "iso": true,
+    "name": "Сен-Пьер и Микелон"
+  },
+  {
+    "capital": "Кингстаун",
+    "code": "vc",
+    "continent": "North America",
+    "flag_4x3": "vc.svg",
+    "iso": true,
+    "name": "Сент-Винсент и Гренадины"
+  },
+  {
+    "capital": "Апиа",
+    "code": "ws",
+    "continent": "Oceania",
+    "flag_4x3": "ws.svg",
+    "iso": true,
+    "name": "Самоа"
+  },
+  {
+    "capital": "Сан-Марино",
+    "code": "sm",
+    "continent": "Europe",
+    "flag_4x3": "sm.svg",
+    "iso": true,
+    "name": "Сан-Марино"
+  },
+  {
+    "capital": "Сан-Томе",
+    "code": "st",
+    "continent": "Africa",
+    "flag_4x3": "st.svg",
+    "iso": true,
+    "name": "Сан-Томе и Принсипи"
+  },
+  {
+    "capital": "Эр-Рияд",
+    "code": "sa",
+    "continent": "Asia",
+    "flag_4x3": "sa.svg",
+    "iso": true,
+    "name": "Саудовская Аравия"
+  },
+  {
+    "capital": "Эдинбург",
+    "code": "gb-sct",
+    "continent": "Europe",
+    "flag_4x3": "gb-sct.svg",
+    "iso": false,
+    "name": "Шотландия"
+  },
+  {
+    "capital": "Дакар",
+    "code": "sn",
+    "continent": "Africa",
+    "flag_4x3": "sn.svg",
+    "iso": true,
+    "name": "Сенегал"
+  },
+  {
+    "capital": "Белград",
+    "code": "rs",
+    "continent": "Europe",
+    "flag_4x3": "rs.svg",
+    "iso": true,
+    "name": "Сербия"
+  },
+  {
+    "capital": "Виктория",
+    "code": "sc",
+    "continent": "Africa",
+    "flag_4x3": "sc.svg",
+    "iso": true,
+    "name": "Сейшельские острова"
+  },
+  {
+    "capital": "Фритаун",
+    "code": "sl",
+    "continent": "Africa",
+    "flag_4x3": "sl.svg",
+    "iso": true,
+    "name": "Сьерра-Леоне"
+  },
+  {
+    "capital": "Сингапур",
+    "code": "sg",
+    "continent": "Asia",
+    "flag_4x3": "sg.svg",
+    "iso": true,
+    "name": "Сингапур"
+  },
+  {
+    "capital": "Филипсбург",
+    "code": "sx",
+    "continent": "North America",
+    "flag_4x3": "sx.svg",
+    "iso": true,
+    "name": "Синт-Мартен"
+  },
+  {
+    "capital": "Братислава",
+    "code": "sk",
+    "continent": "Europe",
+    "flag_4x3": "sk.svg",
+    "iso": true,
+    "name": "Словакия"
+  },
+  {
+    "capital": "Любляна",
+    "code": "si",
+    "continent": "Europe",
+    "flag_4x3": "si.svg",
+    "iso": true,
+    "name": "Словения"
+  },
+  {
+    "capital": "Хониара",
+    "code": "sb",
+    "continent": "Oceania",
+    "flag_4x3": "sb.svg",
+    "iso": true,
+    "name": "Соломоновы острова"
+  },
+  {
+    "capital": "Могадишо",
+    "code": "so",
+    "continent": "Africa",
+    "flag_4x3": "so.svg",
+    "iso": true,
+    "name": "Сомали"
+  },
+  {
+    "capital": "Претория",
+    "code": "za",
+    "continent": "Africa",
+    "flag_4x3": "za.svg",
+    "iso": true,
+    "name": "Южная Африка"
+  },
+  {
+    "capital": "Кинг-Эдвард-Пойнт",
+    "code": "gs",
+    "continent": "Antarctica",
+    "flag_4x3": "gs.svg",
+    "iso": true,
+    "name": "Южная Георгия и Южные Сандвичевы острова"
+  },
+  {
+    "capital": "Сеул",
+    "code": "kr",
+    "continent": "Asia",
+    "flag_4x3": "kr.svg",
+    "iso": true,
+    "name": "Южная Корея"
+  },
+  {
+    "capital": "Джуба",
+    "code": "ss",
+    "continent": "Africa",
+    "flag_4x3": "ss.svg",
+    "iso": true,
+    "name": "Южный Судан"
+  },
+  {
+    "capital": "Мадрид",
+    "code": "es",
+    "continent": "Europe",
+    "flag_4x3": "es.svg",
+    "iso": true,
+    "name": "Испания"
+  },
+  {
+    "capital": "Шри-Джаяварденепура-Котте, Коломбо",
+    "code": "lk",
+    "continent": "Asia",
+    "flag_4x3": "lk.svg",
+    "iso": true,
+    "name": "Шри-Ланка"
+  },
+  {
+    "capital": "Рамалла",
+    "code": "ps",
+    "continent": "Asia",
+    "flag_4x3": "ps.svg",
+    "iso": true,
+    "name": "Государство Палестина"
+  },
+  {
+    "capital": "Хартум",
+    "code": "sd",
+    "continent": "Africa",
+    "flag_4x3": "sd.svg",
+    "iso": true,
+    "name": "Судан"
+  },
+  {
+    "capital": "Парамарибо",
+    "code": "sr",
+    "continent": "South America",
+    "flag_4x3": "sr.svg",
+    "iso": true,
+    "name": "Суринам"
+  },
+  {
+    "capital": "Лонгйир",
+    "code": "sj",
+    "continent": "Europe",
+    "flag_4x3": "sj.svg",
+    "iso": true,
+    "name": "Шпицберген и Ян-Майен"
+  },
+  {
+    "capital": "Стокгольм",
+    "code": "se",
+    "continent": "Europe",
+    "flag_4x3": "se.svg",
+    "iso": true,
+    "name": "Швеция"
+  },
+  {
+    "capital": "Берн",
+    "code": "ch",
+    "continent": "Europe",
+    "flag_4x3": "ch.svg",
+    "iso": true,
+    "name": "Швейцария"
+  },
+  {
+    "capital": "Дамаск",
+    "code": "sy",
+    "continent": "Asia",
+    "flag_4x3": "sy.svg",
+    "iso": true,
+    "name": "Сирия"
+  },
+  {
+    "capital": "Тайбэй",
+    "code": "tw",
+    "continent": "Asia",
+    "flag_4x3": "tw.svg",
+    "iso": true,
+    "name": "Тайвань"
+  },
+  {
+    "capital": "Душанбе",
+    "code": "tj",
+    "continent": "Asia",
+    "flag_4x3": "tj.svg",
+    "iso": true,
+    "name": "Таджикистан"
+  },
+  {
+    "capital": "Додома",
+    "code": "tz",
+    "continent": "Africa",
+    "flag_4x3": "tz.svg",
+    "iso": true,
+    "name": "Танзания"
+  },
+  {
+    "capital": "Бангкок",
+    "code": "th",
+    "continent": "Asia",
+    "flag_4x3": "th.svg",
+    "iso": true,
+    "name": "Таиланд"
+  },
+  {
+    "capital": "Дили",
+    "code": "tl",
+    "continent": "Asia",
+    "flag_4x3": "tl.svg",
+    "iso": true,
+    "name": "Тимор-Лесте"
+  },
+  {
+    "capital": "Ломе",
+    "code": "tg",
+    "continent": "Africa",
+    "flag_4x3": "tg.svg",
+    "iso": true,
+    "name": "Того"
+  },
+  {
+    "capital": "Нукунону, Атафу, Токелау",
+    "code": "tk",
+    "continent": "Oceania",
+    "flag_4x3": "tk.svg",
+    "iso": true,
+    "name": "Токелау"
+  },
+  {
+    "capital": "Нукуалофа",
+    "code": "to",
+    "continent": "Oceania",
+    "flag_4x3": "to.svg",
+    "iso": true,
+    "name": "Тонга"
+  },
+  {
+    "capital": "Порт-оф-Спейн",
+    "code": "tt",
+    "continent": "South America",
+    "flag_4x3": "tt.svg",
+    "iso": true,
+    "name": "Тринидад и Тобаго"
+  },
+  {
+    "capital": "Эдинбург Семи Морей",
+    "code": "sh-ta",
+    "continent": "Africa",
+    "flag_4x3": "sh-ta.svg",
+    "iso": false,
+    "name": "Тристан-да-Кунья"
+  },
+  {
+    "capital": "Тунис",
+    "code": "tn",
+    "continent": "Africa",
+    "flag_4x3": "tn.svg",
+    "iso": true,
+    "name": "Тунис"
+  },
+  {
+    "capital": "Ашхабад",
+    "code": "tm",
+    "continent": "Asia",
+    "flag_4x3": "tm.svg",
+    "iso": true,
+    "name": "Туркменистан"
+  },
+  {
+    "capital": "Коберн-Таун",
+    "code": "tc",
+    "continent": "North America",
+    "flag_4x3": "tc.svg",
+    "iso": true,
+    "name": "Острова Теркс и Кайкос"
+  },
+  {
+    "capital": "Фунафути",
+    "code": "tv",
+    "continent": "Oceania",
+    "flag_4x3": "tv.svg",
+    "iso": true,
+    "name": "Тувалу"
+  },
+  {
+    "capital": "Анкара",
+    "code": "tr",
+    "continent": "Asia",
+    "flag_4x3": "tr.svg",
+    "iso": true,
+    "name": "Турция"
+  },
+  {
+    "capital": "Кампала",
+    "code": "ug",
+    "continent": "Africa",
+    "flag_4x3": "ug.svg",
+    "iso": true,
+    "name": "Уганда"
+  },
+  {
+    "capital": "Киев",
+    "code": "ua",
+    "continent": "Europe",
+    "flag_4x3": "ua.svg",
+    "iso": true,
+    "name": "Украина"
+  },
+  {
+    "capital": "Абу-Даби",
+    "code": "ae",
+    "continent": "Asia",
+    "flag_4x3": "ae.svg",
+    "iso": true,
+    "name": "Объединённые Арабские Эмираты"
+  },
+  {
+    "capital": "Лондон",
+    "code": "gb",
+    "continent": "Europe",
+    "flag_4x3": "gb.svg",
+    "iso": true,
+    "name": "Соединённое Королевство"
+  },
+  {
+    "code": "un",
+    "flag_4x3": "un.svg",
+    "iso": false,
+    "name": "Организация Объединённых Наций"
+  },
+  {
+    "capital": "Вашингтон",
+    "code": "um",
+    "continent": "North America",
+    "flag_4x3": "um.svg",
+    "iso": true,
+    "name": "Малые отдалённые острова США"
+  },
+  {
+    "capital": "Вашингтон",
+    "code": "us",
+    "continent": "North America",
+    "flag_4x3": "us.svg",
+    "iso": true,
+    "name": "Соединённые Штаты Америки"
+  },
+  {
+    "code": "xx",
+    "flag_4x3": "xx.svg",
+    "iso": false,
+    "name": "Неизвестно"
+  },
+  {
+    "capital": "Монтевидео",
+    "code": "uy",
+    "continent": "South America",
+    "flag_4x3": "uy.svg",
+    "iso": true,
+    "name": "Уругвай"
+  },
+  {
+    "capital": "Ташкент",
+    "code": "uz",
+    "continent": "Asia",
+    "flag_4x3": "uz.svg",
+    "iso": true,
+    "name": "Узбекистан"
+  },
+  {
+    "capital": "Порт-Вила",
+    "code": "vu",
+    "continent": "Oceania",
+    "flag_4x3": "vu.svg",
+    "iso": true,
+    "name": "Вануату"
+  },
+  {
+    "capital": "Каракас",
+    "code": "ve",
+    "continent": "South America",
+    "flag_4x3": "ve.svg",
+    "iso": true,
+    "name": "Венесуэла"
+  },
+  {
+    "capital": "Ханой",
+    "code": "vn",
+    "continent": "Asia",
+    "flag_4x3": "vn.svg",
+    "iso": true,
+    "name": "Вьетнам"
+  },
+  {
+    "capital": "Роуд-Таун",
+    "code": "vg",
+    "continent": "North America",
+    "flag_4x3": "vg.svg",
+    "iso": true,
+    "name": "Британские Виргинские острова"
+  },
+  {
+    "capital": "Шарлотта-Амалия",
+    "code": "vi",
+    "continent": "North America",
+    "flag_4x3": "vi.svg",
+    "iso": true,
+    "name": "Виргинские острова (США)"
+  },
+  {
+    "capital": "Кардифф",
+    "code": "gb-wls",
+    "continent": "Europe",
+    "flag_4x3": "gb-wls.svg",
+    "iso": false,
+    "name": "Уэльс"
+  },
+  {
+    "capital": "Мата-Уту",
+    "code": "wf",
+    "continent": "Oceania",
+    "flag_4x3": "wf.svg",
+    "iso": true,
+    "name": "Уоллис и Футуна"
+  },
+  {
+    "capital": "Эль-Аюн",
+    "code": "eh",
+    "continent": "Africa",
+    "flag_4x3": "eh.svg",
+    "iso": true,
+    "name": "Западная Сахара"
+  },
+  {
+    "capital": "Сана",
+    "code": "ye",
+    "continent": "Asia",
+    "flag_4x3": "ye.svg",
+    "iso": true,
+    "name": "Йемен"
+  },
+  {
+    "capital": "Лусака",
+    "code": "zm",
+    "continent": "Africa",
+    "flag_4x3": "zm.svg",
+    "iso": true,
+    "name": "Замбия"
+  },
+  {
+    "capital": "Хараре",
+    "code": "zw",
+    "continent": "Africa",
+    "flag_4x3": "zw.svg",
+    "iso": true,
+    "name": "Зимбабве"
+  }
+]
