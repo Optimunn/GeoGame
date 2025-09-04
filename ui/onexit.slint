@@ -23,7 +23,7 @@ export component OnExitWindow inherits Rectangle {
         one := Button { visible: !alert; x: 10px; y: 50px; width: 85px; height: 30px; }
         two := Button { visible: !alert; x: 105px; y: 50px; width: 85px; height: 30px; }
         Button { visible: alert; x: 57.5px; y: 50px; width: 85px; height: 30px;
-            text: text-one; clicked => {button-one()} }
+            text: text-one; clicked => { button-one() } }
 
         ImageStatic {
             icon: @image-url("../assets/icons/cross.svg");

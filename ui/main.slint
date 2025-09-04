@@ -5,17 +5,13 @@ import { WelcomeWindow } from "welcome.slint";
 import { AboutApplication } from "about.slint";
 import { OnExitWindow } from "onexit.slint";
 
-struct ButtonData {
-    text: string,
-    color: color
-}
-
 export component MainWindow inherits Window {
     callback button-clicked(int);
     callback update-window;
     callback checkbox-continent-clicked;
     callback open-url-info(int);
     in-out property button-data <=> window-game.button-data;
+    in-out property answer-data <=> window-game.answer-data;
     in-out property checkbox-continent-checked <=> window-preplay.cnt-check;
     in-out property checkbox-continent-blocked <=> window-preplay.checkbox-block;
     in property loaded_image <=> window-game.icon;
@@ -57,12 +53,12 @@ export component MainWindow inherits Window {
         scene-visible => { root.scene-visible = 1 }
     }
 
-    OnExitWindow {
-        text: "Exit?";
-        text-one: "Pause";
-        text-two: "Exit";
-        alert: true;
-        button-one => { debug("button1") }
-        button-two => { debug("button2") }
-    }
+    // OnExitWindow {
+    //     text: "Exit?";
+    //     text-one: "Pause";
+    //     text-two: "Exit";
+    //     alert: true;
+    //     button-one => { debug("button1") }
+    //     button-two => { debug("button2") }
+    // }
 }

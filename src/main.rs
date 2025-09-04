@@ -1,4 +1,4 @@
-use slint::{Image, Model, ModelRc, ToSharedString, VecModel, Weak};
+use slint::{GraphicsAPI, Image, Model, ModelRc, SharedString, ToSharedString, VecModel, Weak};
 use std::cell::{Cell, RefCell};
 #[cfg(not(debug_assertions))]
 use std::path::Path;
@@ -56,7 +56,7 @@ fn main() -> Result<(), slint::PlatformError> {
     let checkbox_model: ModelRc<bool> = simplified_rc!(loaded_config.continents);
     main_window.set_checkbox_continent_checked(checkbox_model);
 
-    let board_model: ModelRc<ButtonData> = update_country(&main_window, &filtered_cont.borrow(),
+    let board_model: ModelRc<SharedString> = update_country(&main_window, &filtered_cont.borrow(),
         random_number.get(), #[cfg(not(debug_assertions))] &image_path_string);
     main_window.set_button_data(board_model);
 
@@ -66,20 +66,19 @@ fn main() -> Result<(), slint::PlatformError> {
 
         move |index| { 
             let main_window: MainWindow = main_window_handle.unwrap();
-            let mut model: Vec<ButtonData> = main_window.get_button_data().iter().collect();
+            let input_names: Vec<SharedString> = main_window.get_button_data().iter().collect();
+            let mut model: AnswerData = AnswerData {
+                answer: "null".to_shared_string(),
+                color: COLOR_RED,
+                selected: "null".to_shared_string(),
+                visible: true
+            };
             
             let _random_number: usize = random_number_clone.get();
-
-            match index as usize == _random_number {
-                true => {
-                    model[_random_number].color = COLOR_GREEN;
-                }
-                false => {
-                    model[index as usize].color = COLOR_RED;
-                    model[_random_number].color = COLOR_GREEN;
-                }
-            }
-            main_window.set_button_data(simplified_rc!(model));
+            if index as usize == _random_number { model.color = COLOR_GREEN; }
+            model.selected = input_names[index as usize].clone();
+            model.answer = input_names[_random_number].clone();
+            main_window.set_answer_data(model);
         }
     });
 
@@ -107,7 +106,7 @@ fn main() -> Result<(), slint::PlatformError> {
 
             random_number.set(GameLogic::get_rand_to_image(&mut rand_thread));
             let _random_number: usize = random_number.get();
-            let board_model: ModelRc<ButtonData> = update_country(&main_window, &filtered_cont.borrow(),
+            let board_model: ModelRc<SharedString> = update_country(&main_window, &filtered_cont.borrow(),
                 _random_number, #[cfg(not(debug_assertions))] &image_path_string);
 
             main_window.set_button_data(board_model);
@@ -143,8 +142,8 @@ fn main() -> Result<(), slint::PlatformError> {
 }
 
 fn update_country(main_window: &MainWindow, countries: &[Country], _random_number: usize,
-        #[cfg(not(debug_assertions))] _image_patch: &PathBuf) -> ModelRc<ButtonData> {
-    let mut model: Vec<ButtonData> = main_window.get_button_data().iter().collect();
+        #[cfg(not(debug_assertions))] _image_patch: &PathBuf) -> ModelRc<SharedString> {
+    let mut model: Vec<SharedString> = main_window.get_button_data().iter().collect();
 
     let out4: Vec<Country> = GameLogic::get_random_countries(countries, 4);
 #[cfg(debug_assertions)]
@@ -160,9 +159,6 @@ fn update_country(main_window: &MainWindow, countries: &[Country], _random_numbe
         Err(_) => println!("Failed to load image data"),
     }
 
-    for i in 0..4 {
-        model[i].color = COLOR_GRAY;
-        model[i].text = out4[i].name.to_shared_string();
-    }
+    for i in 0..4 { model[i] = out4[i].name.to_shared_string(); }
     simplified_rc!(model)
 }
