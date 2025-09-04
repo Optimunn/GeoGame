@@ -3,6 +3,7 @@ import { PrimeWindow } from "window.slint";
 import { PrePlayWindow } from "preplay.slint";
 import { WelcomeWindow } from "welcome.slint";
 import { AboutApplication } from "about.slint";
+import { OnExitWindow } from "onexit.slint";
 
 struct ButtonData {
     text: string,
@@ -55,4 +56,12 @@ export component MainWindow inherits Window {
         open-url(item) => { root.open-url-info(item) }
         scene-visible => { root.scene-visible = 1 }
     }
+
+    // OnExitWindow {
+    //     text: "Exit?";
+    //     text-one: "Pause";
+    //     text-two: "Exit";
+    //     button-one => { debug("button1") }
+    //     button-two => { debug("button2") }
+    // }
 }

@@ -1,0 +1,31 @@
+import { Button } from "std-widgets.slint";
+import { ImageStatic } from "images.slint";
+
+export component OnExitWindow inherits Rectangle {
+    callback button-one <=> one.clicked;
+    callback button-two <=> two.clicked;
+    in property text <=> txt.text;
+    in property text-one <=> one.text;
+    in property text-two <=> two.text;
+    
+    background: #acacac90;
+    visible: true;
+
+    TouchArea {}
+
+    Rectangle {
+        width: 200px; height: 90px;
+        border-radius: 10px; border-width: 2px; border-color: gray;
+        background: white;
+
+        txt := Text { y: 15px; font-size: 20px; vertical-alignment: center; }
+        one := Button { x: 10px; y: 50px; width: 85px; height: 30px; }
+        two := Button { x: 105px; y: 50px; width: 85px; height: 30px; }
+
+        ImageStatic {
+            icon: @image-url("../assets/icons/cross.svg");
+            x: 2px; y: 2px; my_size: 30px;
+            clicked => { root.visible = false; }
+        }
+    }
+}
