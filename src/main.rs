@@ -1,13 +1,13 @@
 use slint::{Image, Model, ModelRc, SharedString, ToSharedString, VecModel, Weak};
+use rand::rngs::ThreadRng;
 use std::cell::Cell;
-use std::sync::mpsc::{Sender, Receiver};
-use std::sync::mpsc;
+use std::sync::mpsc::{Sender, Receiver, channel};
 use std::thread;
 #[cfg(not(debug_assertions))]
 use std::path::Path;
 use std::path::PathBuf;
-use std::{fs, rc::Rc};
-use rand::rngs::ThreadRng;
+use std::fs;
+use std::rc::Rc;
 
 use process::GameLogic;
 use consts::*;
@@ -31,10 +31,11 @@ enum Action {
     Update,
     Load
 }
+
 struct ThreadIn {
     action: Action,
-    checkbox: Vec<bool>,
-    rand_number: usize
+    checkbox: Option<Vec<bool>>,
+    random: Option<usize>
 }
 
 fn main() -> Result<(), slint::PlatformError> {
@@ -65,8 +66,8 @@ fn main() -> Result<(), slint::PlatformError> {
         Err(_) => panic!("Failed to load app data"),
     };
 
-    let (tx_cmd, rx_cmd): (Sender<ThreadIn>, Receiver<ThreadIn>) = mpsc::channel();
-    let (tx_data, rx_data): (Sender<ThreadData>, Receiver<ThreadData>) = mpsc::channel();
+    let (tx_cmd, rx_cmd): (Sender<ThreadIn>, Receiver<ThreadIn>) = channel();
+    let (tx_data, rx_data): (Sender<ThreadData>, Receiver<ThreadData>) = channel();
     
     //*  Drop thread to filter countries
     thread::spawn({
@@ -76,7 +77,7 @@ fn main() -> Result<(), slint::PlatformError> {
             while let Ok(input) = rx_cmd.recv() {
                 use Action::*;
                 if input.action == Update || input.action == Init {
-                    let continent: Vec<Continent> = GameLogic::create_continents_list(&input.checkbox).unwrap();
+                    let continent: Vec<Continent> = GameLogic::create_continents_list(&input.checkbox.unwrap()).unwrap();
                     filtered_cont = GameLogic::filter_by_continents(&serialized_countries, &continent);
                 }
                 if input.action == Load || input.action == Init {
@@ -84,16 +85,16 @@ fn main() -> Result<(), slint::PlatformError> {
 
                     let out4: Vec<Country> = GameLogic::get_random_countries(&filtered_cont, 4);
                 #[cfg(debug_assertions)]
-                    let patch: String = out4[input.rand_number].flag_4x3.to_string();
+                    let patch: String = out4[input.random.unwrap()].flag_4x3.to_string();
                 #[cfg(debug_assertions)]
                     let patch: String = format!("{LOAD_IMAGE}{}", patch);
                 #[cfg(not(debug_assertions))]
-                    let patch: PathBuf = image_path_string.join(out4[input.rand_number].flag_4x3.as_str());
-                    let image_data: Vec<u8> = fs::read(patch).unwrap();
+                    let patch: PathBuf = image_path_string.join(out4[input.random].flag_4x3.as_str());
+                    let image_data: Vec<u8> = fs::read(patch).unwrap(); //todo: File read warning
                     
                     for i in 0..4 { model[i] = out4[i].name.to_shared_string(); }
 
-                    let data = ThreadData { img: image_data, country: model };
+                    let data: ThreadData = ThreadData { img: image_data, country: model };
                     tx_data.send(data).unwrap();
                 }
             }
@@ -107,8 +108,8 @@ fn main() -> Result<(), slint::PlatformError> {
     #[allow(unused_must_use)]
     tx_cmd.send(ThreadIn {
         action: Action::Init,
-        checkbox: loaded_config.continents.clone(),
-        rand_number: random_number.get()
+        checkbox: Some(loaded_config.continents.clone()),
+        random: Some(random_number.get())
     });
 
     //* Blocking last checkbox
@@ -128,7 +129,7 @@ fn main() -> Result<(), slint::PlatformError> {
         //* When click on country button
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
         let random_number_clone: Rc<Cell<usize>> = random_number.clone();
-        let tx_cmd = tx_cmd.clone();
+        let tx_cmd: Sender<ThreadIn> = tx_cmd.clone();
 
         move |index| { 
             let main_window: MainWindow = main_window_handle.unwrap();
@@ -146,15 +147,13 @@ fn main() -> Result<(), slint::PlatformError> {
             model.answer = input_names[_random_number].clone();
             main_window.set_answer_data(model);
 
-
-            let checkbox: Vec<bool> = main_window.get_checkbox_continent_checked().iter().collect();
             random_number_clone.set(GameLogic::get_rand_to_image(&mut rand_thread));
 
             #[allow(unused_must_use)]
             tx_cmd.send(ThreadIn {
                 action: Action::Load,
-                checkbox,
-                rand_number: random_number_clone.get()
+                checkbox: None,
+                random: Some(random_number_clone.get())
             });
         }
     });
@@ -162,8 +161,6 @@ fn main() -> Result<(), slint::PlatformError> {
     let _ = main_window.on_checkbox_continent_clicked({
         //* When click on continent checkbox
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
-
-        let tx_cmd = tx_cmd.clone();
 
         move || {
             let main_window: MainWindow = main_window_handle.unwrap();
@@ -175,8 +172,8 @@ fn main() -> Result<(), slint::PlatformError> {
             #[allow(unused_must_use)]
             tx_cmd.send(ThreadIn {
                 action: Action::Update,
-                checkbox: checkbox,
-                rand_number: random_number.get()
+                checkbox: Some(checkbox),
+                random: None
             });
         }
     });
