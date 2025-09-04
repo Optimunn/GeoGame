@@ -1,5 +1,8 @@
 use slint::{Image, Model, ModelRc, SharedString, ToSharedString, VecModel, Weak};
-use std::cell::{Cell, RefCell};
+use std::cell::Cell;
+use std::sync::mpsc::{Sender, Receiver};
+use std::sync::mpsc;
+use std::thread;
 #[cfg(not(debug_assertions))]
 use std::path::Path;
 use std::path::PathBuf;
@@ -17,9 +20,17 @@ mod configure;
 
 slint::include_modules!();
 
+#[derive(Clone)]
 struct ThreadData {
-    img: Image,
-    country: ModelRc<SharedString>
+    img: Vec<u8>,
+    country: Vec<SharedString>
+}
+
+#[derive(Clone)]
+struct ThreadIn {
+    action: bool,
+    checkbox: Vec<bool>,
+    rand_number: usize
 }
 
 fn main() -> Result<(), slint::PlatformError> {
@@ -49,15 +60,35 @@ fn main() -> Result<(), slint::PlatformError> {
         Ok(config) => config,
         Err(_) => panic!("Failed to load app data"),
     };
+
+    let (tx_cmd, rx_cmd): (Sender<ThreadIn>, Receiver<ThreadIn>) = mpsc::channel();
+    let (tx_data, rx_data): (Sender<ThreadData>, Receiver<ThreadData>) = mpsc::channel();
     
-    //* Get available continents list
-    let continent: Vec<Continent> = GameLogic::create_continents_list(&loaded_config.continents).unwrap();
-    let filtered_cont: Vec<Country> = GameLogic::filter_by_continents(&serialized_countries, &continent);
-    let filtered_cont: Rc<RefCell<Vec<Country>>> = Rc::new(RefCell::new(filtered_cont));
+    thread::spawn({
+        let mut filtered_cont: Vec<Country> = Vec::new();
+        
+        move || {
+            while let Ok(input) = rx_cmd.recv() {
+                if input.action {
+                    let continent: Vec<Continent> = GameLogic::create_continents_list(&input.checkbox).unwrap();
+                    filtered_cont = GameLogic::filter_by_continents(&serialized_countries, &continent);
+                }
+                let data: ThreadData = update_country(&filtered_cont, input.rand_number, #[cfg(not(debug_assertions))] &image_path_string);
+                tx_data.send(data).unwrap();
+            }
+        }
+    });
     
     //*  Randomize countries
     let mut rand_thread: ThreadRng = GameLogic::start_rand_to_image();
     let random_number: Rc<Cell<usize>> = GameLogic::get_rand_to_image_cell(&mut rand_thread);
+
+    #[allow(unused_must_use)]
+    tx_cmd.send(ThreadIn {
+        action: true,
+        checkbox: loaded_config.continents.clone(),
+        rand_number: random_number.get()
+    });
 
     //* Blocking last checkbox
     let checkbox_blocked: bool = block_checkbox!(&loaded_config.continents, 6);
@@ -67,14 +98,16 @@ fn main() -> Result<(), slint::PlatformError> {
     main_window.set_checkbox_continent_checked(checkbox_model);
 
     //* Update flags in application
-    let data: ThreadData = update_country(&filtered_cont.borrow(), random_number.get(), #[cfg(not(debug_assertions))] &image_path_string);
-    main_window.set_loaded_image(data.img);
-    main_window.set_button_data(data.country);
+    if let Ok(data) = rx_data.recv() {
+        main_window.set_loaded_image(load_img(&data.img));
+        main_window.set_button_data(simplified_rc!(data.country));
+    }
 
     let _ = main_window.on_button_clicked({
         //* When click on country button
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
         let random_number_clone: Rc<Cell<usize>> = random_number.clone();
+        let tx_cmd = tx_cmd.clone();
 
         move |index| { 
             let main_window: MainWindow = main_window_handle.unwrap();
@@ -91,13 +124,25 @@ fn main() -> Result<(), slint::PlatformError> {
             model.selected = input_names[index as usize].clone();
             model.answer = input_names[_random_number].clone();
             main_window.set_answer_data(model);
+
+
+            let checkbox: Vec<bool> = main_window.get_checkbox_continent_checked().iter().collect();
+            random_number_clone.set(GameLogic::get_rand_to_image(&mut rand_thread));
+
+            #[allow(unused_must_use)]
+            tx_cmd.send(ThreadIn {
+                action: false,
+                checkbox,
+                rand_number: _random_number
+            });
         }
     });
 
     let _ = main_window.on_checkbox_continent_clicked({
         //* When click on continent checkbox
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
-        let filtered_cont: Rc<RefCell<Vec<Country>>> = Rc::clone(&filtered_cont);
+
+        let tx_cmd = tx_cmd.clone();
 
         move || {
             let main_window: MainWindow = main_window_handle.unwrap();
@@ -105,8 +150,14 @@ fn main() -> Result<(), slint::PlatformError> {
 #[cfg(debug_assertions)]
             println!("{:?}", checkbox);
             let blocked: bool = block_checkbox!(checkbox, 6);
-            let continent: Vec<Continent> = GameLogic::create_continents_list(&checkbox).unwrap();
-            *filtered_cont.borrow_mut() = GameLogic::filter_by_continents(&serialized_countries, &continent);
+
+            #[allow(unused_must_use)]
+            tx_cmd.send(ThreadIn {
+                action: true,
+                checkbox: checkbox,
+                rand_number: random_number.get()
+            });
+
             main_window.set_checkbox_continent_blocked(blocked);
         }
     });
@@ -118,11 +169,10 @@ fn main() -> Result<(), slint::PlatformError> {
         move || {
             let main_window: MainWindow = main_window_handle.unwrap();
 
-            random_number.set(GameLogic::get_rand_to_image(&mut rand_thread));
-            let _random_number: usize = random_number.get();
-            let data: ThreadData = update_country(&filtered_cont.borrow(), _random_number, #[cfg(not(debug_assertions))] &image_path_string);
-            main_window.set_loaded_image(data.img);
-            main_window.set_button_data(data.country);
+            if let Ok(data) = rx_data.recv() {
+                main_window.set_loaded_image(load_img(&data.img));
+                main_window.set_button_data(simplified_rc!(data.country));
+            }
         }
     });
 
@@ -170,16 +220,19 @@ fn update_country(countries: &[Country], _random_number: usize,
     let patch: PathBuf = _image_patch.join(out4[_random_number].flag_4x3.as_str());
 
     let image_data: Vec<u8> = fs::read(patch).unwrap();
+    
+    for i in 0..4 { model[i] = out4[i].name.to_shared_string(); }
+
+    ThreadData {
+        img: image_data,
+        country: model
+    }
+}
+
+fn load_img(image_data: &[u8]) -> Image {
     let out_image: Image = match Image::load_from_svg_data(&image_data) {
         Ok(image) => image,
         Err(_) => Image::default(),
     };
-    
-    for i in 0..4 { model[i] = out4[i].name.to_shared_string(); }
-    let board_model: ModelRc<SharedString> = simplified_rc!(model);
-
-    ThreadData {
-        img: out_image,
-        country: board_model
-    }
+    out_image
 }
