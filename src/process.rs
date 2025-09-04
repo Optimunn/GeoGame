@@ -35,14 +35,9 @@ impl GameLogic {
         rand::rng()
     }
 
-    pub fn get_rand_to_image(rng: &mut ThreadRng) -> usize {
+    pub fn get_rand_universal(rng: &mut ThreadRng) -> usize {
         let random_number: usize = rng.random_range(0..4);
         random_number
-    }
-
-    pub fn get_rand_to_image_cell(rng: &mut ThreadRng) -> usize {
-        let out: usize = rng.random_range(0..4);
-        out
     }
 
     pub fn create_continents_list(input_config: &Vec<bool>) -> Result<Vec<Continent>> {

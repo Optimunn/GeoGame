@@ -102,7 +102,7 @@ fn main() -> Result<(), slint::PlatformError> {
     
     //*  Randomize countries
     let mut rand_thread: ThreadRng = GameLogic::start_rand_to_image();
-    let mut random_number: usize = GameLogic::get_rand_to_image_cell(&mut rand_thread);
+    let mut random_number: usize = GameLogic::get_rand_universal(&mut rand_thread);
 
     #[allow(unused_must_use)]
     tx_cmd.send(ThreadIn {
@@ -144,7 +144,7 @@ fn main() -> Result<(), slint::PlatformError> {
             model.answer = input_names[random_number].clone();
             main_window.set_answer_data(model);
 
-            random_number = GameLogic::get_rand_to_image(&mut rand_thread);
+            random_number = GameLogic::get_rand_universal(&mut rand_thread);
 
             #[allow(unused_must_use)]
             tx_cmd.send(ThreadIn {
