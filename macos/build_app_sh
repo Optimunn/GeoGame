@@ -69,7 +69,7 @@ MACOS_DIR="$CONTENTS_DIR/MacOS"
 
 APP_BIN_NAME="main"
 
-if [ -d "$MACOS_DIR/$BIN_NAME" ]; then
+if [ -e "$MACOS_DIR/$APP_BIN_NAME" ]; then
     echo "Changing binary file..."
     cp "$BINARY_PATH" "$MACOS_DIR/$APP_BIN_NAME"
     chmod +x "$MACOS_DIR/$APP_BIN_NAME"
