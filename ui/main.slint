@@ -57,11 +57,12 @@ export component MainWindow inherits Window {
         scene-visible => { root.scene-visible = 1 }
     }
 
-    // OnExitWindow {
-    //     text: "Exit?";
-    //     text-one: "Pause";
-    //     text-two: "Exit";
-    //     button-one => { debug("button1") }
-    //     button-two => { debug("button2") }
-    // }
+    OnExitWindow {
+        text: "Exit?";
+        text-one: "Pause";
+        text-two: "Exit";
+        alert: true;
+        button-one => { debug("button1") }
+        button-two => { debug("button2") }
+    }
 }

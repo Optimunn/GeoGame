@@ -17,15 +17,15 @@ export component WelcomeWindow inherits Rectangle {
         ImageResizable {
             icon: @image-url("../assets/icons/earth.svg");
         }
-        MyButton { text: "Play";
+        MyButton { text: @tr("Play");
             height: ret_height(); border-color: root.background.darker(50%);
             clicked => { root.scene-visible(2) }
         }
-        MyButton { text: "Settings";
+        MyButton { text: @tr("Settings");
             height: ret_height(); border-color: root.background.darker(50%);
             clicked => { root.scene-visible(3) }
         }
-        MyButton { text: "About";
+        MyButton { text: @tr("About");
             height: ret_height(); border-color: root.background.darker(50%); 
             clicked => { root.scene-visible(4) }
         }

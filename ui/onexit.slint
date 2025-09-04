@@ -7,6 +7,7 @@ export component OnExitWindow inherits Rectangle {
     in property text <=> txt.text;
     in property text-one <=> one.text;
     in property text-two <=> two.text;
+    in property <bool> alert: false;
     
     background: #acacac90;
     visible: true;
@@ -15,12 +16,14 @@ export component OnExitWindow inherits Rectangle {
 
     Rectangle {
         width: 200px; height: 90px;
-        border-radius: 10px; border-width: 2px; border-color: gray;
+        border-radius: 10px; border-width: 2px; border-color: alert? peru : gray;
         background: white;
 
         txt := Text { y: 15px; font-size: 20px; vertical-alignment: center; }
-        one := Button { x: 10px; y: 50px; width: 85px; height: 30px; }
-        two := Button { x: 105px; y: 50px; width: 85px; height: 30px; }
+        one := Button { visible: !alert; x: 10px; y: 50px; width: 85px; height: 30px; }
+        two := Button { visible: !alert; x: 105px; y: 50px; width: 85px; height: 30px; }
+        Button { visible: alert; x: 57.5px; y: 50px; width: 85px; height: 30px;
+            text: text-one; clicked => {button-one()} }
 
         ImageStatic {
             icon: @image-url("../assets/icons/cross.svg");
