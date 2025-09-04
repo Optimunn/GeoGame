@@ -1,6 +1,5 @@
 use slint::{Image, Model, ModelRc, SharedString, ToSharedString, VecModel, Weak};
 use rand::rngs::ThreadRng;
-use std::cell::Cell;
 use std::sync::mpsc::{Sender, Receiver, channel};
 use std::thread;
 #[cfg(not(debug_assertions))]
@@ -103,13 +102,13 @@ fn main() -> Result<(), slint::PlatformError> {
     
     //*  Randomize countries
     let mut rand_thread: ThreadRng = GameLogic::start_rand_to_image();
-    let random_number: Rc<Cell<usize>> = GameLogic::get_rand_to_image_cell(&mut rand_thread);
+    let mut random_number: usize = GameLogic::get_rand_to_image_cell(&mut rand_thread);
 
     #[allow(unused_must_use)]
     tx_cmd.send(ThreadIn {
         action: Action::Init,
         checkbox: Some(loaded_config.continents.clone()),
-        random: Some(random_number.get())
+        random: Some(random_number)
     });
 
     //* Blocking last checkbox
@@ -125,10 +124,9 @@ fn main() -> Result<(), slint::PlatformError> {
         main_window.set_button_data(simplified_rc!(data.country));
     }
 
+    //* When click on country button
     let _ = main_window.on_button_clicked({
-        //* When click on country button
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
-        let random_number_clone: Rc<Cell<usize>> = random_number.clone();
         let tx_cmd: Sender<ThreadIn> = tx_cmd.clone();
 
         move |index| { 
@@ -141,25 +139,24 @@ fn main() -> Result<(), slint::PlatformError> {
                 visible: true
             };
             
-            let _random_number: usize = random_number_clone.get();
-            if index as usize == _random_number { model.color = COLOR_GREEN; }
+            if index as usize == random_number { model.color = COLOR_GREEN; }
             model.selected = input_names[index as usize].clone();
-            model.answer = input_names[_random_number].clone();
+            model.answer = input_names[random_number].clone();
             main_window.set_answer_data(model);
 
-            random_number_clone.set(GameLogic::get_rand_to_image(&mut rand_thread));
+            random_number = GameLogic::get_rand_to_image(&mut rand_thread);
 
             #[allow(unused_must_use)]
             tx_cmd.send(ThreadIn {
                 action: Action::Load,
                 checkbox: None,
-                random: Some(random_number_clone.get())
+                random: Some(random_number)
             });
         }
     });
 
+    //* When click on continent checkbox
     let _ = main_window.on_checkbox_continent_clicked({
-        //* When click on continent checkbox
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
 
         move || {
@@ -178,8 +175,8 @@ fn main() -> Result<(), slint::PlatformError> {
         }
     });
 
+    //* When update window after selected country
     let _ = main_window.on_update_window({
-        //* When update window after selected country
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
 
         move || {
@@ -192,8 +189,8 @@ fn main() -> Result<(), slint::PlatformError> {
         }
     });
 
+    //* When click on info button in "About" window
     let _ = main_window.on_open_url_info({
-        //* When click on info button in "About" window
         move |item| {
             match item {
                 1 => open::that(LINK_TO_GITHUB).unwrap(),
@@ -204,8 +201,8 @@ fn main() -> Result<(), slint::PlatformError> {
         }
     });
 
+    //* When close window
     let _ = main_window.window().on_close_requested({
-        //* When close window
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
 
         move || {
@@ -223,11 +220,9 @@ fn main() -> Result<(), slint::PlatformError> {
     main_window.run()
 }
 
-
 fn to_img(image_data: &[u8]) -> Image {
-    let out_image: Image = match Image::load_from_svg_data(&image_data) {
+    match Image::load_from_svg_data(&image_data) {
         Ok(image) => image,
         Err(_) => Image::default(),
-    };
-    out_image
+    }
 }
