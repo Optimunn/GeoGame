@@ -1,4 +1,5 @@
 import { VerticalBox, CheckBox, HorizontalBox, TabWidget, GridBox } from "std-widgets.slint";
+import { OnExitWindow } from "onexit.slint";
 import { ImageStatic } from "images.slint";
 import { MyButton, MyCheckBox, MyText } from "mywidget.slint";
 
@@ -42,37 +43,43 @@ export component PrePlayWindow inherits Rectangle {
                     padding-bottom: 10px;
 
                     MyCheckBox { height: ret_h(); text: cnt[0]; checked: root.cnt-check[0]; row: 0;
-                        toggled => { if root.checkbox-block { root.cnt-check[0] = true; self.checked = true; }
+                        toggled => { if root.checkbox-block { root.cnt-check[0] = true;
+                            self.checked = true; warn.visible = true; }
                             else { root.cnt-check[0] = !root.cnt-check[0]; }
                             root.continent-clicked(); 
                         }
                     }
                     MyCheckBox { height: ret_h(); text: cnt[1]; checked: root.cnt-check[1];
-                        toggled => { if root.checkbox-block { root.cnt-check[1] = true; self.checked = true; }
+                        toggled => { if root.checkbox-block { root.cnt-check[1] = true;
+                            self.checked = true; warn.visible = true; }
                             else { root.cnt-check[1] = !root.cnt-check[1]; }
                             root.continent-clicked();
                         }
                     }
                     MyCheckBox { height: ret_h(); text: cnt[2]; checked: root.cnt-check[2]; row: 1;
-                        toggled => { if root.checkbox-block { root.cnt-check[2] = true; self.checked = true; }
+                        toggled => { if root.checkbox-block { root.cnt-check[2] = true;
+                            self.checked = true; warn.visible = true; }
                             else { root.cnt-check[2] = !root.cnt-check[2]; }
                             root.continent-clicked();
                         }
                     }
                     MyCheckBox { height: ret_h(); text: cnt[3]; checked: root.cnt-check[3];  
-                        toggled => { if root.checkbox-block { root.cnt-check[3] = true; self.checked = true; }
+                        toggled => { if root.checkbox-block { root.cnt-check[3] = true;
+                            self.checked = true; warn.visible = true; }
                             else { root.cnt-check[3] = !root.cnt-check[3]; }
                             root.continent-clicked();
                         }
                     }
                     MyCheckBox { height: ret_h(); text: cnt[4]; checked: root.cnt-check[4]; row: 2;
-                        toggled => { if root.checkbox-block { root.cnt-check[4] = true; self.checked = true; }
+                        toggled => { if root.checkbox-block { root.cnt-check[4] = true;
+                            self.checked = true; warn.visible = true; }
                             else { root.cnt-check[4] = !root.cnt-check[4]; }
                             root.continent-clicked();
                         }
                     }
                     MyCheckBox { height: ret_h(); text: cnt[5]; checked: root.cnt-check[5];
-                        toggled => { if root.checkbox-block { root.cnt-check[5] = true; self.checked = true; }
+                        toggled => { if root.checkbox-block { root.cnt-check[5] = true;
+                            self.checked = true; warn.visible = true; }
                             else { root.cnt-check[5] = !root.cnt-check[5]; }
                             root.continent-clicked();
                         }
@@ -130,5 +137,14 @@ export component PrePlayWindow inherits Rectangle {
         y: 0px;
         my_size: 30px;
         clicked => { root.scene-visible(1) }
+    }
+
+    warn := OnExitWindow {
+        alert: true;
+        text: @tr("One checkbox\nmust be clicked!");
+        text-one: @tr("Close");
+        visible: false;
+        font-size: 14px;
+        button-one => { self.visible = false; }
     }
 }
