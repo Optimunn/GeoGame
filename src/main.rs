@@ -103,7 +103,6 @@ fn main() -> Result<(), slint::PlatformError> {
     
     //*  Randomize countries
     let mut rand_thread: ThreadRng = GameLogic::start_rand_thread();
-    let mut rand_thread2: ThreadRng = GameLogic::start_rand_thread();
     let random_number: Rc<Cell<usize>> = drop_cell!(GameLogic::get_rand_universal(&mut rand_thread));
 
     let _ = Some(tx_cmd.send(ThreadIn {
@@ -123,9 +122,10 @@ fn main() -> Result<(), slint::PlatformError> {
     let _ = main_window.on_run_game_process({
         let tx_cmd_clone: Sender<ThreadIn> = tx_cmd.clone();
         let random_number_clone: Rc<Cell<usize>> = random_number.clone();
+        let mut rand_thread: ThreadRng = GameLogic::start_rand_thread();
         
         move |index: i32| {
-            random_number_clone.set(GameLogic::get_rand_universal(&mut rand_thread2));
+            random_number_clone.set(GameLogic::get_rand_universal(&mut rand_thread));
         
             let _ = Some(tx_cmd_clone.send(ThreadIn {
                 action: Action::Load,

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+APP_VERSION="0.3.0"
 APP_NAME="Geographical game"
 BIN_NAME="geo_game"
 BINARY_PATH="../target/release/$BIN_NAME"
@@ -128,9 +129,9 @@ cat > "$CONTENTS_DIR/Info.plist" << EOF
     <key>CFBundleName</key>
     <string>$APP_NAME</string>
     <key>CFBundleVersion</key>
-    <string>0.1.0</string>
+    <string>$APP_VERSION</string>
     <key>CFBundleShortVersionString</key>
-    <string>0.1.0</string>
+    <string>$APP_VERSION</string>
     <key>CFBundleIconFile</key>
     <string>AppIcon</string>
     <key>CFBundleDevelopmentRegion</key>
