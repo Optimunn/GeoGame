@@ -28,9 +28,16 @@ pub const COLOR_GRAY: Color = Color::from_argb_u8(255, 128, 128, 128);
 
 
 #[macro_export]
-macro_rules! simplified_rc {
+macro_rules! drop_rc {
     ($model:expr) => {
         ModelRc::from(Rc::new(VecModel::from($model)))
+    };
+}
+
+#[macro_export]
+macro_rules! drop_cell {
+    ($model:expr) => {
+        Rc::new(Cell::new($model))
     };
 }
 
@@ -44,7 +51,7 @@ macro_rules! block_checkbox {
 }
 
 #[macro_export]
-macro_rules! path_buf {
+macro_rules! drop_buf {
     ($str:expr) => {
         &PathBuf::from(($str.to_string()))
     };

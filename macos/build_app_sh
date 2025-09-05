@@ -35,11 +35,17 @@ elif [ "$1" = "--release" ]; then
     cargo_check
     echo "Build release binary..."
     cargo build --release
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
     exit 0
 elif [ "$1" = "--all" ]; then
     cargo_check
     echo "Build release application..."
     cargo build --release
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
 elif [ "$1" != "" ]; then
     echo "Unknown option: $1"
     echo "Use --help or -h for help"

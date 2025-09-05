@@ -31,7 +31,7 @@ impl GameLogic {
     }
 
 #[inline(always)]
-    pub fn start_rand_to_image() -> ThreadRng {
+    pub fn start_rand_thread() -> ThreadRng {
         rand::rng()
     }
 
