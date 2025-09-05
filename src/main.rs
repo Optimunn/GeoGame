@@ -68,11 +68,11 @@ fn main() -> Result<(), slint::PlatformError> {
 
     let (tx_cmd, rx_cmd): (Sender<ThreadIn>, Receiver<ThreadIn>) = channel();
     let (tx_data, rx_data): (Sender<ThreadData>, Receiver<ThreadData>) = channel();
-    
+
     //*  Drop thread to filter countries
     thread::spawn({
         let mut filtered_cont: Vec<Country> = Vec::new();
-        
+
         move || {
             while let Ok(input) = rx_cmd.recv() {
                 use Action::*;
@@ -91,7 +91,7 @@ fn main() -> Result<(), slint::PlatformError> {
                 #[cfg(not(debug_assertions))]
                     let patch: PathBuf = image_path_string.join(out4[input.random.unwrap()].flag_4x3.as_str());
                     let image_data: Vec<u8> = fs::read(patch).unwrap(); //todo: File read warning
-                    
+
                     for i in 0..4 { model[i] = out4[i].name.to_shared_string(); }
 
                     let data: ThreadData = ThreadData { img: image_data, country: model };
@@ -100,7 +100,7 @@ fn main() -> Result<(), slint::PlatformError> {
             }
         }
     });
-    
+
     //*  Randomize countries
     let mut rand_thread: ThreadRng = GameLogic::start_rand_thread();
     let random_number: Rc<Cell<usize>> = drop_cell!(GameLogic::get_rand_universal(&mut rand_thread));
@@ -123,10 +123,10 @@ fn main() -> Result<(), slint::PlatformError> {
         let tx_cmd_clone: Sender<ThreadIn> = tx_cmd.clone();
         let random_number_clone: Rc<Cell<usize>> = random_number.clone();
         let mut rand_thread: ThreadRng = GameLogic::start_rand_thread();
-        
+
         move |index: i32| {
             random_number_clone.set(GameLogic::get_rand_universal(&mut rand_thread));
-        
+
             let _ = Some(tx_cmd_clone.send(ThreadIn {
                 action: Action::Load,
                 checkbox: None,
@@ -140,7 +140,7 @@ fn main() -> Result<(), slint::PlatformError> {
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
         let tx_cmd_clone: Sender<ThreadIn> = tx_cmd.clone();
 
-        move |index: i32| { 
+        move |index: i32| {
             let main_window: MainWindow = main_window_handle.unwrap();
             let input_names: Vec<SharedString> = main_window.get_button_data().iter().collect();
             let mut model: AnswerData = AnswerData {
@@ -175,9 +175,8 @@ fn main() -> Result<(), slint::PlatformError> {
             let checkbox: Vec<bool> = main_window.get_checkbox_continent_checked().iter().collect();
             let blocked: bool = block_checkbox!(checkbox, 6);
 
-            main_window.set_checkbox_continent_blocked(blocked);
+			main_window.set_checkbox_continent_blocked(blocked);
 
-            
             let _ = Some(tx_cmd.send(ThreadIn {
                 action: Action::Update,
                 checkbox: Some(checkbox),
