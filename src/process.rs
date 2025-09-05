@@ -45,7 +45,7 @@ impl GameLogic {
         const CONTINENTS: [Continent; 6] = [Europe, Asia, Africa, NorthAmerica, SouthAmerica, Oceania];
 
         let mut out = Vec::new();
-        
+
         for i in 0..CONTINENTS.len() {
             if input_config[i] {
                 out.push(CONTINENTS[i].clone());

@@ -10,9 +10,9 @@ export component MainWindow inherits Window {
     callback button-clicked(int);
     //run when clicked level of play
     callback run-game-process(int);
-    //update window 
+    //update window
     callback update-window;
-    //run when checkbox be clicked 
+    //run when checkbox be clicked
     callback checkbox-continent-clicked;
     //open url in browser
     callback open-url-info(int);
@@ -24,7 +24,7 @@ export component MainWindow inherits Window {
 
     private property visible-touch-in-prime-window <=> window-game.visible_touch;
     private property <int> scene-visible: 1;
-    
+
     title: "Geographical game";
     preferred-width:  550px;
     preferred-height: 550px;

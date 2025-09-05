@@ -9,7 +9,7 @@ export component PrePlayWindow inherits Rectangle {
     callback continent-clicked;
     in-out property <[bool]> cnt-check: [true, false, false, false, false, false];
     in-out property <bool> checkbox-block: false;
-    
+
     private property <[string]> cnt: [ @tr("Europe"), @tr("Asia"), @tr("Africa"),
         @tr("North America"), @tr("South America"), @tr("Oceania") ];
 
@@ -46,7 +46,7 @@ export component PrePlayWindow inherits Rectangle {
                         toggled => { if root.checkbox-block { root.cnt-check[0] = true;
                             self.checked = true; }
                             else { root.cnt-check[0] = !root.cnt-check[0]; }
-                            root.continent-clicked(); 
+                            root.continent-clicked();
                         }
                     }
                     MyCheckBox { height: ret_h(); text: cnt[1]; checked: root.cnt-check[1];
@@ -63,7 +63,7 @@ export component PrePlayWindow inherits Rectangle {
                             root.continent-clicked();
                         }
                     }
-                    MyCheckBox { height: ret_h(); text: cnt[3]; checked: root.cnt-check[3];  
+                    MyCheckBox { height: ret_h(); text: cnt[3]; checked: root.cnt-check[3];
                         toggled => { if root.checkbox-block { root.cnt-check[3] = true;
                             self.checked = true; }
                             else { root.cnt-check[3] = !root.cnt-check[3]; }
@@ -105,7 +105,7 @@ export component PrePlayWindow inherits Rectangle {
                     padding-left: 10px;
                     padding-top: 10px;
                     padding-bottom: 10px;
-                    
+
                     for index[item] in mode: MyCheckBox {
                         height: ret_h(); text: index;
                     }
@@ -126,7 +126,7 @@ export component PrePlayWindow inherits Rectangle {
             clicked => { root.run-process(1); root.scene-visible(0) }
         }
         MyButton { text: @tr("Play hard");
-            height: ret_height(); border-color: root.background.darker(50%); 
+            height: ret_height(); border-color: root.background.darker(50%);
             clicked => { root.run-process(2); root.scene-visible(0) }
         }
     }

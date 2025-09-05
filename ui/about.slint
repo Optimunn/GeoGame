@@ -7,7 +7,7 @@ component MyBox inherits VerticalBox {
     callback clicked <=> touch.clicked;
 
     img := ImageResizable { touch := TouchArea { } }
-    txt := Text { 
+    txt := Text {
         horizontal-alignment: center;
         font-size: 18px;
     }
@@ -30,17 +30,17 @@ export component AboutApplication inherits Rectangle {
             font-size: 24px;
             horizontal-alignment: center;
         }
-        MyBox { 
+        MyBox {
             icon: @image-url("../assets/icons/github-logo.svg");
             text: "Author: Alex";
             clicked => { root.open-url(1) }
         }
-        MyBox { 
+        MyBox {
             icon: @image-url("../assets/icons/rust-logo.svg");
             text: "#RustGame";
             clicked => { root.open-url(2) }
         }
-        MyBox { 
+        MyBox {
             icon: @image-url("../assets/icons/slint-logo.svg");
             text:  "#MadeWitchSlint";
             clicked => { root.open-url(3) }

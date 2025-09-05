@@ -39,7 +39,7 @@ pub struct ConfigurationSettings;
 
 impl ConfigurationSettings {
 
-    pub fn read_from_file<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
+	pub fn read_from_file<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
         let data: String = match fs::read_to_string(path) {
             Ok(data) => data,
             Err(_) => String::from(""),
