@@ -6,10 +6,15 @@ import { AboutApplication } from "about.slint";
 import { OnExitWindow } from "onexit.slint";
 
 export component MainWindow inherits Window {
+    //in game button witch answer
     callback button-clicked(int);
+    //run when clicked level of play
     callback run-game-process(int);
+    //update window 
     callback update-window;
+    //run when checkbox be clicked 
     callback checkbox-continent-clicked;
+    //open url in browser
     callback open-url-info(int);
     in-out property button-data <=> window-game.button-data;
     in-out property answer-data <=> window-game.answer-data;
@@ -42,7 +47,7 @@ export component MainWindow inherits Window {
         visible: scene-visible == 2;
         continent-clicked => { root.checkbox-continent-clicked() }
         scene-visible(item) => { root.scene-visible = item; }
-        run-process(item) => { run-game-process(item); update-window(); }
+        run-process(item) => { root.run-game-process(item); root.update-window(); }
     }
 
     window-settings := SettingsMenu {

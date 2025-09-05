@@ -119,11 +119,13 @@ fn main() -> Result<(), slint::PlatformError> {
     main_window.set_checkbox_continent_checked(checkbox_model);
 
     let _ = main_window.on_run_game_process({
-        let tx_cmd: Sender<ThreadIn> = tx_cmd.clone();
-
+        let tx_cmd_clone: Sender<ThreadIn> = tx_cmd.clone();
+        
+        #[allow(unused_variables)]
         move |index| {
+            println!("index: {}", index);
             #[allow(unused_must_use)]
-            tx_cmd.send(ThreadIn {
+            tx_cmd_clone.send(ThreadIn {
                 action: Action::Load,
                 checkbox: None,
                 random: Some(random_number)
@@ -134,7 +136,7 @@ fn main() -> Result<(), slint::PlatformError> {
     //* When click on country button
     let _ = main_window.on_button_clicked({
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
-        let tx_cmd: Sender<ThreadIn> = tx_cmd.clone();
+        let tx_cmd_clone: Sender<ThreadIn> = tx_cmd.clone();
 
         move |index| { 
             let main_window: MainWindow = main_window_handle.unwrap();
@@ -154,7 +156,7 @@ fn main() -> Result<(), slint::PlatformError> {
             random_number = GameLogic::get_rand_universal(&mut rand_thread);
 
             #[allow(unused_must_use)]
-            tx_cmd.send(ThreadIn {
+            tx_cmd_clone.send(ThreadIn {
                 action: Action::Load,
                 checkbox: None,
                 random: Some(random_number)
