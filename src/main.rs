@@ -106,9 +106,9 @@ fn main() -> Result<(), slint::PlatformError> {
 
     #[allow(unused_must_use)]
     tx_cmd.send(ThreadIn {
-        action: Action::Init,
+        action: Action::Update,
         checkbox: Some(loaded_config.continents.clone()),
-        random: Some(random_number)
+        random: None
     });
 
     //* Blocking last checkbox
@@ -118,11 +118,18 @@ fn main() -> Result<(), slint::PlatformError> {
     let checkbox_model: ModelRc<bool> = simplified_rc!(loaded_config.continents.clone());
     main_window.set_checkbox_continent_checked(checkbox_model);
 
-    //* Update flags in application
-    if let Ok(data) = rx_data.recv() {
-        main_window.set_loaded_image(to_img(&data.img));
-        main_window.set_button_data(simplified_rc!(data.country));
-    }
+    let _ = main_window.on_run_game_process({
+        let tx_cmd: Sender<ThreadIn> = tx_cmd.clone();
+
+        move |index| {
+            #[allow(unused_must_use)]
+            tx_cmd.send(ThreadIn {
+                action: Action::Load,
+                checkbox: None,
+                random: Some(random_number)
+            });
+        }
+    });
 
     //* When click on country button
     let _ = main_window.on_button_clicked({
@@ -191,8 +198,8 @@ fn main() -> Result<(), slint::PlatformError> {
 
     //* When click on info button in "About" window
     let _ = main_window.on_open_url_info({
-        move |item| {
-            match item {
+        move |index| {
+            match index {
                 1 => open::that(LINK_TO_GITHUB).unwrap(),
                 2 => open::that(LINK_TO_RUST).unwrap(),
                 3 => open::that(LINK_TO_SLINT).unwrap(),

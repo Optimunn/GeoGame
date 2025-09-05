@@ -1,5 +1,5 @@
 import { SettingsMenu} from "settings.slint";
-import { PrimeWindow } from "window.slint";
+import { GameWindow } from "game.slint";
 import { PrePlayWindow } from "preplay.slint";
 import { WelcomeWindow } from "welcome.slint";
 import { AboutApplication } from "about.slint";
@@ -7,6 +7,7 @@ import { OnExitWindow } from "onexit.slint";
 
 export component MainWindow inherits Window {
     callback button-clicked(int);
+    callback run-game-process(int);
     callback update-window;
     callback checkbox-continent-clicked;
     callback open-url-info(int);
@@ -24,15 +25,16 @@ export component MainWindow inherits Window {
     preferred-height: 550px;
     background: #ffffff00;
 
-    window-game := PrimeWindow {
+    window-game := GameWindow {
         visible: scene-visible == 0;
-        button-clicked(index) => { root.button-clicked(index) }
+        button-clicked(item) => { root.button-clicked(item) }
         click-continue => { root.update-window() }
-        scene-visible => { root.scene-visible = 1 }
+        scene-visible-type(item) => { root.scene-visible = 1; window-welcome.game-type = item; }
     }
 
     window-welcome := WelcomeWindow {
         visible: scene-visible == 1;
+        close-answer => { window-game.answer-data.visible = false }
         scene-visible(item) => { root.scene-visible = item; }
     }
 
@@ -40,6 +42,7 @@ export component MainWindow inherits Window {
         visible: scene-visible == 2;
         continent-clicked => { root.checkbox-continent-clicked() }
         scene-visible(item) => { root.scene-visible = item; }
+        run-process(item) => { run-game-process(item); update-window(); }
     }
 
     window-settings := SettingsMenu {
@@ -52,13 +55,4 @@ export component MainWindow inherits Window {
         open-url(item) => { root.open-url-info(item) }
         scene-visible => { root.scene-visible = 1 }
     }
-
-    // OnExitWindow {
-    //     text: "Exit?";
-    //     text-one: "Pause";
-    //     text-two: "Exit";
-    //     alert: true;
-    //     button-one => { debug("button1") }
-    //     button-two => { debug("button2") }
-    // }
 }

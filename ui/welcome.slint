@@ -3,6 +3,8 @@ import { ImageResizable } from "images.slint";
 import { MyButton } from "mywidget.slint";
 export component WelcomeWindow inherits Rectangle {
     callback scene-visible(int);
+    callback close-answer;
+    in-out property <bool> game-type: true;
     background: @linear-gradient(0deg, #5dca68 0%, #5792b6 100%);
 
     VerticalBox {
@@ -17,9 +19,13 @@ export component WelcomeWindow inherits Rectangle {
         ImageResizable {
             icon: @image-url("../assets/icons/earth.svg");
         }
-        MyButton { text: @tr("Play");
+        if !game-type: MyButton { text: @tr("Continue");
             height: ret_height(); border-color: root.background.darker(50%);
-            clicked => { root.scene-visible(2) }
+            clicked => { root.scene-visible(0) }
+        }
+        MyButton { text: game-type? @tr("Play") : @tr("Restart");
+            height: ret_height(); border-color: root.background.darker(50%);
+            clicked => { root.game-type = true; root.close-answer(); root.scene-visible(2) }
         }
         MyButton { text: @tr("Settings");
             height: ret_height(); border-color: root.background.darker(50%);

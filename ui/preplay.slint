@@ -4,6 +4,7 @@ import { MyButton, MyCheckBox, MyText } from "mywidget.slint";
 
 export component PrePlayWindow inherits Rectangle {
     callback scene-visible(int);
+    callback run-process(int);
     callback continent-clicked;
     in-out property <[bool]> cnt-check: [true, false, false, false, false, false];
     in-out property <bool> checkbox-block: false;
@@ -111,15 +112,15 @@ export component PrePlayWindow inherits Rectangle {
 
         MyButton { text: @tr("Play 10");
             height: ret_height(); border-color: root.background.darker(50%);
-            clicked => { root.scene-visible(0) }
+            clicked => { root.run-process(0); root.scene-visible(0) }
         }
         MyButton { text: @tr("Play 25");
             height: ret_height(); border-color: root.background.darker(50%);
-            clicked => { root.scene-visible(0) }
+            clicked => { root.run-process(1); root.scene-visible(0) }
         }
         MyButton { text: @tr("Play hard");
             height: ret_height(); border-color: root.background.darker(50%); 
-            clicked => { root.scene-visible(0) }
+            clicked => { root.run-process(2); root.scene-visible(0) }
         }
     }
 

@@ -1,5 +1,6 @@
 import { VerticalBox, GridBox } from "std-widgets.slint";
 import { ImageResizable, ImageStatic} from "images.slint";
+import { OnExitWindow } from "onexit.slint";
 import { MyButton } from "mywidget.slint";
 
 struct AnswerData {
@@ -9,8 +10,8 @@ struct AnswerData {
     color: color
 }
 
-export component PrimeWindow inherits Rectangle {
-    callback scene-visible;
+export component GameWindow inherits Rectangle {
+    callback scene-visible-type(bool);
     callback button-clicked(int);
     callback click-continue;
 
@@ -90,6 +91,15 @@ export component PrimeWindow inherits Rectangle {
         x: 0px;
         y: 0px;
         my_size: 30px;
-        clicked => { root.scene-visible() }
+        clicked => { exit.visible = true; }
+    }
+
+    exit := OnExitWindow {
+        visible: false;
+        text: @tr("Exit or pause?");
+        text-one: @tr("Exit");
+        text-two: @tr("Pause");
+        button-one => { exit.visible = false; root.scene-visible-type(true) }
+        button-two => { exit.visible = false; root.scene-visible-type(false) }
     }
 }
