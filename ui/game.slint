@@ -18,7 +18,7 @@ export component GameWindow inherits Rectangle {
     in-out property <bool> visible_touch: false;
     in-out property  <AnswerData> answer-data: { visible: false };
     in property <[string]> button-data: [ "none", "none", "none", "none" ];
-    in property icon <=> img-res.icon;
+    in property <image> icon;
 
     private property <length> my_spacing: 10px;
 
@@ -36,7 +36,12 @@ export component GameWindow inherits Rectangle {
             text: @tr("What is country?");
         }
 
-        img-res := ImageResizable { }
+        property <bool> vis: false;
+        if vis: ImageResizable { icon: root.icon; }
+        if !vis: ImageResizable { icon: @image-url("../assets/flags/nothing.svg");
+        Text { text: "hello world. I like books"; horizontal-alignment: center;
+        font-size: root.width / 8; width: v_box.width;
+        wrap: word-wrap; } }
 
         function ret_width() -> length {
             return (root.width - my_spacing * 3 -

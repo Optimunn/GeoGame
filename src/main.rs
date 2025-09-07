@@ -22,7 +22,7 @@ slint::include_modules!();
 
 struct ThreadData {
     img: Vec<u8>,
-    country: Vec<SharedString>
+    names: Vec<SharedString>
 }
 
 #[derive(PartialEq)]
@@ -94,7 +94,7 @@ fn main() -> Result<(), slint::PlatformError> {
 
                     for i in 0..4 { model[i] = out4[i].name.to_shared_string(); }
 
-                    let data: ThreadData = ThreadData { img: image_data, country: model };
+                    let data: ThreadData = ThreadData { img: image_data, names: model };
                     tx_data.send(data).unwrap();
                 }
             }
@@ -194,7 +194,7 @@ fn main() -> Result<(), slint::PlatformError> {
 
             if let Ok(data) = rx_data.recv() {
                 main_window.set_loaded_image(to_img(&data.img));
-                main_window.set_button_data(drop_rc!(data.country));
+                main_window.set_button_data(drop_rc!(data.names));
             }
         }
     });
