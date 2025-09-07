@@ -1,8 +1,7 @@
 use rand::seq::IteratorRandom;
-use serde_json::Result;
 use rand::{rngs::ThreadRng, Rng};
 
-use crate::configure::{Country, Continent};
+use crate::configure::{Country, Continent, GameMode};
 
 pub struct GameLogic;
 
@@ -30,17 +29,13 @@ impl GameLogic {
         .collect()
     }
 
-#[inline(always)]
-    pub fn start_rand_thread() -> ThreadRng {
-        rand::rng()
-    }
-
-    pub fn get_rand_universal(rng: &mut ThreadRng) -> usize {
-        let random_number: usize = rng.random_range(0..4);
+    pub fn get_rand_universal(count: usize) -> usize {
+        let mut rng = rand::rng();
+        let random_number: usize = rng.random_range(0..count);
         random_number
     }
 
-    pub fn create_continents_list(input_config: &Vec<bool>) -> Result<Vec<Continent>> {
+    pub fn create_continents_list(input_config: &Vec<bool>) -> Vec<Continent> {
         use Continent::*;
         const CONTINENTS: [Continent; 6] = [Europe, Asia, Africa, NorthAmerica, SouthAmerica, Oceania];
 
@@ -51,6 +46,20 @@ impl GameLogic {
                 out.push(CONTINENTS[i].clone());
             }
         }
-        Ok(out)
+        out
+    }
+
+    pub fn create_mode_list(input_config: &Vec<bool>) -> Vec<GameMode> {
+        use GameMode::*;
+        const MODE: [GameMode; 3] = [Flags, Capitals, Fandc];
+
+        let mut out = Vec::new();
+
+        for i in 0..MODE.len() {
+            if input_config[i] {
+                out.push(MODE[i].clone());
+            }
+        }
+        out
     }
 }

@@ -109,7 +109,7 @@ export component PrePlayWindow inherits Rectangle {
                     padding-bottom: 10px;
 
                     for index[item] in mode: MyCheckBox {
-                        height: ret-h(); text: index;
+                        height: ret-h(); text: index; checked: root.mode-check[item];
                         toggled => { if root.mode-block { root.mode-check[item] = true;
                             self.checked = true; }
                             else { root.mode-check[item] = !root.mode-check[item]; }

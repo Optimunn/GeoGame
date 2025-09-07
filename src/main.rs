@@ -12,7 +12,7 @@ use std::rc::Rc;
 use process::GameLogic;
 use consts::*;
 use configure::ConfigurationSettings as ConfSet;
-use configure::{InputConfig, Country, Continent};
+use configure::{InputConfig, Country, Continent, GameMode, Action};
 
 mod process;
 mod consts;
@@ -21,18 +21,14 @@ mod configure;
 slint::include_modules!();
 
 struct ThreadData {
-    img: Vec<u8>,
+    mode: GameMode,
+    img: Option<Vec<u8>>,
+    text: Option<SharedString>,
     names: Vec<SharedString>
 }
 
-#[derive(PartialEq)]
-enum Action {
-    Init,
-    Update,
-    Load
-}
-
 struct ThreadIn {
+    mode: Option<Vec<GameMode>>,
     action: Action,
     checkbox: Option<Vec<bool>>,
     random: Option<usize>
@@ -57,7 +53,10 @@ fn main() -> Result<(), slint::PlatformError> {
     let mut loaded_config: InputConfig = match ConfSet::read_from_file(
             #[cfg(debug_assertions)] drop_buf!(LOAD_CONFIG), #[cfg(not(debug_assertions))] &config_path_string) {
         Ok(config) => config,
-        Err(_) => InputConfig { continents: vec![true; 6] },
+        Err(_) => InputConfig {
+            continents: vec![true; 6],
+            mode: vec![true; 3]
+        },
     };
     //*  Load app data
     let serialized_countries: Vec<Country> = match ConfSet::read_from_file(
@@ -72,40 +71,67 @@ fn main() -> Result<(), slint::PlatformError> {
     //*  Drop thread to filter countries
     thread::spawn({
         let mut filtered_cont: Vec<Country> = Vec::new();
+        let mut mode: Vec<GameMode> = Vec::new();
 
         move || {
             while let Ok(input) = rx_cmd.recv() {
                 use Action::*;
                 if input.action == Update || input.action == Init {
-                    let continent: Vec<Continent> = GameLogic::create_continents_list(&input.checkbox.unwrap()).unwrap();
+                    let continent: Vec<Continent> = GameLogic::create_continents_list(&input.checkbox.unwrap());
                     filtered_cont = GameLogic::filter_by_continents(&serialized_countries, &continent);
+                    mode = input.mode.unwrap();
                 }
                 if input.action == Load || input.action == Init {
                     let mut model: Vec<SharedString> = vec![SharedString::new(); 4];
 
                     let out4: Vec<Country> = GameLogic::get_random_countries(&filtered_cont, 4);
-                #[cfg(debug_assertions)]
-                    let patch: String = out4[input.random.unwrap()].flag_4x3.to_string();
-                #[cfg(debug_assertions)]
-                    let patch: String = format!("{LOAD_IMAGE}{}", patch);
-                #[cfg(not(debug_assertions))]
-                    let patch: PathBuf = image_path_string.join(out4[input.random.unwrap()].flag_4x3.as_str());
-                    let image_data: Vec<u8> = fs::read(patch).unwrap(); //todo: File read warning
+                    let used_mode: GameMode = mode[GameLogic::get_rand_universal(mode.len())].clone();
 
-                    for i in 0..4 { model[i] = out4[i].name.to_shared_string(); }
+                    use GameMode::*;
+                    match used_mode {
+                        Flags => {
+                        #[cfg(debug_assertions)]
+                            let patch: String = out4[input.random.unwrap()].flag_4x3.to_string();
+                        #[cfg(debug_assertions)]
+                            let patch: String = format!("{LOAD_IMAGE}{}", patch);
+                        #[cfg(not(debug_assertions))]
+                            let patch: PathBuf = image_path_string.join(out4[input.random.unwrap()].flag_4x3.as_str());
+                            let image_data: Vec<u8> = fs::read(patch).unwrap(); //todo: File read warning
+                            for i in 0..4 { model[i] = out4[i].name.to_shared_string(); }
 
-                    let data: ThreadData = ThreadData { img: image_data, names: model };
-                    tx_data.send(data).unwrap();
+                            let data: ThreadData = ThreadData { mode: used_mode, text: None, img: Some(image_data), names: model };
+                            tx_data.send(data).unwrap();
+                        }
+                        Capitals => {
+                            let text: SharedString = out4[input.random.unwrap()].name.to_shared_string();
+
+                            for i in 0..4 {
+                                let exit = match &out4[i].capital {
+                                    None => { "None".to_shared_string() },
+                                    Some(capital) => { capital.to_shared_string() }
+                                };
+                                model[i] = exit;
+                            }
+
+                            let data: ThreadData = ThreadData { mode: used_mode, text: Some(text), img: None, names: model };
+                            tx_data.send(data).unwrap();
+
+                        }
+                        Fandc => {
+                            println!("TODO: FandC");
+                        }
+                    }
                 }
             }
         }
     });
 
     //*  Randomize countries
-    let mut rand_thread: ThreadRng = GameLogic::start_rand_thread();
-    let random_number: Rc<Cell<usize>> = drop_cell!(GameLogic::get_rand_universal(&mut rand_thread));
+    let random_number: Rc<Cell<usize>> = drop_cell!(GameLogic::get_rand_universal(4));
 
+    let mode_selected = GameLogic::create_mode_list(&loaded_config.mode);
     let _ = Some(tx_cmd.send(ThreadIn {
+        mode: Some(mode_selected),
         action: Action::Update,
         checkbox: Some(loaded_config.continents.clone()),
         random: None
@@ -114,20 +140,24 @@ fn main() -> Result<(), slint::PlatformError> {
     //* Blocking last checkbox
     let checkbox_blocked: bool = block_checkbox!(&loaded_config.continents, 6);
     if checkbox_blocked { main_window.set_checkbox_continent_blocked(checkbox_blocked) }
+    let mode_block: bool = block_checkbox!(&loaded_config.mode, 3);
+    if mode_block { main_window.set_checkbox_mode_blocked(mode_block) }
 
     let checkbox_model: ModelRc<bool> = drop_rc!(loaded_config.continents.clone());
     main_window.set_checkbox_continent_checked(checkbox_model);
+    let mode_model: ModelRc<bool> = drop_rc!(loaded_config.mode.clone());
+    main_window.set_checkbox_mode_checked(mode_model);
 
     //* When click on run button
     let _ = main_window.on_run_game_process({
         let tx_cmd_clone: Sender<ThreadIn> = tx_cmd.clone();
         let random_number_clone: Rc<Cell<usize>> = random_number.clone();
-        let mut rand_thread: ThreadRng = GameLogic::start_rand_thread();
 
         move |index: i32| {
-            random_number_clone.set(GameLogic::get_rand_universal(&mut rand_thread));
+            random_number_clone.set(GameLogic::get_rand_universal(4));
 
             let _ = Some(tx_cmd_clone.send(ThreadIn {
+                mode: None,
                 action: Action::Load,
                 checkbox: None,
                 random: Some(random_number_clone.get())
@@ -156,9 +186,10 @@ fn main() -> Result<(), slint::PlatformError> {
             model.answer = input_names[random_number_get].clone();
             main_window.set_answer_data(model);
 
-            random_number.set(GameLogic::get_rand_universal(&mut rand_thread));
+            random_number.set(GameLogic::get_rand_universal(4));
 
             let _ = Some(tx_cmd_clone.send(ThreadIn {
+                mode: None,
                 action: Action::Load,
                 checkbox: None,
                 random: Some(random_number.get())
@@ -173,11 +204,16 @@ fn main() -> Result<(), slint::PlatformError> {
         move || {
             let main_window: MainWindow = main_window_handle.unwrap();
             let checkbox: Vec<bool> = main_window.get_checkbox_continent_checked().iter().collect();
+            let mode: Vec<bool> = main_window.get_checkbox_mode_checked().iter().collect();
             let blocked: bool = block_checkbox!(checkbox, 6);
+            let mode_blocked: bool = block_checkbox!(mode, 3);
 
 			main_window.set_checkbox_continent_blocked(blocked);
+            main_window.set_checkbox_mode_blocked(mode_blocked);
 
+            let mode_selected = GameLogic::create_mode_list(&mode);
             let _ = Some(tx_cmd.send(ThreadIn {
+                mode: Some(mode_selected),
                 action: Action::Update,
                 checkbox: Some(checkbox),
                 random: None
@@ -193,8 +229,23 @@ fn main() -> Result<(), slint::PlatformError> {
             let main_window: MainWindow = main_window_handle.unwrap();
 
             if let Ok(data) = rx_data.recv() {
-                main_window.set_loaded_image(to_img(&data.img));
-                main_window.set_button_data(drop_rc!(data.names));
+                use GameMode::*;
+                match data.mode {
+                    Flags => {
+                        main_window.set_img_or_text(true);
+                        main_window.set_loaded_image(to_img(&data.img.unwrap()));
+                        main_window.set_button_data(drop_rc!(data.names));
+                    }
+                    Capitals => {
+                        main_window.set_img_or_text(false);
+                        main_window.set_loaded_text(data.text.unwrap());
+                        main_window.set_button_data(drop_rc!(data.names));
+                    }
+                    Fandc => {
+                        main_window.set_img_or_text(false);
+                        println!("FandC");
+                    }
+                }
             }
         }
     });
@@ -219,7 +270,9 @@ fn main() -> Result<(), slint::PlatformError> {
             let main_window: MainWindow = main_window_handle.unwrap();
 
             let checkbox: Vec<bool> = main_window.get_checkbox_continent_checked().iter().collect();
+            let mode: Vec<bool> = main_window.get_checkbox_mode_checked().iter().collect();
             loaded_config.continents = checkbox;
+            loaded_config.mode = mode;
 
             ConfSet::write_input_config(#[cfg(debug_assertions)] drop_buf!(LOAD_CONFIG),
                 #[cfg(not(debug_assertions))] &config_path_string, &loaded_config).unwrap();
