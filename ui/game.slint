@@ -96,7 +96,7 @@ export component GameWindow inherits Rectangle {
         x: 0px;
         y: 0px;
         my-size: 30px;
-        clicked => { exit.visible = true; root.click-continue(); root.answer-data.visible = false; }
+        clicked => { exit.visible = true; if answer-data.visible { root.click-continue(); root.answer-data.visible = false; }}
     }
 
     exit := OnExitWindow {
