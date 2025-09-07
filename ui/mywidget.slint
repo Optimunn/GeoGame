@@ -35,6 +35,7 @@ export component MyCheckBox inherits Rectangle {
         width: parent.width - self.font-size;
         horizontal-alignment: center;
         color: #000000;
+        wrap: word-wrap; //! Add ...
         font-weight: 600;
     }
     Rectangle {
@@ -55,5 +56,6 @@ export component MyText inherits Text {
     horizontal-alignment: center;
     font-size: self.height / 1.3;
     color: #000000;
+    wrap: word-wrap; //! Add ...
     font-weight: 600;
 }
