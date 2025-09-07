@@ -1,4 +1,5 @@
-use slint::{Image, Model, ModelRc, SharedString, ToSharedString, VecModel, Weak};
+use slint::{Image, Model, ModelRc, PhysicalSize, PhysicalPosition,
+    SharedString, ToSharedString, VecModel, Weak};
 use std::sync::mpsc::{Sender, Receiver, channel};
 use std::thread;
 use std::cell::Cell;
@@ -35,15 +36,6 @@ fn main() -> Result<(), slint::PlatformError> {
 #[cfg(not(debug_assertions))]
     let image_path_string: PathBuf = exe_dir.join(LOAD_IMAGE);
 
-    //*  Load app configuration data
-    let mut loaded_config: InputConfig = match ConfSet::read_from_file(
-            #[cfg(debug_assertions)] drop_buf!(LOAD_CONFIG), #[cfg(not(debug_assertions))] &config_path_string) {
-        Ok(config) => config,
-        Err(_) => InputConfig {
-            continents: vec![true; 6],
-            mode: vec![true; 3]
-        },
-    };
     //*  Load app data
     let serialized_countries: Vec<Country> = match ConfSet::read_from_file(
             #[cfg(debug_assertions)] drop_buf!(LOAD_DATA), #[cfg(not(debug_assertions))] &data_path_string) {
@@ -51,10 +43,29 @@ fn main() -> Result<(), slint::PlatformError> {
         Err(_) => panic!("Failed to load app data"),
     };
 
+    //*  Load app configuration data
+    let mut loaded_config: InputConfig = match ConfSet::read_from_file(
+            #[cfg(debug_assertions)] drop_buf!(LOAD_CONFIG), #[cfg(not(debug_assertions))] &config_path_string) {
+        Ok(config) => config,
+        Err(_) => InputConfig {
+            size: (500, 500),
+            position: (0, 0),
+            continents: vec![true; 6],
+            mode: vec![true; 3],
+            language: "en".to_string()
+        },
+    };
+
+    let window_size: PhysicalSize = PhysicalSize::new(loaded_config.size.0, loaded_config.size.1);
+    main_window.window().set_size(window_size);
+    let window_position: PhysicalPosition = PhysicalPosition::new(loaded_config.position.0, loaded_config.position.1);
+    main_window.window().set_position(window_position);
+
     let (tx_cmd, rx_cmd): (Sender<ThreadIn>, Receiver<ThreadIn>) = channel();
     let (tx_data, rx_data): (Sender<ThreadData>, Receiver<ThreadData>) = channel();
 
     //*  Drop thread to filter countries
+    //? -> Thread
     thread::spawn({
         let mut filtered_cont: Vec<Country> = Vec::new();
         let mut mode: Vec<GameMode> = Vec::new();
@@ -75,11 +86,12 @@ fn main() -> Result<(), slint::PlatformError> {
             }
         }
     });
+    //? <- Thread
 
     //*  Randomize countries
     let random_number: Rc<Cell<usize>> = drop_cell!(GameLogic::get_rand_universal(4));
 
-    let mode_selected = GameLogic::create_mode_list(&loaded_config.mode);
+    let mode_selected: Vec<GameMode> = GameLogic::create_mode_list(&loaded_config.mode);
     let _ = Some(tx_cmd.send(ThreadIn {
         mode: Some(mode_selected),
         action: Action::Update,
@@ -220,9 +232,13 @@ fn main() -> Result<(), slint::PlatformError> {
             let main_window: MainWindow = main_window_handle.unwrap();
 
             let checkbox: Vec<bool> = main_window.get_checkbox_continent_checked().iter().collect();
-            let mode: Vec<bool> = main_window.get_checkbox_mode_checked().iter().collect();
             loaded_config.continents = checkbox;
+            let mode: Vec<bool> = main_window.get_checkbox_mode_checked().iter().collect();
             loaded_config.mode = mode;
+            let window_get_size: PhysicalSize = main_window.window().size();
+            loaded_config.size = (window_get_size.width / 2, window_get_size.height / 2);
+            let window_get_pos: PhysicalPosition = main_window.window().position();
+            loaded_config.position = (window_get_pos.x, position_bug!(window_get_pos.y));
 
             ConfSet::write_input_config(#[cfg(debug_assertions)] drop_buf!(LOAD_CONFIG),
                 #[cfg(not(debug_assertions))] &config_path_string, &loaded_config).unwrap();
@@ -238,4 +254,11 @@ fn to_img(image_data: &[u8]) -> Image {
         Ok(image) => image,
         Err(_) => Image::default(),
     }
+}
+
+#[macro_export]
+macro_rules! position_bug { // !!! WTF
+    ($len:expr) => {
+        $len + 56
+    };
 }

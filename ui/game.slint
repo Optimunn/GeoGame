@@ -15,7 +15,6 @@ export component GameWindow inherits Rectangle {
     callback button-clicked(int);
     callback click-continue;
 
-    in-out property <bool> visible-touch: false;
     in-out property <bool> img-or-text: false;
     in-out property  <AnswerData> answer-data: { visible: false };
     in property <[string]> button-data: [ "none", "none", "none", "none" ];
@@ -58,16 +57,16 @@ export component GameWindow inherits Rectangle {
         if !answer-data.visible: GridBox {
             MyButton {row: 0; border-color: gray; width: ret-width();
                 my-height: ret-height(); text: root.button-data[0];
-                clicked => {root.button-clicked(0); root.visible-touch = true} }
+                clicked => {root.button-clicked(0);} }
             MyButton { border-color: gray; width: ret-width();
                 my-height: ret-height(); text: root.button-data[1];
-                clicked => {root.button-clicked(1); root.visible-touch = true} }
+                clicked => {root.button-clicked(1);} }
             MyButton {row: 1; border-color: gray; width: ret-width();
                 my-height: ret-height(); text: root.button-data[2];
-                clicked => {root.button-clicked(2); root.visible-touch = true} }
+                clicked => {root.button-clicked(2);} }
             MyButton { border-color: gray; width: ret-width();
                 my-height: ret-height(); text: root.button-data[3];
-                clicked => {root.button-clicked(3); root.visible-touch = true} }
+                clicked => {root.button-clicked(3);} }
         }
 
         if answer-data.visible: VerticalBox {
@@ -83,10 +82,8 @@ export component GameWindow inherits Rectangle {
                 }
 
                 TouchArea {
-                    visible: root.visible-touch;
                     clicked => {
                         root.answer-data.visible = false;
-                        root.visible-touch = false;
                         root.click-continue();
                     }
                 }
@@ -99,7 +96,7 @@ export component GameWindow inherits Rectangle {
         x: 0px;
         y: 0px;
         my-size: 30px;
-        clicked => { exit.visible = true; }
+        clicked => { exit.visible = true; root.click-continue(); root.answer-data.visible = false; }
     }
 
     exit := OnExitWindow {

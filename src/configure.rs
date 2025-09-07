@@ -33,8 +33,11 @@ pub struct Country {
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct InputConfig {
+    pub size: (u32, u32),
+    pub position: (i32, i32),
     pub continents: Vec<bool>,
-    pub mode: Vec<bool>
+    pub mode: Vec<bool>,
+    pub language: String
 }
 pub struct ConfigurationSettings;
 
