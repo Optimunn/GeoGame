@@ -1,38 +1,24 @@
 use slint::{Image, Model, ModelRc, SharedString, ToSharedString, VecModel, Weak};
-use rand::rngs::ThreadRng;
 use std::sync::mpsc::{Sender, Receiver, channel};
 use std::thread;
 use std::cell::Cell;
 #[cfg(not(debug_assertions))]
 use std::path::Path;
 use std::path::PathBuf;
-use std::fs;
 use std::rc::Rc;
 
 use process::GameLogic;
 use consts::*;
 use configure::ConfigurationSettings as ConfSet;
-use configure::{InputConfig, Country, Continent, GameMode, Action};
+use configure::{InputConfig, Country, Continent};
+use threadfn::{ThreadIn, ThreadData, GameMode, Action};
 
 mod process;
 mod consts;
 mod configure;
+mod threadfn;
 
 slint::include_modules!();
-
-struct ThreadData {
-    mode: GameMode,
-    img: Option<Vec<u8>>,
-    text: Option<SharedString>,
-    names: Vec<SharedString>
-}
-
-struct ThreadIn {
-    mode: Option<Vec<GameMode>>,
-    action: Action,
-    checkbox: Option<Vec<bool>>,
-    random: Option<usize>
-}
 
 fn main() -> Result<(), slint::PlatformError> {
     //* Drop app window
@@ -76,50 +62,14 @@ fn main() -> Result<(), slint::PlatformError> {
         move || {
             while let Ok(input) = rx_cmd.recv() {
                 use Action::*;
-                if input.action == Update || input.action == Init {
-                    let continent: Vec<Continent> = GameLogic::create_continents_list(&input.checkbox.unwrap());
-                    filtered_cont = GameLogic::filter_by_continents(&serialized_countries, &continent);
-                    mode = input.mode.unwrap();
-                }
-                if input.action == Load || input.action == Init {
-                    let mut model: Vec<SharedString> = vec![SharedString::new(); 4];
-
-                    let out4: Vec<Country> = GameLogic::get_random_countries(&filtered_cont, 4);
-                    let used_mode: GameMode = mode[GameLogic::get_rand_universal(mode.len())].clone();
-
-                    use GameMode::*;
-                    match used_mode {
-                        Flags => {
-                        #[cfg(debug_assertions)]
-                            let patch: String = out4[input.random.unwrap()].flag_4x3.to_string();
-                        #[cfg(debug_assertions)]
-                            let patch: String = format!("{LOAD_IMAGE}{}", patch);
-                        #[cfg(not(debug_assertions))]
-                            let patch: PathBuf = image_path_string.join(out4[input.random.unwrap()].flag_4x3.as_str());
-                            let image_data: Vec<u8> = fs::read(patch).unwrap(); //todo: File read warning
-                            for i in 0..4 { model[i] = out4[i].name.to_shared_string(); }
-
-                            let data: ThreadData = ThreadData { mode: used_mode, text: None, img: Some(image_data), names: model };
-                            tx_data.send(data).unwrap();
-                        }
-                        Capitals => {
-                            let text: SharedString = out4[input.random.unwrap()].name.to_shared_string();
-
-                            for i in 0..4 {
-                                let exit = match &out4[i].capital {
-                                    None => { "None".to_shared_string() },
-                                    Some(capital) => { capital.to_shared_string() }
-                                };
-                                model[i] = exit;
-                            }
-
-                            let data: ThreadData = ThreadData { mode: used_mode, text: Some(text), img: None, names: model };
-                            tx_data.send(data).unwrap();
-
-                        }
-                        Fandc => {
-                            println!("TODO: FandC");
-                        }
+                match input.action {
+                    Update => {
+                        let continent: Vec<Continent> = GameLogic::create_continents_list(&input.checkbox.unwrap());
+                        filtered_cont = GameLogic::filter_by_continents(&serialized_countries, &continent);
+                        mode = input.mode.unwrap();
+                    }
+                    Load => {
+                        threadfn::load_data_from_thread(&filtered_cont, &mode, &input, &tx_data, #[cfg(not(debug_assertions))] &image_path_string);
                     }
                 }
             }

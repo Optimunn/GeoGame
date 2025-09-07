@@ -2,20 +2,6 @@ use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use serde_json::Result;
 use std::{fs, path::PathBuf};
 
-#[derive(PartialEq)]
-pub enum Action {
-    Init,
-    Update,
-    Load
-}
-
-#[derive(PartialEq, Clone)]
-pub enum GameMode {
-    Flags,
-    Capitals,
-    Fandc
-}
-
 #[derive(Debug, Deserialize, PartialEq, Clone)]
 pub enum Continent {
     Africa,

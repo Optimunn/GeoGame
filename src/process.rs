@@ -1,7 +1,8 @@
 use rand::seq::IteratorRandom;
-use rand::{rngs::ThreadRng, Rng};
+use rand::Rng;
 
-use crate::configure::{Country, Continent, GameMode};
+use crate::configure::{Country, Continent};
+use crate::threadfn::GameMode;
 
 pub struct GameLogic;
 
