@@ -12,7 +12,7 @@ export component WelcomeWindow inherits Rectangle {
         padding-right: 20px;
         padding-left: 20px;
 
-        function ret_height() -> length {
+        function ret-height() -> length {
             return root.height / 10;
         }
 
@@ -20,19 +20,19 @@ export component WelcomeWindow inherits Rectangle {
             icon: @image-url("../assets/icons/earth.svg");
         }
         if !game-type: MyButton { text: @tr("Continue");
-            height: ret_height(); border-color: root.background.darker(50%);
+            height: ret-height(); border-color: root.background.darker(50%);
             clicked => { root.scene-visible(0) }
         }
         MyButton { text: game-type? @tr("Play") : @tr("Restart");
-            height: ret_height(); border-color: root.background.darker(50%);
+            height: ret-height(); border-color: root.background.darker(50%);
             clicked => { root.game-type = true; root.close-answer(); root.scene-visible(2) }
         }
         MyButton { text: @tr("Settings");
-            height: ret_height(); border-color: root.background.darker(50%);
+            height: ret-height(); border-color: root.background.darker(50%);
             clicked => { root.scene-visible(3) }
         }
         MyButton { text: @tr("About");
-            height: ret_height(); border-color: root.background.darker(50%);
+            height: ret-height(); border-color: root.background.darker(50%);
             clicked => { root.scene-visible(4) }
         }
     }

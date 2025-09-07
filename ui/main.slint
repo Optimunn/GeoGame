@@ -13,16 +13,22 @@ export component MainWindow inherits Window {
     //update window
     callback update-window;
     //run when checkbox be clicked
-    callback checkbox-continent-clicked;
+    callback checkbox-clicked;
     //open url in browser
     callback open-url-info(int);
+
     in-out property button-data <=> window-game.button-data;
     in-out property answer-data <=> window-game.answer-data;
-    in-out property checkbox-continent-checked <=> window-preplay.cnt-check;
-    in-out property checkbox-continent-blocked <=> window-preplay.checkbox-block;
-    in property loaded_image <=> window-game.icon;
+    in-out property img-or-text <=> window-game.img-or-text;
+    in property loaded-image <=> window-game.icon-data;
+    in property loaded-text <=> window-game.text-data;
 
-    private property visible-touch-in-prime-window <=> window-game.visible_touch;
+    in-out property checkbox-continent-checked <=> window-preplay.cnt-check;
+    in-out property checkbox-mode-checked <=> window-preplay.mode-check;
+    in-out property checkbox-continent-blocked <=> window-preplay.checkbox-block;
+    in-out property checkbox-mode-blocked <=> window-preplay.mode-block;
+
+    private property visible-touch-in-prime-window <=> window-game.visible-touch;
     private property <int> scene-visible: 1;
 
     title: "Geographical game";
@@ -45,7 +51,7 @@ export component MainWindow inherits Window {
 
     window-preplay := PrePlayWindow {
         visible: scene-visible == 2;
-        continent-clicked => { root.checkbox-continent-clicked() }
+        checkbox-clicked => { root.checkbox-clicked() }
         scene-visible(item) => { root.scene-visible = item; }
         run-process(item) => { root.run-game-process(item); root.update-window(); }
     }
@@ -55,7 +61,7 @@ export component MainWindow inherits Window {
         scene-visible => { root.scene-visible = 1 }
     }
 
-    window_about := AboutApplication {
+    window-about := AboutApplication {
         visible: scene-visible == 4;
         open-url(item) => { root.open-url-info(item) }
         scene-visible => { root.scene-visible = 1 }

@@ -15,16 +15,18 @@ export component GameWindow inherits Rectangle {
     callback button-clicked(int);
     callback click-continue;
 
-    in-out property <bool> visible_touch: false;
+    in-out property <bool> visible-touch: false;
+    in-out property <bool> img-or-text: false;
     in-out property  <AnswerData> answer-data: { visible: false };
     in property <[string]> button-data: [ "none", "none", "none", "none" ];
-    in property <image> icon;
+    in property <image> icon-data;
+    in property <string> text-data;
 
-    private property <length> my_spacing: 10px;
+    private property <length> my-spacing: 10px;
 
     background: @linear-gradient(135deg,#fff1fc 0%, #4e4e4e 100%);
 
-    v_box:= VerticalBox {
+    v-box:= VerticalBox {
         alignment: center;
         padding-right: 20px;
         padding-left: 20px;
@@ -33,38 +35,39 @@ export component GameWindow inherits Rectangle {
             vertical-alignment: center;
             horizontal-alignment: center;
             font-size: 32px;
-            text: @tr("What is country?");
+            text: @tr("Answer?");
         }
 
-        property <bool> vis: false;
-        if vis: ImageResizable { icon: root.icon; }
-        if !vis: ImageResizable { icon: @image-url("../assets/flags/nothing.svg");
-        Text { text: "hello world. I like books"; horizontal-alignment: center;
-        font-size: root.width / 8; width: v_box.width;
-        wrap: word-wrap; } }
-
-        function ret_width() -> length {
-            return (root.width - my_spacing * 3 -
-                v_box.padding-left - v_box.padding-right) / 2;
+        if img-or-text: ImageResizable { icon: root.icon-data; }
+        if !img-or-text: ImageResizable { icon: @image-url("../assets/flags/nothing.svg");
+            Text { text: text-data; horizontal-alignment: center;
+                font-size: root.width / 8; width: v-box.width;
+                wrap: word-wrap;
+            }
         }
 
-        function ret_height() -> length {
+        function ret-width() -> length {
+            return (root.width - my-spacing * 3 -
+                v-box.padding-left - v-box.padding-right) / 2;
+        }
+
+        function ret-height() -> length {
             return root.height / 10;
         }
 
         if !answer-data.visible: GridBox {
-            MyButton {row: 0; border-color: gray; width: ret_width();
-                my_height: ret_height(); text: root.button-data[0];
-                clicked => {root.button-clicked(0); root.visible_touch = true} }
-            MyButton { border-color: gray; width: ret_width();
-                my_height: ret_height(); text: root.button-data[1];
-                clicked => {root.button-clicked(1); root.visible_touch = true} }
-            MyButton {row: 1; border-color: gray; width: ret_width();
-                my_height: ret_height(); text: root.button-data[2];
-                clicked => {root.button-clicked(2); root.visible_touch = true} }
-            MyButton { border-color: gray; width: ret_width();
-                my_height: ret_height(); text: root.button-data[3];
-                clicked => {root.button-clicked(3); root.visible_touch = true} }
+            MyButton {row: 0; border-color: gray; width: ret-width();
+                my-height: ret-height(); text: root.button-data[0];
+                clicked => {root.button-clicked(0); root.visible-touch = true} }
+            MyButton { border-color: gray; width: ret-width();
+                my-height: ret-height(); text: root.button-data[1];
+                clicked => {root.button-clicked(1); root.visible-touch = true} }
+            MyButton {row: 1; border-color: gray; width: ret-width();
+                my-height: ret-height(); text: root.button-data[2];
+                clicked => {root.button-clicked(2); root.visible-touch = true} }
+            MyButton { border-color: gray; width: ret-width();
+                my-height: ret-height(); text: root.button-data[3];
+                clicked => {root.button-clicked(3); root.visible-touch = true} }
         }
 
         if answer-data.visible: VerticalBox {
@@ -73,17 +76,17 @@ export component GameWindow inherits Rectangle {
                 border-radius: self.height / 4;
                 border-width: self.height / 8;
                 border-color: answer-data.color;
-                height: ret_height() * 2 + 10px;
+                height: ret-height() * 2 + 10px;
                 vb := VerticalBox {
                     Text { font-size: vb.height / 3; horizontal-alignment: center; text: answer-data.selected; }
                     Text { font-size: vb.height / 5; horizontal-alignment: center; text: answer-data.answer; }
                 }
 
                 TouchArea {
-                    visible: root.visible_touch;
+                    visible: root.visible-touch;
                     clicked => {
                         root.answer-data.visible = false;
-                        root.visible_touch = false;
+                        root.visible-touch = false;
                         root.click-continue();
                     }
                 }
@@ -95,7 +98,7 @@ export component GameWindow inherits Rectangle {
         icon: @image-url("../assets/icons/menu.svg");
         x: 0px;
         y: 0px;
-        my_size: 30px;
+        my-size: 30px;
         clicked => { exit.visible = true; }
     }
 

@@ -167,7 +167,7 @@ fn main() -> Result<(), slint::PlatformError> {
     });
 
     //* When click on continent checkbox
-    let _ = main_window.on_checkbox_continent_clicked({
+    let _ = main_window.on_checkbox_clicked({
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
 
         move || {
