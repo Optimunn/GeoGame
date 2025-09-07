@@ -57,7 +57,10 @@ pub fn load_data_from_thread(
             let patch: String = format!("{LOAD_IMAGE}{}", patch);
         #[cfg(not(debug_assertions))]
             let patch: PathBuf = image_path_string.join(out4[input.random.unwrap()].flag_4x3.as_str());
-            let image_data: Vec<u8> = fs::read(patch).unwrap(); //todo: File read warning
+            let image_data: Vec<u8> = match fs::read(patch) {
+                Ok(data) => data,
+                Err(_) => panic!("Failed to load image")
+            };
             for i in 0..4 { model[i] = out4[i].name.to_shared_string(); }
 
             let data: ThreadData = ThreadData { mode: used_mode, text: None, img: Some(image_data), names: model };
