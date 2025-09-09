@@ -63,7 +63,12 @@ pub fn load_data_from_thread(
             };
             for i in 0..4 { model[i] = out4[i].name.to_shared_string(); }
 
-            let data: ThreadData = ThreadData { mode: used_mode, text: None, img: Some(image_data), names: model };
+            let data: ThreadData = ThreadData {
+                mode: used_mode,
+                text: None,
+                img: Some(image_data),
+                names: model
+            };
             tx_data.send(data).unwrap();
         }
         Capitals => {
@@ -77,7 +82,12 @@ pub fn load_data_from_thread(
                 model[i] = exit;
             }
 
-            let data: ThreadData = ThreadData { mode: used_mode, text: Some(text), img: None, names: model };
+            let data: ThreadData = ThreadData {
+                mode: used_mode,
+                text: Some(text),
+                img: None,
+                names: model
+            };
             tx_data.send(data).unwrap();
         }
         Fandc => {

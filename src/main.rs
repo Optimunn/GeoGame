@@ -47,13 +47,7 @@ fn main() -> Result<(), slint::PlatformError> {
     let mut loaded_config: InputConfig = match ConfSet::read_from_file(
             #[cfg(debug_assertions)] drop_buf!(LOAD_CONFIG), #[cfg(not(debug_assertions))] &config_path_string) {
         Ok(config) => config,
-        Err(_) => InputConfig {
-            size: (500, 500),
-            position: (0, 0),
-            continents: vec![true; 6],
-            mode: vec![true; 3],
-            language: "en".to_string()
-        },
+        Err(_) => InputConfig::default(),
     };
 
     let window_size: PhysicalSize = PhysicalSize::new(loaded_config.size.0, loaded_config.size.1);

@@ -39,6 +39,20 @@ pub struct InputConfig {
     pub mode: Vec<bool>,
     pub language: String
 }
+
+impl InputConfig {
+
+    pub fn default() -> InputConfig {
+        InputConfig {
+            size: (500, 500),
+            position: (0, 0),
+            continents: vec![true; 6],
+            mode: vec![true; 3],
+            language: String::from("en")
+        }
+    }
+}
+
 pub struct ConfigurationSettings;
 
 impl ConfigurationSettings {

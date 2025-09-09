@@ -8,7 +8,7 @@ pub struct GameLogic;
 
 impl GameLogic {
 
-    pub fn filter_by_continents(countries: &Vec<Country>, target_continents: &[Continent],
+    pub fn filter_by_continents(countries: &Vec<Country>, target_continents: &[Continent]
     ) -> Vec<Country> {
         countries
             .into_iter()
@@ -31,7 +31,7 @@ impl GameLogic {
     }
 
     pub fn get_rand_universal(count: usize) -> usize {
-        let mut rng = rand::rng();
+        let mut rng: rand::prelude::ThreadRng = rand::rng();
         let random_number: usize = rng.random_range(0..count);
         random_number
     }
