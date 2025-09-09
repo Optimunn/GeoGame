@@ -86,13 +86,37 @@ impl ConfigurationSettings {
 }
 
 pub mod set {
-    use slint::{PhysicalPosition, PhysicalSize};
+    use slint::{PhysicalPosition, PhysicalSize, ModelRc, VecModel};
+    use std::rc::Rc;
+    use crate::slint_generatedMainWindow::MainWindow;
+    use crate::{block_checkbox, drop_rc};
 
+#[inline(always)]
     pub fn screen_size(size: (u32, u32)) -> PhysicalSize {
         PhysicalSize::new(size.0, size.1)
     }
-
+#[inline(always)]
     pub fn screen_position(position: (i32, i32)) -> PhysicalPosition {
         PhysicalPosition::new(position.0, position.1)
+    }
+#[inline(always)]
+    pub fn checkbox_continent_blocked(window: &MainWindow, cont: &Vec<bool>) {
+        let checkbox_blocked: bool = block_checkbox!(cont, 6);
+        if checkbox_blocked { window.set_checkbox_continent_blocked(checkbox_blocked) }
+    }
+#[inline(always)]
+    pub fn checkbox_mode_blocked(window: &MainWindow, mode: &Vec<bool>) {
+        let mode_block: bool = block_checkbox!(&mode, 3);
+        if mode_block { window.set_checkbox_mode_blocked(mode_block) }
+    }
+#[inline(always)]
+    pub fn checkbox_continent_checked(window: &MainWindow, cont: Vec<bool>) {
+        let checkbox_model: ModelRc<bool> = drop_rc!(cont);
+        window.set_checkbox_continent_checked(checkbox_model);
+    }
+#[inline(always)]
+    pub fn checkbox_mode_checked(window: &MainWindow, mode: Vec<bool>) {
+        let mode_model: ModelRc<bool> = drop_rc!(mode);
+        window.set_checkbox_mode_checked(mode_model);
     }
 }

@@ -29,14 +29,18 @@ fn main() -> Result<(), slint::PlatformError> {
 
     //*  Load app data
     let serialized_countries: Vec<Country> = match ConfSet::read_from_file(
-            #[cfg(debug_assertions)] drop_buf!(LOAD_DATA), #[cfg(not(debug_assertions))] &data_path_string) {
+        #[cfg(debug_assertions)] drop_buf!(LOAD_DATA),
+        #[cfg(not(debug_assertions))] &data_path_string)
+    {
         Ok(config) => config,
         Err(_) => panic!("Failed to load app data"),
     };
 
     //*  Load app configuration data
     let mut loaded_config: InputConfig = match ConfSet::read_from_file(
-            #[cfg(debug_assertions)] drop_buf!(LOAD_CONFIG), #[cfg(not(debug_assertions))] &config_path_string) {
+        #[cfg(debug_assertions)] drop_buf!(LOAD_CONFIG),
+        #[cfg(not(debug_assertions))] &config_path_string)
+    {
         Ok(config) => config,
         Err(_) => InputConfig::default(),
     };
@@ -83,15 +87,10 @@ fn main() -> Result<(), slint::PlatformError> {
     }));
 
     //* Blocking last checkbox
-    let checkbox_blocked: bool = block_checkbox!(&loaded_config.continents, 6);
-    if checkbox_blocked { main_window.set_checkbox_continent_blocked(checkbox_blocked) }
-    let mode_block: bool = block_checkbox!(&loaded_config.mode, 3);
-    if mode_block { main_window.set_checkbox_mode_blocked(mode_block) }
-
-    let checkbox_model: ModelRc<bool> = drop_rc!(loaded_config.continents.clone());
-    main_window.set_checkbox_continent_checked(checkbox_model);
-    let mode_model: ModelRc<bool> = drop_rc!(loaded_config.mode.clone());
-    main_window.set_checkbox_mode_checked(mode_model);
+    set::checkbox_continent_blocked(&main_window, &loaded_config.continents);
+    set::checkbox_mode_blocked(&main_window, &loaded_config.mode);
+    set::checkbox_continent_checked(&main_window, loaded_config.continents.clone());
+    set::checkbox_mode_checked(&main_window, loaded_config.mode.clone());
 
     //* When click on run button
     let _ = main_window.on_run_game_process({
@@ -150,11 +149,8 @@ fn main() -> Result<(), slint::PlatformError> {
             let main_window: MainWindow = main_window_handle.unwrap();
             let checkbox: Vec<bool> = main_window.get_checkbox_continent_checked().iter().collect();
             let mode: Vec<bool> = main_window.get_checkbox_mode_checked().iter().collect();
-            let blocked: bool = block_checkbox!(checkbox, 6);
-            let mode_blocked: bool = block_checkbox!(mode, 3);
-
-			main_window.set_checkbox_continent_blocked(blocked);
-            main_window.set_checkbox_mode_blocked(mode_blocked);
+            set::checkbox_continent_blocked(&main_window, &checkbox);
+            set::checkbox_mode_blocked(&main_window, &mode);
 
             let mode_selected = GameLogic::create_mode_list(&mode);
             let _ = Some(tx_cmd.send(ThreadIn {
