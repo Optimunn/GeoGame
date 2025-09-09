@@ -82,4 +82,17 @@ impl ConfigurationSettings {
         let image_path_string: PathBuf = exe_dir.join(LOAD_IMAGE);
         return (config_path_string, data_path_string, image_path_string);
     }
+
+}
+
+pub mod set {
+    use slint::{PhysicalPosition, PhysicalSize};
+
+    pub fn screen_size(size: (u32, u32)) -> PhysicalSize {
+        PhysicalSize::new(size.0, size.1)
+    }
+
+    pub fn screen_position(position: (i32, i32)) -> PhysicalPosition {
+        PhysicalPosition::new(position.0, position.1)
+    }
 }

@@ -3,14 +3,14 @@ use slint::{Image, Model, ModelRc, PhysicalSize, PhysicalPosition,
 use std::sync::mpsc::{Sender, Receiver, channel};
 use std::thread;
 use std::cell::Cell;
-#[cfg(not(debug_assertions))]
-use std::path::Path;
+#[cfg(debug_assertions)]
 use std::path::PathBuf;
 use std::rc::Rc;
 
 use process::GameLogic;
 use consts::*;
 use configure::ConfigurationSettings as ConfSet;
+use configure::set;
 use configure::{InputConfig, Country, Continent};
 use threadfn::{ThreadIn, ThreadData, GameMode, Action};
 
@@ -41,10 +41,8 @@ fn main() -> Result<(), slint::PlatformError> {
         Err(_) => InputConfig::default(),
     };
 
-    let window_size: PhysicalSize = PhysicalSize::new(loaded_config.size.0, loaded_config.size.1);
-    main_window.window().set_size(window_size);
-    let window_position: PhysicalPosition = PhysicalPosition::new(loaded_config.position.0, loaded_config.position.1);
-    main_window.window().set_position(window_position);
+    main_window.window().set_size(set::screen_size(loaded_config.size));
+    main_window.window().set_position(set::screen_position(loaded_config.position));
 
     let (tx_cmd, rx_cmd): (Sender<ThreadIn>, Receiver<ThreadIn>) = channel();
     let (tx_data, rx_data): (Sender<ThreadData>, Receiver<ThreadData>) = channel();
