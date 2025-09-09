@@ -24,17 +24,8 @@ slint::include_modules!();
 fn main() -> Result<(), slint::PlatformError> {
     //* Drop app window
     let main_window: MainWindow = MainWindow::new().unwrap();
-
 #[cfg(not(debug_assertions))]
-    let exe_path: PathBuf = std::env::current_exe().unwrap();
-#[cfg(not(debug_assertions))]
-    let exe_dir: &Path = exe_path.parent().unwrap();
-#[cfg(not(debug_assertions))]
-    let config_path_string: PathBuf = exe_dir.join(LOAD_CONFIG);
-#[cfg(not(debug_assertions))]
-    let data_path_string: PathBuf = exe_dir.join(LOAD_DATA);
-#[cfg(not(debug_assertions))]
-    let image_path_string: PathBuf = exe_dir.join(LOAD_IMAGE);
+    let (config_path_string, data_path_string,  image_path_string) = ConfSet::load_file_ways();
 
     //*  Load app data
     let serialized_countries: Vec<Country> = match ConfSet::read_from_file(

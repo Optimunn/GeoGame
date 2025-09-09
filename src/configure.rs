@@ -1,6 +1,10 @@
 use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use serde_json::Result;
 use std::{fs, path::PathBuf};
+#[cfg(not(debug_assertions))]
+use std::path::Path;
+#[cfg(not(debug_assertions))]
+use crate::consts::*;
 
 #[derive(Debug, Deserialize, PartialEq, Clone)]
 pub enum Continent {
@@ -41,18 +45,16 @@ pub struct InputConfig {
 }
 
 impl InputConfig {
-
     pub fn default() -> InputConfig {
         InputConfig {
             size: (500, 500),
             position: (0, 0),
             continents: vec![true; 6],
-            mode: vec![true; 3],
+            mode: vec![true, false, false],
             language: String::from("en")
         }
     }
 }
-
 pub struct ConfigurationSettings;
 
 impl ConfigurationSettings {
@@ -65,11 +67,19 @@ impl ConfigurationSettings {
         let result = serde_json::from_str(&data)?;
         Ok(result)
     }
-
 #[allow(dead_code)]
     pub fn write_input_config(path: &PathBuf, input: &InputConfig) -> Result<()> {
         let file: fs::File = fs::File::create(path).unwrap();
         let output = serde_json::to_writer_pretty(file, input)?;
         Ok(output)
+    }
+#[cfg(not(debug_assertions))]
+    pub fn load_file_ways() -> (PathBuf, PathBuf, PathBuf) {
+        let exe_path: PathBuf = std::env::current_exe().unwrap();
+        let exe_dir: &Path = exe_path.parent().unwrap();
+        let config_path_string: PathBuf = exe_dir.join(LOAD_CONFIG);
+        let data_path_string: PathBuf = exe_dir.join(LOAD_DATA);
+        let image_path_string: PathBuf = exe_dir.join(LOAD_IMAGE);
+        return (config_path_string, data_path_string, image_path_string);
     }
 }
