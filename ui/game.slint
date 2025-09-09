@@ -69,6 +69,17 @@ export component GameWindow inherits Rectangle {
                 clicked => {root.button-clicked(3);} }
         }
 
+        timer := Timer {
+            interval: 200ms;
+            running: false;
+            triggered() => {
+                self.running = false;
+                root.answer-data.visible = false;
+                root.click-continue();
+            }
+        }
+
+
         if answer-data.visible: VerticalBox {
             Rectangle {
                 background: white;
@@ -83,8 +94,7 @@ export component GameWindow inherits Rectangle {
 
                 TouchArea {
                     clicked => {
-                        root.answer-data.visible = false;
-                        root.click-continue();
+                        timer.running = true;
                     }
                 }
             }
@@ -96,7 +106,8 @@ export component GameWindow inherits Rectangle {
         x: 0px;
         y: 0px;
         my-size: 30px;
-        clicked => { exit.visible = true; if answer-data.visible { root.click-continue(); root.answer-data.visible = false; }}
+        clicked => { exit.visible = true;
+            if answer-data.visible { root.click-continue(); root.answer-data.visible = false; }}
     }
 
     exit := OnExitWindow {
