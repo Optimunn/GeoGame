@@ -1,40 +1,42 @@
 import { VerticalBox } from "std-widgets.slint";
-import { ImageResizable } from "images.slint";
 import { MyButton } from "mywidget.slint";
 export component WelcomeWindow inherits Rectangle {
     callback scene-visible(int);
     callback close-answer;
     in-out property <bool> game-type: true;
-    background: @linear-gradient(0deg, #5dca68 0%, #5792b6 100%);
+    in-out property <brush> button-color: @linear-gradient(135deg,#e786d2 0%, #e786d234 100%);
+
+    Image {
+        source: @image-url("../assets/icons/hiearth.svg");
+        width: 100%;
+        height: 100%;
+    }
 
     VerticalBox {
-        alignment: center;
+        alignment: end;
         padding-right: 20px;
         padding-left: 20px;
+        padding-bottom: 20px;
 
         function ret-height() -> length {
             return root.height / 10;
         }
 
-        ImageResizable {
-            icon: @image-url("../assets/icons/earth.svg");
-        }
         if !game-type: MyButton { text: @tr("Continue");
-            height: ret-height(); border-color: root.background.darker(50%);
+            height: ret-height(); border-color: root.button-color;
             clicked => { root.scene-visible(0) }
         }
         MyButton { text: game-type? @tr("Play") : @tr("Restart");
-            height: ret-height(); border-color: root.background.darker(50%);
+            height: ret-height(); border-color: root.button-color;
             clicked => { root.game-type = true; root.close-answer(); root.scene-visible(2) }
         }
         MyButton { text: @tr("Settings");
-            height: ret-height(); border-color: root.background.darker(50%);
+            height: ret-height(); border-color: root.button-color;
             clicked => { root.scene-visible(3) }
         }
         MyButton { text: @tr("About");
-            height: ret-height(); border-color: root.background.darker(50%);
+            height: ret-height(); border-color: root.button-color;
             clicked => { root.scene-visible(4) }
         }
     }
-
 }

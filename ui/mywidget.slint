@@ -3,9 +3,9 @@ export component MyButton inherits Rectangle {
     in property <length> my-height: 40px;
     in property <color> my-color: #ffffff;
     callback clicked <=> touch.clicked;
-    border-radius: root.height / 2;
+    border-radius: root.height / 2.5;
     border-width: root.height / 8;
-    height: my-height < 40px ? 40px : my-height;
+    height: my-height;
     background: touch.pressed ? my-color.darker(25%) : my-color;
     txt := Text {
         font-size: parent.height / 2;
@@ -28,7 +28,7 @@ export component MyCheckBox inherits Rectangle {
     border-width: 1px;
     border-color: #b8b8b8;
     background: #ffffff;
-    height: my-height < 20px ? 20px : my-height;
+    height: my-height;
     clip: true;
     txt := Text {
         font-size: parent.height / 2;
