@@ -1,9 +1,12 @@
+import { MyPalette } from "globals.slint";
+
 export component MyButton inherits Rectangle {
     in-out property text <=> txt.text;
     in property <length> my-height: 40px;
     in property <color> my-color: #ffffff;
     callback clicked <=> touch.clicked;
     border-radius: root.height / 2.5;
+    border-color: MyPalette.button-color;
     border-width: root.height / 8;
     height: my-height;
     background: touch.pressed ? my-color.darker(25%) : my-color;

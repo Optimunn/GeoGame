@@ -1,10 +1,10 @@
 import { VerticalBox } from "std-widgets.slint";
 import { MyButton } from "mywidget.slint";
+
 export component WelcomeWindow inherits Rectangle {
     callback scene-visible(int);
     callback close-answer;
     in-out property <bool> game-type: true;
-    in-out property <brush> button-color: @linear-gradient(135deg,#e786d2 0%, #e786d234 100%);
 
     Image {
         source: @image-url("../assets/icons/hiearth.svg");
@@ -23,19 +23,19 @@ export component WelcomeWindow inherits Rectangle {
         }
 
         if !game-type: MyButton { text: @tr("Continue");
-            height: ret-height(); border-color: root.button-color;
+            height: ret-height();
             clicked => { root.scene-visible(0) }
         }
         MyButton { text: game-type? @tr("Play") : @tr("Restart");
-            height: ret-height(); border-color: root.button-color;
+            height: ret-height();
             clicked => { root.game-type = true; root.close-answer(); root.scene-visible(2) }
         }
         MyButton { text: @tr("Settings");
-            height: ret-height(); border-color: root.button-color;
+            height: ret-height();
             clicked => { root.scene-visible(3) }
         }
         MyButton { text: @tr("About");
-            height: ret-height(); border-color: root.button-color;
+            height: ret-height();
             clicked => { root.scene-visible(4) }
         }
     }

@@ -55,17 +55,13 @@ export component GameWindow inherits Rectangle {
         }
 
         if !answer-data.visible: GridBox {
-            MyButton {row: 0; border-color: gray; width: ret-width();
-                my-height: ret-height(); text: root.button-data[0];
+            MyButton {row: 0; width: ret-width(); my-height: ret-height(); text: root.button-data[0];
                 clicked => {root.button-clicked(0);} }
-            MyButton { border-color: gray; width: ret-width();
-                my-height: ret-height(); text: root.button-data[1];
+            MyButton { width: ret-width(); my-height: ret-height(); text: root.button-data[1];
                 clicked => {root.button-clicked(1);} }
-            MyButton {row: 1; border-color: gray; width: ret-width();
-                my-height: ret-height(); text: root.button-data[2];
+            MyButton {row: 1; width: ret-width(); my-height: ret-height(); text: root.button-data[2];
                 clicked => {root.button-clicked(2);} }
-            MyButton { border-color: gray; width: ret-width();
-                my-height: ret-height(); text: root.button-data[3];
+            MyButton { width: ret-width(); my-height: ret-height(); text: root.button-data[3];
                 clicked => {root.button-clicked(3);} }
         }
 

@@ -127,9 +127,8 @@ export component PrePlayWindow inherits Rectangle {
         private property <[string]> play-mode: [ @tr("Play 10"), @tr("Play 25"), @tr("Play hard") ];
 
         for index[item] in play-mode: MyButton { text: index;
-            height: ret-height(); border-color: root.background.darker(50%);
+            height: ret-height();
             clicked => { root.run-process(item); root.scene-visible(0) }
-
         }
     }
 
