@@ -7,10 +7,10 @@ use std::cell::Cell;
 use std::path::PathBuf;
 use std::rc::Rc;
 
-use process::GameLogic;
+use process::gamelogic;
 use consts::*;
-use configure::ConfigurationSettings as ConfSet;
-use configure::set;
+use configure::configurationsettings as ConfSet;
+use configure::{set, get};
 use configure::{InputConfig, Country, Continent};
 use threadfn::{ThreadIn, ThreadData, GameMode, Action};
 
@@ -52,7 +52,7 @@ fn main() -> Result<(), slint::PlatformError> {
         Ok(data) => data,
         Err(_) => panic!("Failed to load image")
     };
-    main_window.set_image_welcome(to_img(&image_data));
+    main_window.set_image_welcome(get::img(&image_data));
 //todo <-
     let (tx_cmd, rx_cmd): (Sender<ThreadIn>, Receiver<ThreadIn>) = channel();
     let (tx_data, rx_data): (Sender<ThreadData>, Receiver<ThreadData>) = channel();
@@ -68,8 +68,8 @@ fn main() -> Result<(), slint::PlatformError> {
                 use Action::*;
                 match input.action {
                     Update => {
-                        let continent: Vec<Continent> = GameLogic::create_continents_list(&input.checkbox.unwrap());
-                        filtered_cont = GameLogic::filter_by_continents(&serialized_countries, &continent);
+                        let continent: Vec<Continent> = gamelogic::create_continents_list(&input.checkbox.unwrap());
+                        filtered_cont = gamelogic::filter_by_continents(&serialized_countries, &continent);
                         mode = input.mode.unwrap();
                     }
                     Load => {
@@ -82,9 +82,9 @@ fn main() -> Result<(), slint::PlatformError> {
     //? <- Thread
 
     //*  Randomize countries
-    let random_number: Rc<Cell<usize>> = drop_cell!(GameLogic::get_rand_universal(4));
+    let random_number: Rc<Cell<usize>> = drop_cell!(gamelogic::get_rand_universal(4));
 
-    let mode_selected: Vec<GameMode> = GameLogic::create_mode_list(&loaded_config.mode);
+    let mode_selected: Vec<GameMode> = gamelogic::create_mode_list(&loaded_config.mode);
     let _ = Some(tx_cmd.send(ThreadIn {
         mode: Some(mode_selected),
         action: Action::Update,
@@ -92,7 +92,7 @@ fn main() -> Result<(), slint::PlatformError> {
         random: None
     }));
 
-    set::settings_set_button_color(&main_window, &loaded_config.color);
+    set::settings_button_color(&main_window, &loaded_config.color);
     //* Blocking last checkbox
     set::checkbox_continent_blocked(&main_window, &loaded_config.continents);
     set::checkbox_mode_blocked(&main_window, &loaded_config.mode);
@@ -105,7 +105,7 @@ fn main() -> Result<(), slint::PlatformError> {
         let random_number_clone: Rc<Cell<usize>> = random_number.clone();
 
         move |index: i32| {
-            random_number_clone.set(GameLogic::get_rand_universal(4));
+            random_number_clone.set(gamelogic::get_rand_universal(4));
 
             let _ = Some(tx_cmd_clone.send(ThreadIn {
                 mode: None,
@@ -137,7 +137,7 @@ fn main() -> Result<(), slint::PlatformError> {
             model.answer = input_names[random_number_get].clone();
             main_window.set_answer_data(model);
 
-            random_number.set(GameLogic::get_rand_universal(4));
+            random_number.set(gamelogic::get_rand_universal(4));
 
             let _ = Some(tx_cmd_clone.send(ThreadIn {
                 mode: None,
@@ -159,7 +159,7 @@ fn main() -> Result<(), slint::PlatformError> {
             set::checkbox_continent_blocked(&main_window, &checkbox);
             set::checkbox_mode_blocked(&main_window, &mode);
 
-            let mode_selected = GameLogic::create_mode_list(&mode);
+            let mode_selected = gamelogic::create_mode_list(&mode);
             let _ = Some(tx_cmd.send(ThreadIn {
                 mode: Some(mode_selected),
                 action: Action::Update,
@@ -181,7 +181,7 @@ fn main() -> Result<(), slint::PlatformError> {
                 match data.mode {
                     Flags => {
                         main_window.set_img_or_text(true);
-                        main_window.set_loaded_image(to_img(&data.img.unwrap()));
+                        main_window.set_loaded_image(get::img(&data.img.unwrap()));
                         main_window.set_button_data(drop_rc!(data.names));
                     }
                     Capitals => {
@@ -216,7 +216,7 @@ fn main() -> Result<(), slint::PlatformError> {
 
         move |index| {
             let main_window: MainWindow = main_window_handle.unwrap();
-            main_window.set_uniq_button_color(GameLogic::ret_button_color(index));
+            main_window.set_uniq_button_color(gamelogic::ret_button_color(index));
         }
     });
 
@@ -227,16 +227,14 @@ fn main() -> Result<(), slint::PlatformError> {
         move || {
             let main_window: MainWindow = main_window_handle.unwrap();
 
-            let checkbox: Vec<bool> = main_window.get_checkbox_continent_checked().iter().collect();
-            loaded_config.continents = checkbox;
-            let mode: Vec<bool> = main_window.get_checkbox_mode_checked().iter().collect();
-            loaded_config.mode = mode;
+            loaded_config.continents = get::checkbox_continent_checked(&main_window);
+            loaded_config.mode = get::checkbox_mode_checked(&main_window);
             let window_get_size: PhysicalSize = main_window.window().size();
             loaded_config.size = (window_get_size.width / 2, window_get_size.height / 2);
             let window_get_pos: PhysicalPosition = main_window.window().position();
             loaded_config.position = (window_get_pos.x, position_bug!(window_get_pos.y));
             loaded_config.language = "en".to_string();
-            loaded_config.color = set::settings_get_button_color(&main_window);
+            loaded_config.color = get::settings_button_color(&main_window);
 
             ConfSet::write_input_config(#[cfg(debug_assertions)] drop_buf!(LOAD_CONFIG),
                 #[cfg(not(debug_assertions))] &config_path_string, &loaded_config).unwrap();
@@ -245,13 +243,6 @@ fn main() -> Result<(), slint::PlatformError> {
     });
 
     main_window.run()
-}
-
-fn to_img(image_data: &[u8]) -> Image {
-    match Image::load_from_svg_data(&image_data) {
-        Ok(image) => image,
-        Err(_) => Image::default(),
-    }
 }
 
 #[macro_export]

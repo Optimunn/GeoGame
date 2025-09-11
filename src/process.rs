@@ -1,14 +1,12 @@
-use slint::Color;
-use rand::seq::IteratorRandom;
-use rand::Rng;
+pub mod gamelogic {
 
-use crate::configure::{Country, Continent};
-use crate::threadfn::GameMode;
-use crate::consts::pallet::*;
+    use slint::Color;
+    use rand::seq::IteratorRandom;
+    use rand::Rng;
 
-pub struct GameLogic;
-
-impl GameLogic {
+    use crate::configure::{Country, Continent};
+    use crate::threadfn::GameMode;
+    use crate::consts::pallet::*;
 
     pub fn filter_by_continents(countries: &Vec<Country>, target_continents: &[Continent]
     ) -> Vec<Country> {

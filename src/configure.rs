@@ -1,10 +1,4 @@
-use serde::{Deserialize, Serialize, de::DeserializeOwned};
-use serde_json::Result;
-use std::{fs, path::PathBuf};
-#[cfg(not(debug_assertions))]
-use std::path::Path;
-#[cfg(not(debug_assertions))]
-use crate::consts::*;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize, PartialEq, Clone)]
 pub enum Continent {
@@ -57,9 +51,16 @@ impl InputConfig {
         }
     }
 }
-pub struct ConfigurationSettings;
 
-impl ConfigurationSettings {
+pub mod configurationsettings {
+    use serde::de::DeserializeOwned;
+    use serde_json::Result;
+    use std::{fs, path::PathBuf};
+    use crate::configure::InputConfig;
+    #[cfg(not(debug_assertions))]
+    use std::path::Path;
+    #[cfg(not(debug_assertions))]
+    use crate::consts::*;
 
 	pub fn read_from_file<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
         let data: String = match fs::read_to_string(path) {
@@ -69,7 +70,7 @@ impl ConfigurationSettings {
         let result = serde_json::from_str(&data)?;
         Ok(result)
     }
-#[allow(dead_code)]
+
     pub fn write_input_config(path: &PathBuf, input: &InputConfig) -> Result<()> {
         let file: fs::File = fs::File::create(path).unwrap();
         let output = serde_json::to_writer_pretty(file, input)?;
@@ -88,11 +89,11 @@ impl ConfigurationSettings {
 }
 
 pub mod set {
-    use slint::
-        {PhysicalPosition, PhysicalSize, ModelRc, VecModel, Color};
+    use slint::{PhysicalPosition,
+        PhysicalSize, ModelRc, VecModel, Color};
     use std::rc::Rc;
     use crate::slint_generatedMainWindow::MainWindow;
-    use crate::process::GameLogic;
+    use crate::process::gamelogic;
     use crate::{block_checkbox, drop_rc};
 
 #[inline(always)]
@@ -123,16 +124,39 @@ pub mod set {
         let mode_model: ModelRc<bool> = drop_rc!(mode);
         window.set_checkbox_mode_checked(mode_model);
     }
-
-    pub fn settings_set_button_color(window: &MainWindow, color: &String) {
-        let index: i32 = GameLogic::ret_button_color_index(color);
-        let color: Color = GameLogic::ret_button_color(index);
+#[inline(always)]
+    pub fn settings_button_color(window: &MainWindow, color: &String) {
+        let index: i32 = gamelogic::ret_button_color_index(color);
+        let color: Color = gamelogic::ret_button_color(index);
         window.set_selected_button_color_index(index);
         window.set_uniq_button_color(color);
     }
+}
 
-    pub fn settings_get_button_color(window: &MainWindow) -> String {
+pub mod get {
+    use slint::{Model, Image};
+    use crate::slint_generatedMainWindow::MainWindow;
+    use crate::process::gamelogic;
+
+#[inline(always)]
+    pub fn settings_button_color(window: &MainWindow) -> String {
         let index: i32 = window.get_selected_button_color_index();
-        GameLogic::ret_button_color_string(index)
+        gamelogic::ret_button_color_string(index)
+    }
+
+#[inline(always)]
+    pub fn checkbox_continent_checked(window: &MainWindow) -> Vec<bool> {
+        window.get_checkbox_continent_checked().iter().collect()
+    }
+#[inline(always)]
+    pub fn checkbox_mode_checked(window: &MainWindow) -> Vec<bool> {
+        window.get_checkbox_mode_checked().iter().collect()
+    }
+
+    pub fn img(image_data: &[u8]) -> Image {
+        match Image::load_from_svg_data(&image_data) {
+            Ok(image) => image,
+            Err(_) => panic!("Failed to load image"),
+        }
     }
 }

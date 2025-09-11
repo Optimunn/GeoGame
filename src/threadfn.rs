@@ -5,7 +5,7 @@ use std::fs;
 use std::path::PathBuf;
 #[cfg(debug_assertions)]
 use crate::consts::LOAD_IMAGE;
-use crate::process::GameLogic;
+use crate::process::gamelogic;
 use crate::configure::Country;
 
 #[derive(PartialEq)]
@@ -45,8 +45,8 @@ pub fn load_data_from_thread(
     image_path_string: &PathBuf
 ) {
     let mut model: Vec<SharedString> = vec![SharedString::new(); 4];
-    let out4: Vec<Country> = GameLogic::get_random_countries(&filtered_cont, 4);
-    let used_mode: GameMode = mode[GameLogic::get_rand_universal(mode.len())].clone();
+    let out4: Vec<Country> = gamelogic::get_random_countries(&filtered_cont, 4);
+    let used_mode: GameMode = mode[gamelogic::get_rand_universal(mode.len())].clone();
 
     use GameMode::*;
     match used_mode {
