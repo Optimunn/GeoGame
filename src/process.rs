@@ -1,8 +1,10 @@
+use slint::Color;
 use rand::seq::IteratorRandom;
 use rand::Rng;
 
 use crate::configure::{Country, Continent};
 use crate::threadfn::GameMode;
+use crate::consts::pallet::*;
 
 pub struct GameLogic;
 
@@ -62,5 +64,41 @@ impl GameLogic {
             }
         }
         out
+    }
+
+    pub fn ret_button_color(index: i32) -> Color {
+        match index {
+            0 => COLOR_GRAY,
+            1 => COLOR_FREEDOM,
+            2 => COLOR_LAVENDER,
+            3 => COLOR_BLUE_SKY,
+            4 => COLOR_MANDARIN,
+            5 => COLOR_RIPE_LIME,
+            _ => COLOR_GRAY
+        }
+    }
+
+    pub fn ret_button_color_index(name: &str) -> i32 {
+        match name {
+            "gray" => 0,
+            "freedom" => 1,
+            "lavender" => 2,
+            "blue_sky" => 3,
+            "mandarin" => 4,
+            "ripe_lime" => 5,
+            _ => 0
+        }
+    }
+
+    pub fn ret_button_color_string(index: i32) -> String {
+        match index {
+            0 => "gray",
+            1 => "freedom",
+            2 => "lavender",
+            3 => "blue_sky",
+            4 => "mandarin",
+            5 => "ripe_lime",
+            _ => "gray"
+        }.to_string()
     }
 }

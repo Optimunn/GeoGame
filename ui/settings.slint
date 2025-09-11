@@ -1,19 +1,33 @@
-import { VerticalBox, CheckBox } from "std-widgets.slint";
+import { VerticalBox, CheckBox, ComboBox } from "std-widgets.slint";
 import { ImageStatic } from "images.slint";
 
 export component SettingsMenu inherits Rectangle {
     callback scene-visible;
+    callback selected-button-color(int);
+    in-out property selected-color-index <=> select-color-box.current-index;
 
-    background: @linear-gradient(180deg,#e786d2 0%, #e0cc3a 100%);
+    background: @linear-gradient(180deg,#e786d2 0%, #3a98e0 100%);
+
+    private property <[string]> select-color:
+        [@tr("Gray"), @tr("Freedom"), @tr("Lavender"), @tr("Blue sky"), @tr("Mandarin"), @tr("Ripe lime")];
 
     VerticalBox {
         padding-right: 20px;
         padding-left: 20px;
+        alignment: center;
+        width: root.width / 1.8;
+
         Text {
             text: @tr("Settings");
             font-size: 24px;
             horizontal-alignment: center;
             height: self.font-size * 1.3;
+        }
+        select-color-box := ComboBox {
+            model: root.select-color;
+            selected() => {
+                root.selected-button-color(root.selected-color-index);
+            }
         }
     }
 

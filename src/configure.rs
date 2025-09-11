@@ -41,7 +41,8 @@ pub struct InputConfig {
     pub position: (i32, i32),
     pub continents: Vec<bool>,
     pub mode: Vec<bool>,
-    pub language: String
+    pub language: String,
+    pub color: String,
 }
 
 impl InputConfig {
@@ -51,7 +52,8 @@ impl InputConfig {
             position: (0, 0),
             continents: vec![true; 6],
             mode: vec![true, false, false],
-            language: String::from("en")
+            language: "en".to_string(),
+            color: "gray".to_string(),
         }
     }
 }
@@ -86,9 +88,11 @@ impl ConfigurationSettings {
 }
 
 pub mod set {
-    use slint::{PhysicalPosition, PhysicalSize, ModelRc, VecModel};
+    use slint::
+        {PhysicalPosition, PhysicalSize, ModelRc, VecModel, Color};
     use std::rc::Rc;
     use crate::slint_generatedMainWindow::MainWindow;
+    use crate::process::GameLogic;
     use crate::{block_checkbox, drop_rc};
 
 #[inline(always)]
@@ -118,5 +122,17 @@ pub mod set {
     pub fn checkbox_mode_checked(window: &MainWindow, mode: Vec<bool>) {
         let mode_model: ModelRc<bool> = drop_rc!(mode);
         window.set_checkbox_mode_checked(mode_model);
+    }
+
+    pub fn settings_set_button_color(window: &MainWindow, color: &String) {
+        let index: i32 = GameLogic::ret_button_color_index(color);
+        let color: Color = GameLogic::ret_button_color(index);
+        window.set_selected_button_color_index(index);
+        window.set_uniq_button_color(color);
+    }
+
+    pub fn settings_get_button_color(window: &MainWindow) -> String {
+        let index: i32 = window.get_selected_button_color_index();
+        GameLogic::ret_button_color_string(index)
     }
 }

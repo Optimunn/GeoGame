@@ -47,7 +47,13 @@ fn main() -> Result<(), slint::PlatformError> {
 
     main_window.window().set_size(set::screen_size(loaded_config.size));
     main_window.window().set_position(set::screen_position(loaded_config.position));
-
+//todo -> load image
+    let image_data: Vec<u8> = match std::fs::read("assets/icons/earth.svg") {
+        Ok(data) => data,
+        Err(_) => panic!("Failed to load image")
+    };
+    main_window.set_image_welcome(to_img(&image_data));
+//todo <-
     let (tx_cmd, rx_cmd): (Sender<ThreadIn>, Receiver<ThreadIn>) = channel();
     let (tx_data, rx_data): (Sender<ThreadData>, Receiver<ThreadData>) = channel();
 
@@ -86,6 +92,7 @@ fn main() -> Result<(), slint::PlatformError> {
         random: None
     }));
 
+    set::settings_set_button_color(&main_window, &loaded_config.color);
     //* Blocking last checkbox
     set::checkbox_continent_blocked(&main_window, &loaded_config.continents);
     set::checkbox_mode_blocked(&main_window, &loaded_config.mode);
@@ -119,13 +126,13 @@ fn main() -> Result<(), slint::PlatformError> {
             let input_names: Vec<SharedString> = main_window.get_button_data().iter().collect();
             let mut model: AnswerData = AnswerData {
                 answer: "null".to_shared_string(),
-                color: COLOR_RED,
+                color: pallet::COLOR_RED,
                 selected: "null".to_shared_string(),
                 visible: true
             };
 
             let random_number_get: usize = random_number.get();
-            if index as usize == random_number_get { model.color = COLOR_GREEN; }
+            if index as usize == random_number_get { model.color = pallet::COLOR_GREEN; }
             model.selected = input_names[index as usize].clone();
             model.answer = input_names[random_number_get].clone();
             main_window.set_answer_data(model);
@@ -203,6 +210,16 @@ fn main() -> Result<(), slint::PlatformError> {
         }
     });
 
+    //* Select button color
+    let _ = main_window.on_selected_button_color({
+        let main_window_handle: Weak<MainWindow> = main_window.as_weak();
+
+        move |index| {
+            let main_window: MainWindow = main_window_handle.unwrap();
+            main_window.set_uniq_button_color(GameLogic::ret_button_color(index));
+        }
+    });
+
     //* When close window
     let _ = main_window.window().on_close_requested({
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
@@ -218,6 +235,8 @@ fn main() -> Result<(), slint::PlatformError> {
             loaded_config.size = (window_get_size.width / 2, window_get_size.height / 2);
             let window_get_pos: PhysicalPosition = main_window.window().position();
             loaded_config.position = (window_get_pos.x, position_bug!(window_get_pos.y));
+            loaded_config.language = "en".to_string();
+            loaded_config.color = set::settings_get_button_color(&main_window);
 
             ConfSet::write_input_config(#[cfg(debug_assertions)] drop_buf!(LOAD_CONFIG),
                 #[cfg(not(debug_assertions))] &config_path_string, &loaded_config).unwrap();

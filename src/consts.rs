@@ -12,19 +12,26 @@ pub const LOAD_DATA: &str = "../Resources/Data/country_en.json";
 #[cfg(not(debug_assertions))]
 pub const LOAD_IMAGE: &str = "../Assets/flags/";
 
+pub mod pallet {
+    use slint::Color;
 
-use slint::{Color};
-
-#[allow(dead_code)]
-pub const COLOR_RED: Color = Color::from_argb_u8(255, 255, 0, 0);
-#[allow(dead_code)]
-pub const COLOR_GREEN: Color = Color::from_argb_u8(255, 0, 255, 0);
-#[allow(dead_code)]
-pub const COLOR_YELLOW: Color = Color::from_argb_u8(255, 255, 255, 0);
-#[allow(dead_code)]
-pub const COLOR_BLUE: Color = Color::from_argb_u8(255, 0, 0, 255);
-#[allow(dead_code)]
-pub const COLOR_GRAY: Color = Color::from_argb_u8(255, 128, 128, 128);
+    #[allow(dead_code)]
+    pub const COLOR_RED: Color = Color::from_argb_u8(255, 255, 0, 0);
+    #[allow(dead_code)]
+    pub const COLOR_GREEN: Color = Color::from_argb_u8(255, 0, 255, 0);
+    #[allow(dead_code)]
+    pub const COLOR_GRAY: Color = Color::from_argb_u8(255, 128, 128, 128);
+    #[allow(dead_code)]
+    pub const COLOR_FREEDOM: Color = Color::from_argb_encoded(0xffe786d2);
+    #[allow(dead_code)]
+    pub const COLOR_LAVENDER: Color = Color::from_argb_encoded(0xffab86e7);
+    #[allow(dead_code)]
+    pub const COLOR_BLUE_SKY: Color = Color::from_argb_encoded(0xff5f79ef);
+    #[allow(dead_code)]
+    pub const COLOR_MANDARIN: Color = Color::from_argb_encoded(0xffefbd5f);
+    #[allow(dead_code)]
+    pub const COLOR_RIPE_LIME: Color = Color::from_argb_encoded(0xff45f931);
+}
 
 
 #[macro_export]

@@ -17,8 +17,13 @@ export component MainWindow inherits Window {
     callback checkbox-clicked;
     //open url in browser
     callback open-url-info(int);
+    //ret current selected button color
+    callback selected-button-color(int);
+
+    in-out property selected-button-color-index <=> window-settings.selected-color-index;
 
     in-out property uniq-button-color <=> MyPalette.button-color;
+    in property image-welcome <=> window-welcome.image-welcome;
 
     in-out property button-data <=> window-game.button-data;
     in-out property answer-data <=> window-game.answer-data;
@@ -61,6 +66,7 @@ export component MainWindow inherits Window {
     window-settings := SettingsMenu {
         visible: scene-visible == 3;
         scene-visible => { root.scene-visible = 1 }
+        selected-button-color(item) => { root.selected-button-color(item) }
     }
 
     window-about := AboutApplication {
