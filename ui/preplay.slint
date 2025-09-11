@@ -10,12 +10,12 @@ export component PrePlayWindow inherits Rectangle {
     in-out property <[bool]> cnt-check: [true, false, false, false, false, false];
     in-out property <[bool]> mode-check: [true, false, false];
     in-out property <bool> checkbox-block: false;
-    in-out property <bool> mode-block: false;
+    in-out property <bool> checkbox-mode-block: false;
 
     private property <[string]> cnt: [ @tr("Europe"), @tr("Asia"), @tr("Africa"),
         @tr("North America"), @tr("South America"), @tr("Oceania") ];
 
-    private property <[string]> mode: [ @tr("Flags"), @tr("Capitals"), @tr("F and C") ];
+    private property <[string]> game-mode: [ @tr("Flags"), @tr("Capitals"), @tr("F and C") ];
 
     background: @linear-gradient(0deg, #6ee9e1 0%, #eaef6f 100%);
 
@@ -108,9 +108,9 @@ export component PrePlayWindow inherits Rectangle {
                     padding-top: 10px;
                     padding-bottom: 10px;
 
-                    for index[item] in mode: MyCheckBox {
+                    for index[item] in game-mode: MyCheckBox {
                         height: ret-h(); text: index; checked: root.mode-check[item];
-                        toggled => { if root.mode-block { root.mode-check[item] = true;
+                        toggled => { if root.checkbox-mode-block { root.mode-check[item] = true;
                             self.checked = true; }
                             else { root.mode-check[item] = !root.mode-check[item]; }
                             root.checkbox-clicked();
