@@ -40,7 +40,7 @@ pub struct InputConfig {
 }
 
 impl InputConfig {
-    pub fn default() -> InputConfig {
+    pub fn default() -> Self {
         InputConfig {
             size: (500, 500),
             position: (0, 0),
@@ -133,17 +133,34 @@ pub mod set {
     }
 }
 
+macro_rules! position_bug { // !!! WTF
+    ($len:expr) => {
+        $len + 56
+    };
+}
+
 pub mod get {
-    use slint::{Model, Image};
+    use slint::{Model, Image, PhysicalPosition, PhysicalSize, SharedString};
     use crate::slint_generatedMainWindow::MainWindow;
     use crate::process::gamelogic;
 
+#[inline(always)]
+    pub fn window_size(size: PhysicalSize) -> (u32, u32) {
+        (size.width / 2, size.height / 2)
+    }
+#[inline(always)]
+    pub fn window_position(position: PhysicalPosition) -> (i32, i32) {
+        (position.x, position_bug!(position.y))
+    }
+#[inline(always)]
+    pub fn button_data(window: &MainWindow) -> Vec<SharedString> {
+        window.get_button_data().iter().collect()
+    }
 #[inline(always)]
     pub fn settings_button_color(window: &MainWindow) -> String {
         let index: i32 = window.get_selected_button_color_index();
         gamelogic::ret_button_color_string(index)
     }
-
 #[inline(always)]
     pub fn checkbox_continent_checked(window: &MainWindow) -> Vec<bool> {
         window.get_checkbox_continent_checked().iter().collect()

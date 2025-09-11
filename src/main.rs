@@ -1,9 +1,8 @@
-use slint::{Image, Model, ModelRc, PhysicalSize, PhysicalPosition,
-    SharedString, ToSharedString, VecModel, Weak};
+use slint::{ModelRc, SharedString, ToSharedString, VecModel, Weak};
 use std::sync::mpsc::{Sender, Receiver, channel};
 use std::thread;
 use std::cell::Cell;
-#[cfg(debug_assertions)]
+//#[cfg(debug_assertions)]
 use std::path::PathBuf;
 use std::rc::Rc;
 
@@ -20,6 +19,17 @@ mod configure;
 mod threadfn;
 
 slint::include_modules!();
+
+impl AnswerData {
+    fn my_default() -> Self {
+        AnswerData {
+            answer: "null".to_shared_string(),
+            color: pallet::COLOR_RED,
+            selected: "null".to_shared_string(),
+            visible: true
+        }
+    }
+}
 
 fn main() -> Result<(), slint::PlatformError> {
     //* Drop app window
@@ -47,19 +57,25 @@ fn main() -> Result<(), slint::PlatformError> {
 
     main_window.window().set_size(set::screen_size(loaded_config.size));
     main_window.window().set_position(set::screen_position(loaded_config.position));
+
 //todo -> load image
-    let image_data: Vec<u8> = match std::fs::read("assets/icons/earth.svg") {
+    #[cfg(debug_assertions)]
+        let welcome_patch: String = format!("{LOAD_ICON}{}", "earth.svg");
+    #[cfg(not(debug_assertions))]
+        let welcome_patch: PathBuf = image_path_string.join("../icons/earth.svg");
+    let image_data: Vec<u8> = match std::fs::read(welcome_patch) {
         Ok(data) => data,
         Err(_) => panic!("Failed to load image")
     };
     main_window.set_image_welcome(get::img(&image_data));
 //todo <-
+
     let (tx_cmd, rx_cmd): (Sender<ThreadIn>, Receiver<ThreadIn>) = channel();
     let (tx_data, rx_data): (Sender<ThreadData>, Receiver<ThreadData>) = channel();
 
     //*  Drop thread to filter countries
     //? -> Thread
-    thread::spawn({
+    let _ = thread::spawn({
         let mut filtered_cont: Vec<Country> = Vec::new();
         let mut mode: Vec<GameMode> = Vec::new();
 
@@ -123,13 +139,8 @@ fn main() -> Result<(), slint::PlatformError> {
 
         move |index: i32| {
             let main_window: MainWindow = main_window_handle.unwrap();
-            let input_names: Vec<SharedString> = main_window.get_button_data().iter().collect();
-            let mut model: AnswerData = AnswerData {
-                answer: "null".to_shared_string(),
-                color: pallet::COLOR_RED,
-                selected: "null".to_shared_string(),
-                visible: true
-            };
+            let input_names: Vec<SharedString> = get::button_data(&main_window);
+            let mut model: AnswerData = AnswerData::my_default();
 
             let random_number_get: usize = random_number.get();
             if index as usize == random_number_get { model.color = pallet::COLOR_GREEN; }
@@ -154,12 +165,12 @@ fn main() -> Result<(), slint::PlatformError> {
 
         move || {
             let main_window: MainWindow = main_window_handle.unwrap();
-            let checkbox: Vec<bool> = main_window.get_checkbox_continent_checked().iter().collect();
-            let mode: Vec<bool> = main_window.get_checkbox_mode_checked().iter().collect();
+            let checkbox: Vec<bool> = get::checkbox_continent_checked(&main_window);
+            let mode: Vec<bool> = get::checkbox_mode_checked(&main_window);
             set::checkbox_continent_blocked(&main_window, &checkbox);
             set::checkbox_mode_blocked(&main_window, &mode);
 
-            let mode_selected = gamelogic::create_mode_list(&mode);
+            let mode_selected: Vec<GameMode> = gamelogic::create_mode_list(&mode);
             let _ = Some(tx_cmd.send(ThreadIn {
                 mode: Some(mode_selected),
                 action: Action::Update,
@@ -202,9 +213,9 @@ fn main() -> Result<(), slint::PlatformError> {
     let _ = main_window.on_open_url_info({
         move |index: i32| {
             match index {
-                1 => open::that(LINK_TO_GITHUB).unwrap(),
-                2 => open::that(LINK_TO_RUST).unwrap(),
-                3 => open::that(LINK_TO_SLINT).unwrap(),
+                1 => open::that(url::LINK_TO_GITHUB).unwrap(),
+                2 => open::that(url::LINK_TO_RUST).unwrap(),
+                3 => open::that(url::LINK_TO_SLINT).unwrap(),
                 _ => (),
             }
         }
@@ -227,12 +238,10 @@ fn main() -> Result<(), slint::PlatformError> {
         move || {
             let main_window: MainWindow = main_window_handle.unwrap();
 
+            loaded_config.size = get::window_size(main_window.window().size());
+            loaded_config.position = get::window_position(main_window.window().position());
             loaded_config.continents = get::checkbox_continent_checked(&main_window);
             loaded_config.mode = get::checkbox_mode_checked(&main_window);
-            let window_get_size: PhysicalSize = main_window.window().size();
-            loaded_config.size = (window_get_size.width / 2, window_get_size.height / 2);
-            let window_get_pos: PhysicalPosition = main_window.window().position();
-            loaded_config.position = (window_get_pos.x, position_bug!(window_get_pos.y));
             loaded_config.language = "en".to_string();
             loaded_config.color = get::settings_button_color(&main_window);
 
@@ -243,11 +252,4 @@ fn main() -> Result<(), slint::PlatformError> {
     });
 
     main_window.run()
-}
-
-#[macro_export]
-macro_rules! position_bug { // !!! WTF
-    ($len:expr) => {
-        $len + 56
-    };
 }

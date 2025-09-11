@@ -4,13 +4,21 @@ pub const LOAD_CONFIG: &str = "save/config.json";
 pub const LOAD_DATA: &str = "data/country_en.json";
 #[cfg(debug_assertions)]
 pub const LOAD_IMAGE: &str = "assets/flags/4x3/";
+#[cfg(debug_assertions)]
+pub const LOAD_ICON: &str = "assets/icons/";
 
 #[cfg(not(debug_assertions))]
 pub const LOAD_CONFIG: &str = "../Resources/Save/config.json";
 #[cfg(not(debug_assertions))]
 pub const LOAD_DATA: &str = "../Resources/Data/country_en.json";
 #[cfg(not(debug_assertions))]
-pub const LOAD_IMAGE: &str = "../Assets/flags/";
+pub const LOAD_IMAGE: &str = "../Resources/Assets/flags/";
+
+pub mod url {
+    pub const LINK_TO_GITHUB: &str = "https://github.com/Optimunn/GeoGame";
+    pub const LINK_TO_RUST: &str = "https://www.rust-lang.org";
+    pub const LINK_TO_SLINT: &str = "https://slint.dev";
+}
 
 pub mod pallet {
     use slint::Color;
@@ -32,7 +40,6 @@ pub mod pallet {
     #[allow(dead_code)]
     pub const COLOR_RIPE_LIME: Color = Color::from_argb_encoded(0xff45f931);
 }
-
 
 #[macro_export]
 macro_rules! drop_rc {
@@ -63,7 +70,3 @@ macro_rules! drop_buf {
         &PathBuf::from(($str.to_string()))
     };
 }
-
-pub const LINK_TO_GITHUB: &str = "https://github.com/Optimunn/GeoGame";
-pub const LINK_TO_RUST: &str = "https://www.rust-lang.org";
-pub const LINK_TO_SLINT: &str = "https://slint.dev";
