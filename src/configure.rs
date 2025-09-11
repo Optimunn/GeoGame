@@ -106,13 +106,13 @@ pub mod set {
     }
 #[inline(always)]
     pub fn checkbox_continent_blocked(window: &MainWindow, cont: &Vec<bool>) {
-        let checkbox_blocked: bool = block_checkbox!(cont, 6);
-        if checkbox_blocked { window.set_checkbox_continent_blocked(checkbox_blocked) }
+        let checkbox_blocked: bool = block_checkbox!(&cont, 6);
+        window.set_checkbox_continent_blocked(checkbox_blocked)
     }
 #[inline(always)]
     pub fn checkbox_mode_blocked(window: &MainWindow, mode: &Vec<bool>) {
         let mode_block: bool = block_checkbox!(&mode, 3);
-        if mode_block { window.set_checkbox_mode_blocked(mode_block) }
+        window.set_checkbox_mode_blocked(mode_block)
     }
 #[inline(always)]
     pub fn checkbox_continent_checked(window: &MainWindow, cont: Vec<bool>) {
