@@ -1,9 +1,10 @@
 #!/bin/bash
 
+APP_VERSION="0.4.0"
 APP_NAME="Geographical game"
 BIN_NAME="geo_game"
 BINARY_PATH="../target/release/$BIN_NAME"
-ICON_PATH="./icon/geogame.png"   
+ICON_PATH="./icon/geogame.png"
 OUTPUT_DIR="./"
 
 cargo_check() {
@@ -35,11 +36,17 @@ elif [ "$1" = "--release" ]; then
     cargo_check
     echo "Build release binary..."
     cargo build --release
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
     exit 0
 elif [ "$1" = "--all" ]; then
     cargo_check
     echo "Build release application..."
     cargo build --release
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
 elif [ "$1" != "" ]; then
     echo "Unknown option: $1"
     echo "Use --help or -h for help"
@@ -69,7 +76,7 @@ MACOS_DIR="$CONTENTS_DIR/MacOS"
 
 APP_BIN_NAME="main"
 
-if [ -d "$MACOS_DIR/$BIN_NAME" ]; then
+if [ -e "$MACOS_DIR/$APP_BIN_NAME" ]; then
     echo "Changing binary file..."
     cp "$BINARY_PATH" "$MACOS_DIR/$APP_BIN_NAME"
     chmod +x "$MACOS_DIR/$APP_BIN_NAME"
@@ -87,8 +94,9 @@ RESOURCES_DIR="$CONTENTS_DIR/Resources"
 RESOURCES_DIR_DATA="$RESOURCES_DIR/Data"
 RESOURCES_DIR_SAVE="$RESOURCES_DIR/Save"
 
-ASSETS_DIR="$CONTENTS_DIR/Assets"
+ASSETS_DIR="$RESOURCES_DIR/Assets"
 ASSETS_DIR_FLAGS="$ASSETS_DIR/flags"
+ASSETS_DIR_ICONS="$ASSETS_DIR/icons"
 
 echo "Creating directory structure..."
 mkdir -p "$MACOS_DIR"
@@ -97,8 +105,10 @@ mkdir -p "$RESOURCES_DIR_DATA"
 mkdir -p "$RESOURCES_DIR_SAVE"
 mkdir -p "$ASSETS_DIR"
 mkdir -p "$ASSETS_DIR_FLAGS"
+mkdir -p "$ASSETS_DIR_ICONS"
 
 IMG_PATH="../assets/flags/4x3/."
+ICS_PATH="../assets/icons/."
 DATA_PATH="../data/."
 
 echo "Copying files..."
@@ -107,6 +117,7 @@ chmod +x "$MACOS_DIR/$APP_BIN_NAME"
 
 cp "$ICON_PATH" "$RESOURCES_DIR/AppIcon.png"
 cp -a "$IMG_PATH" "$ASSETS_DIR_FLAGS/"
+cp -a "$ICS_PATH" "$ASSETS_DIR_ICONS/"
 cp -a "$DATA_PATH" "$RESOURCES_DIR_DATA/"
 
 echo "Creating Info.plist..."
@@ -122,9 +133,9 @@ cat > "$CONTENTS_DIR/Info.plist" << EOF
     <key>CFBundleName</key>
     <string>$APP_NAME</string>
     <key>CFBundleVersion</key>
-    <string>0.1.0</string>
+    <string>$APP_VERSION</string>
     <key>CFBundleShortVersionString</key>
-    <string>0.1.0</string>
+    <string>$APP_VERSION</string>
     <key>CFBundleIconFile</key>
     <string>AppIcon</string>
     <key>CFBundleDevelopmentRegion</key>

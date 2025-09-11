@@ -1,6 +1,4 @@
-use serde::{Deserialize, Serialize, de::DeserializeOwned};
-use serde_json::Result;
-use std::{fs, path::PathBuf};
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize, PartialEq, Clone)]
 pub enum Continent {
@@ -33,13 +31,38 @@ pub struct Country {
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct InputConfig {
-    pub continents: Vec<bool>
+    pub size: (u32, u32),
+    pub position: (i32, i32),
+    pub continents: Vec<bool>,
+    pub mode: Vec<bool>,
+    pub language: String,
+    pub color: String,
 }
-pub struct ConfigurationSettings;
 
-impl ConfigurationSettings {
+impl InputConfig {
+    pub fn default() -> Self {
+        InputConfig {
+            size: (500, 500),
+            position: (0, 0),
+            continents: vec![true; 6],
+            mode: vec![true, false, false],
+            language: "en".to_string(),
+            color: "gray".to_string(),
+        }
+    }
+}
 
-    pub fn read_from_file<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
+pub mod configurationsettings {
+    use serde::de::DeserializeOwned;
+    use serde_json::Result;
+    use std::{fs, path::PathBuf};
+    use crate::configure::InputConfig;
+    #[cfg(not(debug_assertions))]
+    use std::path::Path;
+    #[cfg(not(debug_assertions))]
+    use crate::consts::*;
+
+	pub fn read_from_file<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
         let data: String = match fs::read_to_string(path) {
             Ok(data) => data,
             Err(_) => String::from(""),
@@ -48,10 +71,109 @@ impl ConfigurationSettings {
         Ok(result)
     }
 
-#[allow(dead_code)]
     pub fn write_input_config(path: &PathBuf, input: &InputConfig) -> Result<()> {
         let file: fs::File = fs::File::create(path).unwrap();
         let output = serde_json::to_writer_pretty(file, input)?;
         Ok(output)
+    }
+#[cfg(not(debug_assertions))]
+    pub fn load_file_ways() -> (PathBuf, PathBuf, PathBuf) {
+        let exe_path: PathBuf = std::env::current_exe().unwrap();
+        let exe_dir: &Path = exe_path.parent().unwrap();
+        let config_path_string: PathBuf = exe_dir.join(LOAD_CONFIG);
+        let data_path_string: PathBuf = exe_dir.join(LOAD_DATA);
+        let image_path_string: PathBuf = exe_dir.join(LOAD_IMAGE);
+        return (config_path_string, data_path_string, image_path_string);
+    }
+
+}
+
+pub mod set {
+    use slint::{PhysicalPosition,
+        PhysicalSize, ModelRc, VecModel, Color};
+    use std::rc::Rc;
+    use crate::slint_generatedMainWindow::MainWindow;
+    use crate::process::gamelogic;
+    use crate::{block_checkbox, drop_rc};
+
+#[inline(always)]
+    pub fn screen_size(size: (u32, u32)) -> PhysicalSize {
+        PhysicalSize::new(size.0, size.1)
+    }
+#[inline(always)]
+    pub fn screen_position(position: (i32, i32)) -> PhysicalPosition {
+        PhysicalPosition::new(position.0, position.1)
+    }
+#[inline(always)]
+    pub fn checkbox_continent_blocked(window: &MainWindow, cont: &Vec<bool>) {
+        let checkbox_blocked: bool = block_checkbox!(cont, 6);
+        if checkbox_blocked { window.set_checkbox_continent_blocked(checkbox_blocked) }
+    }
+#[inline(always)]
+    pub fn checkbox_mode_blocked(window: &MainWindow, mode: &Vec<bool>) {
+        let mode_block: bool = block_checkbox!(&mode, 3);
+        if mode_block { window.set_checkbox_mode_blocked(mode_block) }
+    }
+#[inline(always)]
+    pub fn checkbox_continent_checked(window: &MainWindow, cont: Vec<bool>) {
+        let checkbox_model: ModelRc<bool> = drop_rc!(cont);
+        window.set_checkbox_continent_checked(checkbox_model);
+    }
+#[inline(always)]
+    pub fn checkbox_mode_checked(window: &MainWindow, mode: Vec<bool>) {
+        let mode_model: ModelRc<bool> = drop_rc!(mode);
+        window.set_checkbox_mode_checked(mode_model);
+    }
+#[inline(always)]
+    pub fn settings_button_color(window: &MainWindow, color: &String) {
+        let index: i32 = gamelogic::ret_button_color_index(color);
+        let color: Color = gamelogic::ret_button_color(index);
+        window.set_selected_button_color_index(index);
+        window.set_uniq_button_color(color);
+    }
+}
+
+macro_rules! position_bug { // !!! WTF
+    ($len:expr) => {
+        $len + 56
+    };
+}
+
+pub mod get {
+    use slint::{Model, Image, PhysicalPosition, PhysicalSize, SharedString};
+    use crate::slint_generatedMainWindow::MainWindow;
+    use crate::process::gamelogic;
+
+#[inline(always)]
+    pub fn window_size(size: PhysicalSize) -> (u32, u32) {
+        (size.width / 2, size.height / 2)
+    }
+#[inline(always)]
+    pub fn window_position(position: PhysicalPosition) -> (i32, i32) {
+        (position.x, position_bug!(position.y))
+    }
+#[inline(always)]
+    pub fn button_data(window: &MainWindow) -> Vec<SharedString> {
+        window.get_button_data().iter().collect()
+    }
+#[inline(always)]
+    pub fn settings_button_color(window: &MainWindow) -> String {
+        let index: i32 = window.get_selected_button_color_index();
+        gamelogic::ret_button_color_string(index)
+    }
+#[inline(always)]
+    pub fn checkbox_continent_checked(window: &MainWindow) -> Vec<bool> {
+        window.get_checkbox_continent_checked().iter().collect()
+    }
+#[inline(always)]
+    pub fn checkbox_mode_checked(window: &MainWindow) -> Vec<bool> {
+        window.get_checkbox_mode_checked().iter().collect()
+    }
+
+    pub fn img(image_data: &[u8]) -> Image {
+        match Image::load_from_svg_data(&image_data) {
+            Ok(image) => image,
+            Err(_) => panic!("Failed to load image"),
+        }
     }
 }

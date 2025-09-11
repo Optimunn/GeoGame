@@ -1,0 +1,116 @@
+import { VerticalBox, GridBox } from "std-widgets.slint";
+import { ImageResizable, ImageStatic} from "images.slint";
+import { OnExitWindow } from "onexit.slint";
+import { MyButton } from "mywidget.slint";
+
+struct AnswerData {
+    visible: bool,
+    selected: string,
+    answer: string,
+    color: color
+}
+
+export component GameWindow inherits Rectangle {
+    callback scene-visible-type(bool);
+    callback button-clicked(int);
+    callback click-continue;
+
+    in-out property <bool> img-or-text: false;
+    in-out property  <AnswerData> answer-data: { visible: false };
+    in property <[string]> button-data: [ "none", "none", "none", "none" ];
+    in property <image> icon-data;
+    in property <string> text-data;
+
+    private property <length> my-spacing: 10px;
+
+    background: @linear-gradient(135deg,#fff1fc 0%, #4e4e4e 100%);
+
+    v-box:= VerticalBox {
+        alignment: center;
+        padding-right: 20px;
+        padding-left: 20px;
+
+        Text {
+            vertical-alignment: center;
+            horizontal-alignment: center;
+            font-size: 32px;
+            text: @tr("Answer?");
+        }
+
+        if img-or-text: ImageResizable { icon: root.icon-data; }
+        if !img-or-text: ImageResizable { icon: @image-url("../assets/flags/nothing.svg");
+            Text { text: text-data; horizontal-alignment: center;
+                font-size: root.width / 8; width: v-box.width;
+                wrap: word-wrap;
+            }
+        }
+
+        function ret-width() -> length {
+            return (root.width - my-spacing * 3 -
+                v-box.padding-left - v-box.padding-right) / 2;
+        }
+
+        function ret-height() -> length {
+            return root.height / 10;
+        }
+
+        if !answer-data.visible: GridBox {
+            MyButton {row: 0; width: ret-width(); my-height: ret-height(); text: root.button-data[0];
+                clicked => {root.button-clicked(0);} }
+            MyButton { width: ret-width(); my-height: ret-height(); text: root.button-data[1];
+                clicked => {root.button-clicked(1);} }
+            MyButton {row: 1; width: ret-width(); my-height: ret-height(); text: root.button-data[2];
+                clicked => {root.button-clicked(2);} }
+            MyButton { width: ret-width(); my-height: ret-height(); text: root.button-data[3];
+                clicked => {root.button-clicked(3);} }
+        }
+
+        timer := Timer {
+            interval: 200ms;
+            running: false;
+            triggered() => {
+                self.running = false;
+                root.answer-data.visible = false;
+                root.click-continue();
+            }
+        }
+
+        if answer-data.visible: VerticalBox {
+            Rectangle {
+                background: white;
+                border-radius: self.height / 4;
+                border-width: self.height / 8;
+                border-color: answer-data.color;
+                height: ret-height() * 2 + 10px;
+                vb := VerticalBox {
+                    Text { font-size: vb.height / 3; horizontal-alignment: center; text: answer-data.selected; }
+                    Text { font-size: vb.height / 5; horizontal-alignment: center; text: answer-data.answer; }
+                }
+
+                TouchArea {
+                    clicked => {
+                        timer.running = true;
+                    }
+                }
+            }
+        }
+    }
+
+    ImageStatic {
+        icon: @image-url("../assets/icons/menu.svg");
+        x: 0px;
+        y: 0px;
+        my-size: 30px;
+        clicked => { exit.visible = true;
+            if answer-data.visible { root.click-continue(); root.answer-data.visible = false; }}
+    }
+
+    exit := OnExitWindow {
+        visible: false;
+        text: @tr("Exit or pause?");
+        text-one: @tr("Exit");
+        text-two: @tr("Pause");
+        button-one => { exit.visible = false; root.scene-visible-type(true) }
+        button-two => { exit.visible = false; root.scene-visible-type(false) }
+    }
+}

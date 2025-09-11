@@ -1,6 +1,6 @@
 # Countries app
 
-Pre alpha version
+Alpha version 0.4.0
 
 ![Geographical game](/pictures/geogame.png "Geographical game")
 

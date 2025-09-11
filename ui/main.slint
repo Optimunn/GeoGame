@@ -1,64 +1,77 @@
 import { SettingsMenu} from "settings.slint";
-import { PrimeWindow } from "window.slint";
+import { GameWindow } from "game.slint";
 import { PrePlayWindow } from "preplay.slint";
 import { WelcomeWindow } from "welcome.slint";
 import { AboutApplication } from "about.slint";
 import { OnExitWindow } from "onexit.slint";
+import { MyPalette } from "globals.slint";
 
 export component MainWindow inherits Window {
+    //in game button witch answer
     callback button-clicked(int);
+    //run when clicked level of play
+    callback run-game-process(int);
+    //update window
     callback update-window;
-    callback checkbox-continent-clicked;
+    //run when checkbox be clicked
+    callback checkbox-clicked;
+    //open url in browser
     callback open-url-info(int);
+    //ret current selected button color
+    callback selected-button-color(int);
+
+    in-out property selected-button-color-index <=> window-settings.selected-color-index;
+
+    in-out property uniq-button-color <=> MyPalette.button-color;
+    in property image-welcome <=> window-welcome.image-welcome;
+
     in-out property button-data <=> window-game.button-data;
     in-out property answer-data <=> window-game.answer-data;
-    in-out property checkbox-continent-checked <=> window-preplay.cnt-check;
-    in-out property checkbox-continent-blocked <=> window-preplay.checkbox-block;
-    in property loaded_image <=> window-game.icon;
+    in-out property img-or-text <=> window-game.img-or-text;
+    in property loaded-image <=> window-game.icon-data;
+    in property loaded-text <=> window-game.text-data;
 
-    private property visible-touch-in-prime-window <=> window-game.visible_touch;
+    in-out property checkbox-continent-checked <=> window-preplay.cnt-check;
+    in-out property checkbox-mode-checked <=> window-preplay.mode-check;
+    in-out property checkbox-continent-blocked <=> window-preplay.checkbox-block;
+    in-out property checkbox-mode-blocked <=> window-preplay.mode-block;
+
     private property <int> scene-visible: 1;
-    
+
     title: "Geographical game";
     preferred-width:  550px;
     preferred-height: 550px;
     background: #ffffff00;
 
-    window-game := PrimeWindow {
+    window-game := GameWindow {
         visible: scene-visible == 0;
-        button-clicked(index) => { root.button-clicked(index) }
+        button-clicked(item) => { root.button-clicked(item) }
         click-continue => { root.update-window() }
-        scene-visible => { root.scene-visible = 1 }
+        scene-visible-type(item) => { root.scene-visible = 1; window-welcome.game-type = item; }
     }
 
     window-welcome := WelcomeWindow {
         visible: scene-visible == 1;
+        close-answer => { window-game.answer-data.visible = false }
         scene-visible(item) => { root.scene-visible = item; }
     }
 
     window-preplay := PrePlayWindow {
         visible: scene-visible == 2;
-        continent-clicked => { root.checkbox-continent-clicked() }
+        checkbox-clicked => { root.checkbox-clicked() }
         scene-visible(item) => { root.scene-visible = item; }
+        run-process(item) => { root.run-game-process(item); root.update-window(); }
     }
 
     window-settings := SettingsMenu {
         visible: scene-visible == 3;
         scene-visible => { root.scene-visible = 1 }
+        selected-button-color(item) => { root.selected-button-color(item) }
     }
 
-    window_about := AboutApplication {
+    window-about := AboutApplication {
         visible: scene-visible == 4;
         open-url(item) => { root.open-url-info(item) }
         scene-visible => { root.scene-visible = 1 }
     }
-
-    // OnExitWindow {
-    //     text: "Exit?";
-    //     text-one: "Pause";
-    //     text-two: "Exit";
-    //     alert: true;
-    //     button-one => { debug("button1") }
-    //     button-two => { debug("button2") }
-    // }
 }

@@ -1,15 +1,14 @@
-use rand::seq::IteratorRandom;
-use serde_json::Result;
-use rand::{rngs::ThreadRng, Rng};
-use std::{cell::Cell, rc::Rc};
+pub mod gamelogic {
 
-use crate::configure::{Country, Continent};
+    use slint::Color;
+    use rand::seq::IteratorRandom;
+    use rand::Rng;
 
-pub struct GameLogic;
+    use crate::configure::{Country, Continent};
+    use crate::threadfn::GameMode;
+    use crate::consts::pallet::*;
 
-impl GameLogic {
-
-    pub fn filter_by_continents(countries: &Vec<Country>, target_continents: &[Continent],
+    pub fn filter_by_continents(countries: &Vec<Country>, target_continents: &[Continent]
     ) -> Vec<Country> {
         countries
             .into_iter()
@@ -31,32 +30,73 @@ impl GameLogic {
         .collect()
     }
 
-#[inline(always)]
-    pub fn start_rand_to_image() -> ThreadRng {
-        rand::rng()
-    }
-
-    pub fn get_rand_to_image(rng: &mut ThreadRng) -> usize {
-        let random_number: usize = rng.random_range(0..4);
+    pub fn get_rand_universal(count: usize) -> usize {
+        let mut rng: rand::prelude::ThreadRng = rand::rng();
+        let random_number: usize = rng.random_range(0..count);
         random_number
     }
 
-    pub fn get_rand_to_image_cell(rng: &mut ThreadRng) -> Rc<Cell<usize>> {
-        let random_number: usize = rng.random_range(0..4);
-        Rc::new(Cell::new(random_number))
-    }
-
-    pub fn create_continents_list(input_config: &Vec<bool>) -> Result<Vec<Continent>> {
+    pub fn create_continents_list(input_config: &Vec<bool>) -> Vec<Continent> {
         use Continent::*;
         const CONTINENTS: [Continent; 6] = [Europe, Asia, Africa, NorthAmerica, SouthAmerica, Oceania];
 
         let mut out = Vec::new();
-        
+
         for i in 0..CONTINENTS.len() {
             if input_config[i] {
                 out.push(CONTINENTS[i].clone());
             }
         }
-        Ok(out)
+        out
+    }
+
+    pub fn create_mode_list(input_config: &Vec<bool>) -> Vec<GameMode> {
+        use GameMode::*;
+        const MODE: [GameMode; 3] = [Flags, Capitals, Fandc];
+
+        let mut out = Vec::new();
+
+        for i in 0..MODE.len() {
+            if input_config[i] {
+                out.push(MODE[i].clone());
+            }
+        }
+        out
+    }
+
+    pub fn ret_button_color(index: i32) -> Color {
+        match index {
+            0 => COLOR_GRAY,
+            1 => COLOR_FREEDOM,
+            2 => COLOR_LAVENDER,
+            3 => COLOR_BLUE_SKY,
+            4 => COLOR_MANDARIN,
+            5 => COLOR_RIPE_LIME,
+            _ => COLOR_GRAY
+        }
+    }
+
+    pub fn ret_button_color_index(name: &str) -> i32 {
+        match name {
+            "gray" => 0,
+            "freedom" => 1,
+            "lavender" => 2,
+            "blue_sky" => 3,
+            "mandarin" => 4,
+            "ripe_lime" => 5,
+            _ => 0
+        }
+    }
+
+    pub fn ret_button_color_string(index: i32) -> String {
+        match index {
+            0 => "gray",
+            1 => "freedom",
+            2 => "lavender",
+            3 => "blue_sky",
+            4 => "mandarin",
+            5 => "ripe_lime",
+            _ => "gray"
+        }.to_string()
     }
 }
