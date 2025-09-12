@@ -164,7 +164,7 @@ pub mod set {
         use crate::consts::os::LOAD_ICON;
         use crate::configure::get::img;
     #[cfg(debug_assertions)]
-        let welcome_patch: String = format!("{LOAD_ICON}{}", "earth.svg");
+        let welcome_patch: String = LOAD_ICON.to_string();
     #[cfg(not(debug_assertions))]
         let welcome_patch: PathBuf = patch.join(LOAD_ICON);
         let image_data: Vec<u8> = match fs::read(welcome_patch) {
