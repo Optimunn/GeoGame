@@ -14,7 +14,7 @@ export component MainWindow inherits Window {
     //update window
     callback update-window;
     //run when checkbox be clicked
-    callback checkbox-clicked;
+    callback checkbox-clicked <=> window-preplay.checkbox-clicked;
     //open url in browser
     callback open-url-info(int);
     //ret current selected button color
@@ -52,13 +52,11 @@ export component MainWindow inherits Window {
 
     window-welcome := WelcomeWindow {
         visible: scene-visible == 1;
-        close-answer => { window-game.answer-data.visible = false }
         scene-visible(item) => { root.scene-visible = item; }
     }
 
     window-preplay := PrePlayWindow {
         visible: scene-visible == 2;
-        checkbox-clicked => { root.checkbox-clicked() }
         scene-visible(item) => { root.scene-visible = item; }
         run-process(item) => { root.run-game-process(item); root.update-window(); }
     }
