@@ -1,4 +1,4 @@
-import { SettingsMenu} from "settings.slint";
+import { SettingsMenu } from "settings.slint";
 import { GameWindow } from "game.slint";
 import { PrePlayWindow } from "preplay.slint";
 import { WelcomeWindow } from "welcome.slint";
@@ -14,13 +14,16 @@ export component MainWindow inherits Window {
     //update window
     callback update-window;
     //run when checkbox be clicked
-    callback checkbox-clicked;
+    callback checkbox-clicked <=> window-preplay.checkbox-clicked;
     //open url in browser
     callback open-url-info(int);
     //ret current selected button color
     callback selected-button-color(int);
+    //ret current selected language
+    callback selected-language(int);
 
     in-out property selected-button-color-index <=> window-settings.selected-color-index;
+    in-out property selected-language-index <=> window-settings.selected-language-index;
 
     in-out property uniq-button-color <=> MyPalette.button-color;
     in property image-welcome <=> window-welcome.image-welcome;
@@ -52,13 +55,11 @@ export component MainWindow inherits Window {
 
     window-welcome := WelcomeWindow {
         visible: scene-visible == 1;
-        close-answer => { window-game.answer-data.visible = false }
         scene-visible(item) => { root.scene-visible = item; }
     }
 
     window-preplay := PrePlayWindow {
         visible: scene-visible == 2;
-        checkbox-clicked => { root.checkbox-clicked() }
         scene-visible(item) => { root.scene-visible = item; }
         run-process(item) => { root.run-game-process(item); root.update-window(); }
     }
@@ -67,6 +68,7 @@ export component MainWindow inherits Window {
         visible: scene-visible == 3;
         scene-visible => { root.scene-visible = 1 }
         selected-button-color(item) => { root.selected-button-color(item) }
+        selected-button-language(item) => { root.selected-language(item) }
     }
 
     window-about := AboutApplication {

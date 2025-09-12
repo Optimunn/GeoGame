@@ -1,9 +1,8 @@
 use slint::{ModelRc, SharedString, ToSharedString, VecModel, Weak};
 use std::sync::mpsc::{Sender, Receiver, channel};
+use std::path::PathBuf;
 use std::thread;
 use std::cell::Cell;
-//#[cfg(debug_assertions)]
-use std::path::PathBuf;
 use std::rc::Rc;
 
 use process::gamelogic;
@@ -24,7 +23,7 @@ impl AnswerData {
     fn my_default() -> Self {
         AnswerData {
             answer: "null".to_shared_string(),
-            color: pallet::COLOR_RED,
+            color: pallet::RED,
             selected: "null".to_shared_string(),
             visible: true
         }
@@ -34,41 +33,32 @@ impl AnswerData {
 fn main() -> Result<(), slint::PlatformError> {
     //* Drop app window
     let main_window: MainWindow = MainWindow::new().unwrap();
-#[cfg(not(debug_assertions))]
-    let (config_path_string, data_path_string,  image_path_string) = ConfSet::load_file_ways();
 
-    //*  Load app data
-    let serialized_countries: Vec<Country> = match ConfSet::read_from_file(
-        #[cfg(debug_assertions)] drop_buf!(LOAD_DATA),
-        #[cfg(not(debug_assertions))] &data_path_string)
-    {
-        Ok(config) => config,
-        Err(_) => panic!("Failed to load app data"),
-    };
+    #[cfg(not(debug_assertions))]
+    let (data_path_string,  image_path_string) = ConfSet::load_file_ways();
 
     //*  Load app configuration data
-    let mut loaded_config: InputConfig = match ConfSet::read_from_file(
-        #[cfg(debug_assertions)] drop_buf!(LOAD_CONFIG),
-        #[cfg(not(debug_assertions))] &config_path_string)
+    let conf_settings = ConfSet::input_config_path();
+    let mut loaded_config: InputConfig = match ConfSet::read_from_file(&conf_settings)
     {
         Ok(config) => config,
         Err(_) => InputConfig::default(),
     };
 
+    let config_language: &str = get::settings_language_patch(&loaded_config.language);
+    let load_path: PathBuf = ConfSet::input_data_path(config_language, #[cfg(not(debug_assertions))] &data_path_string);
+
+    //*  Load app data
+    let serialized_countries: Vec<Country> = match ConfSet::read_from_file(&load_path)
+    {
+        Ok(config) => config,
+        Err(_) => panic!("Failed to load app data"),
+    };
+
     main_window.window().set_size(set::screen_size(loaded_config.size));
     main_window.window().set_position(set::screen_position(loaded_config.position));
 
-//todo -> load image
-    #[cfg(debug_assertions)]
-        let welcome_patch: String = format!("{LOAD_ICON}{}", "earth.svg");
-    #[cfg(not(debug_assertions))]
-        let welcome_patch: PathBuf = image_path_string.join("../icons/earth.svg");
-    let image_data: Vec<u8> = match std::fs::read(welcome_patch) {
-        Ok(data) => data,
-        Err(_) => panic!("Failed to load image")
-    };
-    main_window.set_image_welcome(get::img(&image_data));
-//todo <-
+    set::image_welcome(&main_window, #[cfg(not(debug_assertions))] &image_path_string);
 
     let (tx_cmd, rx_cmd): (Sender<ThreadIn>, Receiver<ThreadIn>) = channel();
     let (tx_data, rx_data): (Sender<ThreadData>, Receiver<ThreadData>) = channel();
@@ -108,6 +98,7 @@ fn main() -> Result<(), slint::PlatformError> {
         random: None
     }));
 
+    set::settings_language(&main_window, &loaded_config.language);
     set::settings_button_color(&main_window, &loaded_config.color);
     //* Blocking last checkbox
     set::checkbox_continent_blocked(&main_window, &loaded_config.continents);
@@ -143,7 +134,7 @@ fn main() -> Result<(), slint::PlatformError> {
             let mut model: AnswerData = AnswerData::my_default();
 
             let random_number_get: usize = random_number.get();
-            if index as usize == random_number_get { model.color = pallet::COLOR_GREEN; }
+            if index as usize == random_number_get { model.color = pallet::GREEN; }
             model.selected = input_names[index as usize].clone();
             model.answer = input_names[random_number_get].clone();
             main_window.set_answer_data(model);
@@ -213,9 +204,9 @@ fn main() -> Result<(), slint::PlatformError> {
     let _ = main_window.on_open_url_info({
         move |index: i32| {
             match index {
-                1 => open::that(url::LINK_TO_GITHUB).unwrap(),
-                2 => open::that(url::LINK_TO_RUST).unwrap(),
-                3 => open::that(url::LINK_TO_SLINT).unwrap(),
+                1 => open::that(url::GITHUB).unwrap(),
+                2 => open::that(url::RUST).unwrap(),
+                3 => open::that(url::SLINT).unwrap(),
                 _ => (),
             }
         }
@@ -242,11 +233,10 @@ fn main() -> Result<(), slint::PlatformError> {
             loaded_config.position = get::window_position(main_window.window().position());
             loaded_config.continents = get::checkbox_continent_checked(&main_window);
             loaded_config.mode = get::checkbox_mode_checked(&main_window);
-            loaded_config.language = "en".to_string();
+            loaded_config.language = get::settings_language(&main_window);
             loaded_config.color = get::settings_button_color(&main_window);
 
-            ConfSet::write_input_config(#[cfg(debug_assertions)] drop_buf!(LOAD_CONFIG),
-                #[cfg(not(debug_assertions))] &config_path_string, &loaded_config).unwrap();
+            ConfSet::write_input_config(&conf_settings, &loaded_config).unwrap();
             slint::CloseRequestResponse::HideWindow
         }
     });

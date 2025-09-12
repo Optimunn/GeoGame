@@ -14,10 +14,10 @@ component MyBox inherits VerticalBox {
 }
 
 export component AboutApplication inherits Rectangle {
-    callback scene-visible;
+    callback scene-visible <=> img.clicked;
     callback open-url(int);
 
-    background: @radial-gradient(circle, #e4dd0d 0%, #bbdaa2 50%, #3ca5f6c8 100%);
+    background: @linear-gradient(90deg, #3ca5f6b8 0%, #e4dd0d 40%,  #e4dd0d 60%, #3ca5f6b8 100%);
 
     VerticalBox {
         padding-left: 20px;
@@ -26,7 +26,7 @@ export component AboutApplication inherits Rectangle {
         width: 300px;
 
         Text {
-            text: "Geographical game\n\nVersion: 0.4.0";
+            text: "Geographical game\n\nVersion: 0.4.5";
             font-size: 24px;
             horizontal-alignment: center;
         }
@@ -42,16 +42,14 @@ export component AboutApplication inherits Rectangle {
         }
         MyBox {
             icon: @image-url("../assets/icons/slint-logo.svg");
-            text:  "#MadeWitchSlint";
+            text:  "#MadeWithSlint";
             clicked => { root.open-url(3) }
         }
     }
 
-    ImageStatic {
+    img := ImageStatic {
         icon: @image-url("../assets/icons/cross.svg");
-        x: 0px;
-        y: 0px;
+        x: 0px; y: 0px;
         my-size: 30px;
-        clicked => { root.scene-visible() }
     }
 }

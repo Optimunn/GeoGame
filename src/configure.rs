@@ -55,12 +55,32 @@ impl InputConfig {
 pub mod configurationsettings {
     use serde::de::DeserializeOwned;
     use serde_json::Result;
-    use std::{fs, path::PathBuf};
+    use std::path::PathBuf;
+    use std::fs;
     use crate::configure::InputConfig;
+    use crate::consts::os::*;
+
+    pub fn input_config_path() -> PathBuf {
+        let home_dir: PathBuf = match std::env::home_dir(){
+            Some(patch) => patch,
+            None => panic!("Failed to get home directory!"),
+        };
+        let config_dir: PathBuf = home_dir.join(CONFIG_DIR);
+        if !config_dir.is_dir() {
+            fs::create_dir(&config_dir)
+                .expect("Failed to create config directory!");
+        }
+        config_dir.join(CONFIG_FILE)
+    }
+
+    pub fn input_data_path(language: &str, #[cfg(not(debug_assertions))]  patch: &PathBuf) -> PathBuf {
+    #[cfg(debug_assertions)] {
+            let patch_dbg: String = format!("{LOAD_DATA}{}", language);
+            PathBuf::from(patch_dbg.to_string())
+        }
     #[cfg(not(debug_assertions))]
-    use std::path::Path;
-    #[cfg(not(debug_assertions))]
-    use crate::consts::*;
+        patch.join(language)
+    }
 
 	pub fn read_from_file<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
         let data: String = match fs::read_to_string(path) {
@@ -77,13 +97,13 @@ pub mod configurationsettings {
         Ok(output)
     }
 #[cfg(not(debug_assertions))]
-    pub fn load_file_ways() -> (PathBuf, PathBuf, PathBuf) {
+    pub fn load_file_ways() -> (PathBuf, PathBuf) {
+        use std::path::Path;
         let exe_path: PathBuf = std::env::current_exe().unwrap();
         let exe_dir: &Path = exe_path.parent().unwrap();
-        let config_path_string: PathBuf = exe_dir.join(LOAD_CONFIG);
         let data_path_string: PathBuf = exe_dir.join(LOAD_DATA);
         let image_path_string: PathBuf = exe_dir.join(LOAD_IMAGE);
-        return (config_path_string, data_path_string, image_path_string);
+        return (data_path_string, image_path_string);
     }
 
 }
@@ -91,6 +111,9 @@ pub mod configurationsettings {
 pub mod set {
     use slint::{PhysicalPosition,
         PhysicalSize, ModelRc, VecModel, Color};
+#[cfg(not(debug_assertions))]
+    use std::path::PathBuf;
+    use std::fs;
     use std::rc::Rc;
     use crate::slint_generatedMainWindow::MainWindow;
     use crate::process::gamelogic;
@@ -131,6 +154,25 @@ pub mod set {
         window.set_selected_button_color_index(index);
         window.set_uniq_button_color(color);
     }
+#[inline(always)]
+    pub fn settings_language(window: &MainWindow, lang: &String) {
+        let index: i32 = gamelogic::ret_language_index(lang);
+        window.set_selected_language_index(index);
+    }
+
+    pub fn image_welcome(window: &MainWindow, #[cfg(not(debug_assertions))] patch: &PathBuf) {
+        use crate::consts::os::LOAD_ICON;
+        use crate::configure::get::img;
+    #[cfg(debug_assertions)]
+        let welcome_patch: String = format!("{LOAD_ICON}{}", "earth.svg");
+    #[cfg(not(debug_assertions))]
+        let welcome_patch: PathBuf = patch.join(LOAD_ICON);
+        let image_data: Vec<u8> = match fs::read(welcome_patch) {
+            Ok(data) => data,
+            Err(_) => panic!("Failed to load image")
+        };
+        window.set_image_welcome(img(&image_data));
+    }
 }
 
 macro_rules! position_bug { // !!! WTF
@@ -160,6 +202,16 @@ pub mod get {
     pub fn settings_button_color(window: &MainWindow) -> String {
         let index: i32 = window.get_selected_button_color_index();
         gamelogic::ret_button_color_string(index)
+    }
+#[inline(always)]
+    pub fn settings_language(window: &MainWindow) -> String {
+        let index: i32 = window.get_selected_language_index();
+        gamelogic::ret_language_string(index)
+    }
+#[inline(always)]
+    pub fn settings_language_patch(lang: &String) -> &'static str {
+        let index: i32 = gamelogic::ret_language_index(lang);
+        gamelogic::ret_language(index)
     }
 #[inline(always)]
     pub fn checkbox_continent_checked(window: &MainWindow) -> Vec<bool> {

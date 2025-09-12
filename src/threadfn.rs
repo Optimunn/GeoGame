@@ -4,7 +4,7 @@ use std::fs;
 #[cfg(not(debug_assertions))]
 use std::path::PathBuf;
 #[cfg(debug_assertions)]
-use crate::consts::LOAD_IMAGE;
+use crate::consts::os::LOAD_IMAGE;
 use crate::process::gamelogic;
 use crate::configure::Country;
 

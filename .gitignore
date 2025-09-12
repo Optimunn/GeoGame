@@ -1,10 +1,6 @@
 /macos/Geographical game.app
-/macos/icon/geogame_n.png
-/save/config.json
+/.vscode
 .DS_Store
 /target
 /Cargo.lock
-/.vscode
 /assets/flags/1x1
-/data/lang.zip
-/messages.po

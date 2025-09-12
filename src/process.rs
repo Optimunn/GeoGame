@@ -6,7 +6,6 @@ pub mod gamelogic {
 
     use crate::configure::{Country, Continent};
     use crate::threadfn::GameMode;
-    use crate::consts::pallet::*;
 
     pub fn filter_by_continents(countries: &Vec<Country>, target_continents: &[Continent]
     ) -> Vec<Country> {
@@ -65,14 +64,15 @@ pub mod gamelogic {
     }
 
     pub fn ret_button_color(index: i32) -> Color {
+        use crate::consts::pallet::*;
         match index {
-            0 => COLOR_GRAY,
-            1 => COLOR_FREEDOM,
-            2 => COLOR_LAVENDER,
-            3 => COLOR_BLUE_SKY,
-            4 => COLOR_MANDARIN,
-            5 => COLOR_RIPE_LIME,
-            _ => COLOR_GRAY
+            0 => GRAY,
+            1 => FREEDOM,
+            2 => LAVENDER,
+            3 => BLUE_SKY,
+            4 => MANDARIN,
+            5 => RIPE_LIME,
+            _ => GRAY
         }
     }
 
@@ -97,6 +97,31 @@ pub mod gamelogic {
             4 => "mandarin",
             5 => "ripe_lime",
             _ => "gray"
+        }.to_string()
+    }
+
+    pub fn ret_language(index: i32) -> &'static str {
+        use crate::consts::language::*;
+        match index {
+            0 => EN,
+            1 => RU,
+            _ => EN
+        }
+    }
+
+    pub fn ret_language_index(name: &str) -> i32 {
+        match name {
+            "en" => 0,
+            "ru" => 1,
+            _ => 0
+        }
+    }
+
+    pub fn ret_language_string(index: i32) -> String {
+        match index {
+            0 => "en",
+            1 => "ru",
+            _ => "en"
         }.to_string()
     }
 }
