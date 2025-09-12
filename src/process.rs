@@ -99,4 +99,29 @@ pub mod gamelogic {
             _ => "gray"
         }.to_string()
     }
+
+    pub fn ret_language(index: i32) -> &'static str {
+        use crate::consts::language::*;
+        match index {
+            0 => EN,
+            1 => RU,
+            _ => EN
+        }
+    }
+
+    pub fn ret_language_index(name: &str) -> i32 {
+        match name {
+            "en" => 0,
+            "ru" => 1,
+            _ => 0
+        }
+    }
+
+    pub fn ret_language_string(index: i32) -> String {
+        match index {
+            0 => "en",
+            1 => "ru",
+            _ => "en"
+        }.to_string()
+    }
 }

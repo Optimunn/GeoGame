@@ -1,4 +1,4 @@
-import { SettingsMenu} from "settings.slint";
+import { SettingsMenu } from "settings.slint";
 import { GameWindow } from "game.slint";
 import { PrePlayWindow } from "preplay.slint";
 import { WelcomeWindow } from "welcome.slint";
@@ -19,8 +19,11 @@ export component MainWindow inherits Window {
     callback open-url-info(int);
     //ret current selected button color
     callback selected-button-color(int);
+    //ret current selected language
+    callback selected-language(int);
 
     in-out property selected-button-color-index <=> window-settings.selected-color-index;
+    in-out property selected-language-index <=> window-settings.selected-language-index;
 
     in-out property uniq-button-color <=> MyPalette.button-color;
     in property image-welcome <=> window-welcome.image-welcome;
@@ -65,6 +68,7 @@ export component MainWindow inherits Window {
         visible: scene-visible == 3;
         scene-visible => { root.scene-visible = 1 }
         selected-button-color(item) => { root.selected-button-color(item) }
+        selected-button-language(item) => { root.selected-language(item) }
     }
 
     window-about := AboutApplication {

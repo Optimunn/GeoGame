@@ -3,9 +3,9 @@ pub mod os {
     pub const CONFIG_DIR: &str = ".config/GeoGame";
     pub const CONFIG_FILE: &str = "config.json";
 #[cfg(debug_assertions)]
-    pub const LOAD_DATA: &str = "data/country_en.json";
+    pub const LOAD_DATA: &str = "data/";
 #[cfg(not(debug_assertions))]
-    pub const LOAD_DATA: &str = "../Resources/Data/country_en.json";
+    pub const LOAD_DATA: &str = "../Resources/Data/";
 #[cfg(debug_assertions)]
     pub const LOAD_IMAGE: &str = "assets/flags/4x3/";
 #[cfg(not(debug_assertions))]
@@ -21,9 +21,9 @@ pub mod os {
     pub const CONFIG_DIR: &str = "AppData\\Local\\GeoGame";
     pub const CONFIG_FILE: &str = "config.json";
 #[cfg(debug_assertions)]
-    pub const LOAD_DATA: &str = "data\\country_en.json";
+    pub const LOAD_DATA: &str = "data\\";
 #[cfg(not(debug_assertions))]
-    pub const LOAD_DATA: &str = "..\\Resources\\Data\\country_en.json";
+    pub const LOAD_DATA: &str = "..\\Resources\\Data\\";
 #[cfg(debug_assertions)]
     pub const LOAD_IMAGE: &str = "assets\\flags\\4x3\\";
 #[cfg(not(debug_assertions))]
@@ -32,6 +32,11 @@ pub mod os {
     pub const LOAD_ICON: &str = "assets\\icons\\";
 #[cfg(not(debug_assertions))]
     pub const LOAD_ICON: &str = "..\\icons\\earth.svg";
+}
+
+pub mod language {
+    pub const EN: &str = "country_en.json";
+    pub const RU: &str = "country_ru.json";
 }
 
 pub mod url {
@@ -82,11 +87,4 @@ macro_rules! block_checkbox {
         let count = slice.iter().filter(|&&x| x).count();
         count <= 1
     }};
-}
-
-#[macro_export]
-macro_rules! drop_buf {
-    ($str:expr) => {
-        &PathBuf::from(($str.to_string()))
-    };
 }

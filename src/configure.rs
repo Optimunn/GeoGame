@@ -73,6 +73,15 @@ pub mod configurationsettings {
         config_dir.join(CONFIG_FILE)
     }
 
+    pub fn input_data_path(language: &str, #[cfg(not(debug_assertions))]  patch: &PathBuf) -> PathBuf {
+    #[cfg(debug_assertions)] {
+            let patch_dbg: String = format!("{LOAD_DATA}{}", language);
+            PathBuf::from(patch_dbg.to_string())
+        }
+    #[cfg(not(debug_assertions))]
+        patch.join(language)
+    }
+
 	pub fn read_from_file<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
         let data: String = match fs::read_to_string(path) {
             Ok(data) => data,
@@ -145,6 +154,11 @@ pub mod set {
         window.set_selected_button_color_index(index);
         window.set_uniq_button_color(color);
     }
+#[inline(always)]
+    pub fn settings_language(window: &MainWindow, lang: &String) {
+        let index: i32 = gamelogic::ret_language_index(lang);
+        window.set_selected_language_index(index);
+    }
 
     pub fn image_welcome(window: &MainWindow, #[cfg(not(debug_assertions))] patch: &PathBuf) {
         use crate::consts::os::LOAD_ICON;
@@ -188,6 +202,16 @@ pub mod get {
     pub fn settings_button_color(window: &MainWindow) -> String {
         let index: i32 = window.get_selected_button_color_index();
         gamelogic::ret_button_color_string(index)
+    }
+#[inline(always)]
+    pub fn settings_language(window: &MainWindow) -> String {
+        let index: i32 = window.get_selected_language_index();
+        gamelogic::ret_language_string(index)
+    }
+#[inline(always)]
+    pub fn settings_language_patch(lang: &String) -> &'static str {
+        let index: i32 = gamelogic::ret_language_index(lang);
+        gamelogic::ret_language(index)
     }
 #[inline(always)]
     pub fn checkbox_continent_checked(window: &MainWindow) -> Vec<bool> {

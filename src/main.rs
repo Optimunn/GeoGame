@@ -1,9 +1,8 @@
 use slint::{ModelRc, SharedString, ToSharedString, VecModel, Weak};
 use std::sync::mpsc::{Sender, Receiver, channel};
+use std::path::PathBuf;
 use std::thread;
 use std::cell::Cell;
-#[cfg(debug_assertions)]
-use std::path::PathBuf;
 use std::rc::Rc;
 
 use process::gamelogic;
@@ -34,17 +33,9 @@ impl AnswerData {
 fn main() -> Result<(), slint::PlatformError> {
     //* Drop app window
     let main_window: MainWindow = MainWindow::new().unwrap();
-#[cfg(not(debug_assertions))]
-    let (data_path_string,  image_path_string) = ConfSet::load_file_ways();
 
-    //*  Load app data
-    let serialized_countries: Vec<Country> = match ConfSet::read_from_file(
-        #[cfg(debug_assertions)] drop_buf!(os::LOAD_DATA),
-        #[cfg(not(debug_assertions))] &data_path_string)
-    {
-        Ok(config) => config,
-        Err(_) => panic!("Failed to load app data"),
-    };
+    #[cfg(not(debug_assertions))]
+    let (data_path_string,  image_path_string) = ConfSet::load_file_ways();
 
     //*  Load app configuration data
     let conf_settings = ConfSet::input_config_path();
@@ -52,6 +43,16 @@ fn main() -> Result<(), slint::PlatformError> {
     {
         Ok(config) => config,
         Err(_) => InputConfig::default(),
+    };
+
+    let config_language: &str = get::settings_language_patch(&loaded_config.language);
+    let load_path: PathBuf = ConfSet::input_data_path(config_language, #[cfg(not(debug_assertions))] &data_path_string);
+
+    //*  Load app data
+    let serialized_countries: Vec<Country> = match ConfSet::read_from_file(&load_path)
+    {
+        Ok(config) => config,
+        Err(_) => panic!("Failed to load app data"),
     };
 
     main_window.window().set_size(set::screen_size(loaded_config.size));
@@ -97,6 +98,7 @@ fn main() -> Result<(), slint::PlatformError> {
         random: None
     }));
 
+    set::settings_language(&main_window, &loaded_config.language);
     set::settings_button_color(&main_window, &loaded_config.color);
     //* Blocking last checkbox
     set::checkbox_continent_blocked(&main_window, &loaded_config.continents);
@@ -231,7 +233,7 @@ fn main() -> Result<(), slint::PlatformError> {
             loaded_config.position = get::window_position(main_window.window().position());
             loaded_config.continents = get::checkbox_continent_checked(&main_window);
             loaded_config.mode = get::checkbox_mode_checked(&main_window);
-            loaded_config.language = "en".to_string();
+            loaded_config.language = get::settings_language(&main_window);
             loaded_config.color = get::settings_button_color(&main_window);
 
             ConfSet::write_input_config(&conf_settings, &loaded_config).unwrap();
