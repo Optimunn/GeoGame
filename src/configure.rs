@@ -55,12 +55,23 @@ impl InputConfig {
 pub mod configurationsettings {
     use serde::de::DeserializeOwned;
     use serde_json::Result;
-    use std::{fs, path::PathBuf};
+    use std::path::PathBuf;
+    use std::fs;
     use crate::configure::InputConfig;
-#[cfg(not(debug_assertions))]
-    use std::path::Path;
-#[cfg(not(debug_assertions))]
     use crate::consts::os::*;
+
+    pub fn input_config_path() -> PathBuf {
+        let home_dir: PathBuf = match std::env::home_dir(){
+            Some(patch) => patch,
+            None => panic!("Failed to get home directory!"),
+        };
+        let config_dir: PathBuf = home_dir.join(CONFIG_DIR);
+        if !config_dir.is_dir() {
+            fs::create_dir(&config_dir)
+                .expect("Failed to create config directory!");
+        }
+        config_dir.join(CONFIG_FILE)
+    }
 
 	pub fn read_from_file<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
         let data: String = match fs::read_to_string(path) {
@@ -77,13 +88,13 @@ pub mod configurationsettings {
         Ok(output)
     }
 #[cfg(not(debug_assertions))]
-    pub fn load_file_ways() -> (PathBuf, PathBuf, PathBuf) {
+    pub fn load_file_ways() -> (PathBuf, PathBuf) {
+        use std::path::Path;
         let exe_path: PathBuf = std::env::current_exe().unwrap();
         let exe_dir: &Path = exe_path.parent().unwrap();
-        let config_path_string: PathBuf = exe_dir.join(LOAD_CONFIG);
         let data_path_string: PathBuf = exe_dir.join(LOAD_DATA);
         let image_path_string: PathBuf = exe_dir.join(LOAD_IMAGE);
-        return (config_path_string, data_path_string, image_path_string);
+        return (data_path_string, image_path_string);
     }
 
 }
@@ -93,6 +104,7 @@ pub mod set {
         PhysicalSize, ModelRc, VecModel, Color};
 #[cfg(not(debug_assertions))]
     use std::path::PathBuf;
+    use std::fs;
     use std::rc::Rc;
     use crate::slint_generatedMainWindow::MainWindow;
     use crate::process::gamelogic;
@@ -141,7 +153,7 @@ pub mod set {
         let welcome_patch: String = format!("{LOAD_ICON}{}", "earth.svg");
     #[cfg(not(debug_assertions))]
         let welcome_patch: PathBuf = patch.join(LOAD_ICON);
-        let image_data: Vec<u8> = match std::fs::read(welcome_patch) {
+        let image_data: Vec<u8> = match fs::read(welcome_patch) {
             Ok(data) => data,
             Err(_) => panic!("Failed to load image")
         };

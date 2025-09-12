@@ -92,7 +92,6 @@ fi
 
 RESOURCES_DIR="$CONTENTS_DIR/Resources"
 RESOURCES_DIR_DATA="$RESOURCES_DIR/Data"
-RESOURCES_DIR_SAVE="$RESOURCES_DIR/Save"
 
 ASSETS_DIR="$RESOURCES_DIR/Assets"
 ASSETS_DIR_FLAGS="$ASSETS_DIR/flags"
@@ -102,7 +101,6 @@ echo "Creating directory structure..."
 mkdir -p "$MACOS_DIR"
 mkdir -p "$RESOURCES_DIR"
 mkdir -p "$RESOURCES_DIR_DATA"
-mkdir -p "$RESOURCES_DIR_SAVE"
 mkdir -p "$ASSETS_DIR"
 mkdir -p "$ASSETS_DIR_FLAGS"
 mkdir -p "$ASSETS_DIR_ICONS"

@@ -1,41 +1,35 @@
 #[cfg(any(target_os = "linux", target_os = "macos"))]
 pub mod os {
-#[cfg(debug_assertions)]
-    pub const LOAD_CONFIG: &str = "save/config.json";
+    pub const CONFIG_DIR: &str = ".config/GeoGame";
+    pub const CONFIG_FILE: &str = "config.json";
 #[cfg(debug_assertions)]
     pub const LOAD_DATA: &str = "data/country_en.json";
-#[cfg(debug_assertions)]
-    pub const LOAD_IMAGE: &str = "assets/flags/4x3/";
-#[cfg(debug_assertions)]
-    pub const LOAD_ICON: &str = "assets/icons/";
-
-#[cfg(not(debug_assertions))]
-    pub const LOAD_CONFIG: &str = "../Resources/Save/config.json";
 #[cfg(not(debug_assertions))]
     pub const LOAD_DATA: &str = "../Resources/Data/country_en.json";
+#[cfg(debug_assertions)]
+    pub const LOAD_IMAGE: &str = "assets/flags/4x3/";
 #[cfg(not(debug_assertions))]
     pub const LOAD_IMAGE: &str = "../Resources/Assets/flags/";
+#[cfg(debug_assertions)]
+    pub const LOAD_ICON: &str = "assets/icons/";
 #[cfg(not(debug_assertions))]
     pub const LOAD_ICON: &str = "../icons/earth.svg";
 }
 
 #[cfg(target_os = "windows")]
 pub mod os {
-#[cfg(debug_assertions)]
-    pub const LOAD_CONFIG: &str = "save\\config.json";
+    pub const CONFIG_DIR: &str = "AppData\\Local\\GeoGame";
+    pub const CONFIG_FILE: &str = "config.json";
 #[cfg(debug_assertions)]
     pub const LOAD_DATA: &str = "data\\country_en.json";
-#[cfg(debug_assertions)]
-    pub const LOAD_IMAGE: &str = "assets\\flags\\4x3\\";
-#[cfg(debug_assertions)]
-    pub const LOAD_ICON: &str = "assets\\icons\\";
-
-#[cfg(not(debug_assertions))]
-    pub const LOAD_CONFIG: &str = "..\\Resources\\Save\\config.json";
 #[cfg(not(debug_assertions))]
     pub const LOAD_DATA: &str = "..\\Resources\\Data\\country_en.json";
+#[cfg(debug_assertions)]
+    pub const LOAD_IMAGE: &str = "assets\\flags\\4x3\\";
 #[cfg(not(debug_assertions))]
     pub const LOAD_IMAGE: &str = "..\\Resources\\Assets\\flags\\";
+#[cfg(debug_assertions)]
+    pub const LOAD_ICON: &str = "assets\\icons\\";
 #[cfg(not(debug_assertions))]
     pub const LOAD_ICON: &str = "..\\icons\\earth.svg";
 }

@@ -35,7 +35,7 @@ fn main() -> Result<(), slint::PlatformError> {
     //* Drop app window
     let main_window: MainWindow = MainWindow::new().unwrap();
 #[cfg(not(debug_assertions))]
-    let (config_path_string, data_path_string,  image_path_string) = ConfSet::load_file_ways();
+    let (data_path_string,  image_path_string) = ConfSet::load_file_ways();
 
     //*  Load app data
     let serialized_countries: Vec<Country> = match ConfSet::read_from_file(
@@ -47,9 +47,8 @@ fn main() -> Result<(), slint::PlatformError> {
     };
 
     //*  Load app configuration data
-    let mut loaded_config: InputConfig = match ConfSet::read_from_file(
-        #[cfg(debug_assertions)] drop_buf!(os::LOAD_CONFIG),
-        #[cfg(not(debug_assertions))] &config_path_string)
+    let conf_settings = ConfSet::input_config_path();
+    let mut loaded_config: InputConfig = match ConfSet::read_from_file(&conf_settings)
     {
         Ok(config) => config,
         Err(_) => InputConfig::default(),
@@ -235,8 +234,7 @@ fn main() -> Result<(), slint::PlatformError> {
             loaded_config.language = "en".to_string();
             loaded_config.color = get::settings_button_color(&main_window);
 
-            ConfSet::write_input_config(#[cfg(debug_assertions)] drop_buf!(os::LOAD_CONFIG),
-                #[cfg(not(debug_assertions))] &config_path_string, &loaded_config).unwrap();
+            ConfSet::write_input_config(&conf_settings, &loaded_config).unwrap();
             slint::CloseRequestResponse::HideWindow
         }
     });
