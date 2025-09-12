@@ -57,10 +57,10 @@ pub mod configurationsettings {
     use serde_json::Result;
     use std::{fs, path::PathBuf};
     use crate::configure::InputConfig;
-    #[cfg(not(debug_assertions))]
+#[cfg(not(debug_assertions))]
     use std::path::Path;
-    #[cfg(not(debug_assertions))]
-    use crate::consts::*;
+#[cfg(not(debug_assertions))]
+    use crate::consts::os::*;
 
 	pub fn read_from_file<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
         let data: String = match fs::read_to_string(path) {
@@ -91,6 +91,8 @@ pub mod configurationsettings {
 pub mod set {
     use slint::{PhysicalPosition,
         PhysicalSize, ModelRc, VecModel, Color};
+#[cfg(not(debug_assertions))]
+    use std::path::PathBuf;
     use std::rc::Rc;
     use crate::slint_generatedMainWindow::MainWindow;
     use crate::process::gamelogic;
@@ -130,6 +132,20 @@ pub mod set {
         let color: Color = gamelogic::ret_button_color(index);
         window.set_selected_button_color_index(index);
         window.set_uniq_button_color(color);
+    }
+
+    pub fn image_welcome(window: &MainWindow, #[cfg(not(debug_assertions))] patch: &PathBuf) {
+        use crate::consts::os::LOAD_ICON;
+        use crate::configure::get::img;
+    #[cfg(debug_assertions)]
+        let welcome_patch: String = format!("{LOAD_ICON}{}", "earth.svg");
+    #[cfg(not(debug_assertions))]
+        let welcome_patch: PathBuf = patch.join(LOAD_ICON);
+        let image_data: Vec<u8> = match std::fs::read(welcome_patch) {
+            Ok(data) => data,
+            Err(_) => panic!("Failed to load image")
+        };
+        window.set_image_welcome(img(&image_data));
     }
 }
 
