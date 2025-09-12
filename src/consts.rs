@@ -11,7 +11,7 @@ pub mod os {
 #[cfg(not(debug_assertions))]
     pub const LOAD_IMAGE: &str = "../Resources/Assets/flags/";
 #[cfg(debug_assertions)]
-    pub const LOAD_ICON: &str = "assets/icons/";
+    pub const LOAD_ICON: &str = "assets/icons/earth.svg";
 #[cfg(not(debug_assertions))]
     pub const LOAD_ICON: &str = "../icons/earth.svg";
 }
@@ -23,13 +23,13 @@ pub mod os {
 #[cfg(debug_assertions)]
     pub const LOAD_DATA: &str = "data\\";
 #[cfg(not(debug_assertions))]
-    pub const LOAD_DATA: &str = "..\\Resources\\Data\\";
+    pub const LOAD_DATA: &str = "Data\\";
 #[cfg(debug_assertions)]
     pub const LOAD_IMAGE: &str = "assets\\flags\\4x3\\";
 #[cfg(not(debug_assertions))]
-    pub const LOAD_IMAGE: &str = "..\\Resources\\Assets\\flags\\";
+    pub const LOAD_IMAGE: &str = "Assets\\flags\\";
 #[cfg(debug_assertions)]
-    pub const LOAD_ICON: &str = "assets\\icons\\";
+    pub const LOAD_ICON: &str = "assets\\icons\\earth.svg";
 #[cfg(not(debug_assertions))]
     pub const LOAD_ICON: &str = "..\\icons\\earth.svg";
 }

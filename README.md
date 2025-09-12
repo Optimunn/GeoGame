@@ -1,8 +1,9 @@
 # Countries app
 
 Alpha version 0.4.5
-
-![Geographical game](/pictures/geogame.png "Geographical game")
+![Game welcome](/pictures/geo_welcome.png "Game welcome")
+![Game mode](/pictures/geo_mode.png "Game mode")
+![Geographical game](/pictures/geo_game.png "Geographical game")
 
 ---
 
