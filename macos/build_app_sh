@@ -60,16 +60,8 @@ check_file_exists() {
     fi
 }
 
-check_executable() {
-    if [ ! -x "$1" ]; then
-        echo "Warning: File is not executable. Adding execute permission to $1"
-        chmod +x "$1"
-    fi
-}
-
 check_file_exists "$BINARY_PATH"
 check_file_exists "$ICON_PATH"
-check_executable "$BINARY_PATH"
 
 CONTENTS_DIR="$APP_DIR/Contents"
 MACOS_DIR="$CONTENTS_DIR/MacOS"
