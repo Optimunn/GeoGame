@@ -5,6 +5,7 @@ import { WelcomeWindow } from "welcome.slint";
 import { AboutApplication } from "about.slint";
 import { OnExitWindow } from "onexit.slint";
 import { GlobalVar } from "globals.slint";
+import { EndGameWindow } from "endgame.slint";
 
 export component MainWindow inherits Window {
     //in game button witch answer
@@ -40,7 +41,7 @@ export component MainWindow inherits Window {
     in-out property checkbox-continent-blocked <=> window-preplay.checkbox-block;
     in-out property checkbox-mode-blocked <=> window-preplay.checkbox-mode-block;
 
-    private property <int> scene-visible: 1;
+    in-out property <int> scene-visible: 1;
 
     title: "Geographical game";
     preferred-width:  550px;
@@ -75,6 +76,11 @@ export component MainWindow inherits Window {
     window-about := AboutApplication {
         visible: scene-visible == 4;
         open-url(item) => { root.open-url-info(item) }
+        scene-visible => { root.scene-visible = 1 }
+    }
+
+    windows-endgame := EndGameWindow {
+        visible: scene-visible == 5;
         scene-visible => { root.scene-visible = 1 }
     }
 }

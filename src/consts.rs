@@ -67,6 +67,7 @@ pub mod pallet {
 }
 
 pub mod ui {
+#![allow(dead_code)]
 //in game timer
     pub const TIME_OUT: i32 = 5;
 //links
@@ -87,6 +88,16 @@ pub mod ui {
 //language
     pub const I_EN: i32 = 0;
     pub const I_RU: i32 = 1;
+
+    pub mod scene {
+    #![allow(dead_code)]
+        pub const GAME_WINDOW: i32 = 0;
+        pub const WELCOME_WINDOW: i32 = 1;
+        pub const PRE_PLAY_WINDOW: i32 = 2;
+        pub const SETTINGS_WINDOW: i32 = 3;
+        pub const ABOUT_WINDOW: i32 = 4;
+        pub const END_GAME_WINDOW: i32 = 5;
+    }
 }
 
 #[macro_export]

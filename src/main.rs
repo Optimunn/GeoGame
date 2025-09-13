@@ -200,6 +200,12 @@ fn main() -> Result<(), slint::PlatformError> {
             let main_window: MainWindow = main_window_handle.unwrap();
 
             if let Ok(data) = rx_data.recv() {
+                let q_num = question_number.get();
+                let m_q_num = max_question_number.get();
+                if m_q_num < q_num {
+                    main_window.set_scene_visible(ui::scene::END_GAME_WINDOW);
+                    return;
+                }
                 use GameMode::*;
                 match data.mode {
                     Flags => {
@@ -217,12 +223,9 @@ fn main() -> Result<(), slint::PlatformError> {
                         println!("FandC");
                     }
                 }
-                let question: SharedString = format!("{}/{}",
-                    question_number.get(),
-                    max_question_number.get()
-                ).to_shared_string();
+                let question: SharedString = format!("{}/{}", q_num, m_q_num).to_shared_string();
                 main_window.set_question_number(question);
-                question_number.set(question_number.get() + 1);
+                question_number.set(q_num + 1);
             }
         }
     });
