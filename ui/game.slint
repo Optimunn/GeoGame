@@ -1,4 +1,4 @@
-import { VerticalBox, GridBox } from "std-widgets.slint";
+import { VerticalBox, GridBox, HorizontalBox } from "std-widgets.slint";
 import { ImageResizable, ImageStatic} from "images.slint";
 import { OnExitWindow } from "onexit.slint";
 import { MyButton } from "mywidget.slint";
@@ -18,6 +18,8 @@ export component GameWindow inherits Rectangle {
     in-out property <bool> img-or-text: false;
     in-out property  <AnswerData> answer-data: { visible: false };
     in property <[string]> button-data: [ "none", "none", "none", "none" ];
+    in property <string> question-number: "2/10";
+    in property <int> question-timer: 0;
     in property <image> icon-data;
     in property <string> text-data;
 
@@ -41,6 +43,33 @@ export component GameWindow inherits Rectangle {
         if !img-or-text: ImageResizable { icon: @image-url("../assets/flags/nothing.svg");
             Text { text: text-data; horizontal-alignment: center;
                 font-size: root.width / 8; width: v-box.width;
+                wrap: word-wrap;
+            }
+        }
+
+        function ret-wid() -> length {
+            return (root.width - v-box.padding-right -
+                v-box.padding-left) / 3;
+        }
+
+        hor := HorizontalLayout {
+
+            Text { text: root.question-timer;
+                width: ret-wid();
+                font-size: root.height / 20;
+                horizontal-alignment: center;
+                vertical-alignment: center;
+                wrap: word-wrap;
+            }
+            MyButton { width: ret-wid();
+                text: answer-data.visible? @tr("info"): @tr("help");
+                height: root.height / 15;
+            }
+            Text { text: root.question-number;
+                width: ret-wid();
+                font-size: root.height / 20;
+                horizontal-alignment: center;
+                vertical-alignment: center;
                 wrap: word-wrap;
             }
         }

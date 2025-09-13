@@ -1,4 +1,4 @@
-use slint::{ModelRc, SharedString, ToSharedString, VecModel, Weak};
+use slint::{ModelRc, SharedString, ToSharedString, VecModel, Weak, Timer, TimerMode};
 use std::sync::mpsc::{Sender, Receiver, channel};
 use std::path::PathBuf;
 use std::thread;
@@ -89,6 +89,8 @@ fn main() -> Result<(), slint::PlatformError> {
 
     //*  Randomize countries
     let random_number: Rc<Cell<usize>> = drop_cell!(gamelogic::get_rand_universal(4));
+    let max_question_number: Rc<Cell<i32>> = drop_cell!(0);
+    let question_number: Rc<Cell<i32>> = drop_cell!(0);
 
     let mode_selected: Vec<GameMode> = gamelogic::create_mode_list(&loaded_config.mode);
     let _ = Some(tx_cmd.send(ThreadIn {
@@ -110,9 +112,21 @@ fn main() -> Result<(), slint::PlatformError> {
     let _ = main_window.on_run_game_process({
         let tx_cmd_clone: Sender<ThreadIn> = tx_cmd.clone();
         let random_number_clone: Rc<Cell<usize>> = random_number.clone();
+        let max_question_number_clone: Rc<Cell<i32>> = max_question_number.clone();
+        let question_number_clone: Rc<Cell<i32>> = question_number.clone();
 
         move |index: i32| {
             random_number_clone.set(gamelogic::get_rand_universal(4));
+            question_number_clone.set(0);
+
+            let number: i32 = match index {
+                0 => 10,
+                1 => 25,
+                2 => 99,
+                _ => 0,
+            };
+
+            max_question_number_clone.set(number);
 
             let _ = Some(tx_cmd_clone.send(ThreadIn {
                 mode: None,
@@ -196,6 +210,12 @@ fn main() -> Result<(), slint::PlatformError> {
                         println!("FandC");
                     }
                 }
+                let question: SharedString = format!("{}/{}",
+                    question_number.get(),
+                    max_question_number.get()
+                ).to_shared_string();
+                main_window.set_question_number(question);
+                question_number.set(question_number.get() + 1);
             }
         }
     });
