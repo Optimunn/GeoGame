@@ -1,4 +1,4 @@
-use slint::{ModelRc, SharedString, ToSharedString, VecModel, Weak};
+use slint::{SharedString, ToSharedString, Weak};
 use std::sync::mpsc::{Sender, Receiver, channel};
 use std::path::PathBuf;
 use std::thread;
@@ -79,7 +79,12 @@ fn main() -> Result<(), slint::PlatformError> {
                         mode = input.mode.unwrap();
                     }
                     Load => {
-                        threadfn::load_data_from_thread(&filtered_cont, &mode, &input, &tx_data, #[cfg(not(debug_assertions))] &image_path_string);
+                        threadfn::load_data_from_thread(
+                            &filtered_cont,
+                            &mode,
+                            &input,
+                            &tx_data, #[cfg(not(debug_assertions))] &image_path_string
+                        );
                     }
                 }
             }
@@ -88,9 +93,9 @@ fn main() -> Result<(), slint::PlatformError> {
     //? <- Thread
 
     //*  Randomize countries
-    let random_number: Rc<Cell<usize>> = drop_cell!(gamelogic::get_rand_universal(4));
-    let max_question_number: Rc<Cell<i32>> = drop_cell!(0);
-    let question_number: Rc<Cell<i32>> = drop_cell!(0);
+    let random_number: Rc<Cell<usize>> = drop_cell!(gamelogic::get_rand_universal(ui::ANSWER_NUM));
+    let max_question_number: Rc<Cell<i32>> = drop_cell!(ui::RESET);
+    let question_number: Rc<Cell<i32>> = drop_cell!(ui::RESET);
 
     let mode_selected: Vec<GameMode> = gamelogic::create_mode_list(&loaded_config.mode);
     let _ = Some(tx_cmd.send(ThreadIn {
@@ -116,13 +121,13 @@ fn main() -> Result<(), slint::PlatformError> {
         let question_number_clone: Rc<Cell<i32>> = question_number.clone();
 
         move |index: i32| {
-            random_number_clone.set(gamelogic::get_rand_universal(4));
-            question_number_clone.set(0);
+            random_number_clone.set(gamelogic::get_rand_universal(ui::ANSWER_NUM));
+            question_number_clone.set(ui::RESET);
 
             let number: i32 = match index {
-                ui::PLAY_10 => 10,
-                ui::PLAY_25 => 25,
-                ui::PLAY_HARD => 99,
+                ui::PLAY_10 => ui::PLAY_10_CNT,
+                ui::PLAY_25 => ui::PLAY_25_CNT,
+                ui::PLAY_HARD => ui::PLAY_HARD_CNT,
                 _ => 0,
             };
 
@@ -160,7 +165,7 @@ fn main() -> Result<(), slint::PlatformError> {
                 }
             }
             main_window.set_answer_data(model);
-            random_number.set(gamelogic::get_rand_universal(4));
+            random_number.set(gamelogic::get_rand_universal(ui::ANSWER_NUM));
 
             let _ = Some(tx_cmd_clone.send(ThreadIn {
                 mode: None,
@@ -200,8 +205,8 @@ fn main() -> Result<(), slint::PlatformError> {
             let main_window: MainWindow = main_window_handle.unwrap();
 
             if let Ok(data) = rx_data.recv() {
-                let q_num = question_number.get();
-                let m_q_num = max_question_number.get();
+                let q_num: i32 = question_number.get();
+                let m_q_num: i32 = max_question_number.get();
                 if m_q_num < q_num {
                     main_window.set_scene_visible(ui::scene::END_GAME_WINDOW);
                     return;
@@ -209,14 +214,10 @@ fn main() -> Result<(), slint::PlatformError> {
                 use GameMode::*;
                 match data.mode {
                     Flags => {
-                        main_window.set_img_or_text(true);
-                        main_window.set_loaded_image(get::img(&data.img.unwrap()));
-                        main_window.set_button_data(drop_rc!(data.names));
+                        set::game_window_with_image(&main_window, &data.img.unwrap(), data.names);
                     }
                     Capitals => {
-                        main_window.set_img_or_text(false);
-                        main_window.set_loaded_text(data.text.unwrap());
-                        main_window.set_button_data(drop_rc!(data.names));
+                        set::game_window_no_image(&main_window, data.text.unwrap(), data.names);
                     }
                     Fandc => {
                         main_window.set_img_or_text(false);
@@ -246,7 +247,7 @@ fn main() -> Result<(), slint::PlatformError> {
     let _ = main_window.on_selected_button_color({
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
 
-        move |index| {
+        move |index: i32| {
             let main_window: MainWindow = main_window_handle.unwrap();
             main_window.set_uniq_button_color(gamelogic::ret_button_color(index));
         }

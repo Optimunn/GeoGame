@@ -109,7 +109,7 @@ pub mod configurationsettings {
 }
 
 pub mod set {
-    use slint::{PhysicalPosition,
+    use slint::{PhysicalPosition, SharedString,
         PhysicalSize, ModelRc, VecModel, Color};
 #[cfg(not(debug_assertions))]
     use std::path::PathBuf;
@@ -158,6 +158,19 @@ pub mod set {
     pub fn settings_language(window: &MainWindow, lang: &String) {
         let index: i32 = gamelogic::ret_language_index(lang);
         window.set_selected_language_index(index);
+    }
+#[inline(always)]
+    pub fn game_window_with_image(window: &MainWindow, data: &[u8], model: Vec<SharedString>) {
+        use crate::configure::get::img;
+        window.set_img_or_text(true);
+        window.set_loaded_image(img(data));
+        window.set_button_data(drop_rc!(model));
+    }
+#[inline(always)]
+    pub fn game_window_no_image(window: &MainWindow, text: SharedString, model: Vec<SharedString>) {
+        window.set_img_or_text(false);
+        window.set_loaded_text(text);
+        window.set_button_data(drop_rc!(model));
     }
 
     pub fn image_welcome(window: &MainWindow, #[cfg(not(debug_assertions))] patch: &PathBuf) {

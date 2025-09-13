@@ -5,6 +5,7 @@ use std::fs;
 use std::path::PathBuf;
 #[cfg(debug_assertions)]
 use crate::consts::os::LOAD_IMAGE;
+use crate::consts::ui;
 use crate::process::gamelogic;
 use crate::configure::Country;
 
@@ -44,24 +45,24 @@ pub fn load_data_from_thread(
 #[cfg(not(debug_assertions))]
     image_path_string: &PathBuf
 ) {
-    let mut model: Vec<SharedString> = vec![SharedString::new(); 4];
-    let out4: Vec<Country> = gamelogic::get_random_countries(&filtered_cont, 4);
+    let mut model: Vec<SharedString> = vec![SharedString::new(); ui::ANSWER_NUM];
+    let used_countries: Vec<Country> = gamelogic::get_random_countries(&filtered_cont, ui::ANSWER_NUM);
     let used_mode: GameMode = mode[gamelogic::get_rand_universal(mode.len())].clone();
 
     use GameMode::*;
     match used_mode {
         Flags => {
         #[cfg(debug_assertions)]
-            let patch: String = out4[input.random.unwrap()].flag_4x3.to_string();
+            let patch: String = used_countries[input.random.unwrap()].flag_4x3.to_string();
         #[cfg(debug_assertions)]
             let patch: String = format!("{LOAD_IMAGE}{}", patch);
         #[cfg(not(debug_assertions))]
-            let patch: PathBuf = image_path_string.join(out4[input.random.unwrap()].flag_4x3.as_str());
+            let patch: PathBuf = image_path_string.join(used_countries[input.random.unwrap()].flag_4x3.as_str());
             let image_data: Vec<u8> = match fs::read(patch) {
                 Ok(data) => data,
                 Err(_) => panic!("Failed to load image")
             };
-            for i in 0..4 { model[i] = out4[i].name.to_shared_string(); }
+            for i in 0..ui::ANSWER_NUM { model[i] = used_countries[i].name.to_shared_string(); }
 
             let data: ThreadData = ThreadData {
                 mode: used_mode,
@@ -72,10 +73,10 @@ pub fn load_data_from_thread(
             tx_data.send(data).unwrap();
         }
         Capitals => {
-            let text: SharedString = out4[input.random.unwrap()].name.to_shared_string();
+            let text: SharedString = used_countries[input.random.unwrap()].name.to_shared_string();
 
-            for i in 0..4 {
-                let exit = match &out4[i].capital {
+            for i in 0..ui::ANSWER_NUM {
+                let exit = match &used_countries[i].capital {
                     None => { "None".to_shared_string() },
                     Some(capital) => { capital.to_shared_string() }
                 };

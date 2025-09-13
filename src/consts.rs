@@ -70,6 +70,10 @@ pub mod ui {
 #![allow(dead_code)]
 //in game timer
     pub const TIME_OUT: i32 = 5;
+//number of answers in game
+    pub const ANSWER_NUM: usize = 4;
+//reset
+    pub const RESET: i32 = 1;
 //links
     pub const LINK_GITHUB: i32 = 1;
     pub const LINK_RUST: i32 = 2;
@@ -78,6 +82,10 @@ pub mod ui {
     pub const PLAY_10: i32 = 0;
     pub const PLAY_25: i32 = 1;
     pub const PLAY_HARD: i32 = 2;
+//game mode count
+    pub const PLAY_10_CNT: i32 = 10;
+    pub const PLAY_25_CNT: i32 = 25;
+    pub const PLAY_HARD_CNT: i32 = 99;
 //button color
     pub const C_GRAY: i32 = 0;
     pub const C_FREEDOM: i32 = 1;
