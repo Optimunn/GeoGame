@@ -1,7 +1,7 @@
-import { MyPalette } from "globals.slint";
+import { GlobalVar } from "globals.slint";
 
 export component MyButton inherits Rectangle {
-    private property color-bc <=> MyPalette.button-color;
+    private property color-bc <=> GlobalVar.button-color;
     in-out property text <=> txt.text;
     in property <length> my-height: 40px;
     in property <color> my-color: #ffffff;

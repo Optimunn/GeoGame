@@ -1,4 +1,4 @@
-use slint::{ModelRc, SharedString, ToSharedString, VecModel, Weak, Timer, TimerMode};
+use slint::{ModelRc, SharedString, ToSharedString, VecModel, Weak};
 use std::sync::mpsc::{Sender, Receiver, channel};
 use std::path::PathBuf;
 use std::thread;
@@ -120,9 +120,9 @@ fn main() -> Result<(), slint::PlatformError> {
             question_number_clone.set(0);
 
             let number: i32 = match index {
-                0 => 10,
-                1 => 25,
-                2 => 99,
+                ui::PLAY_10 => 10,
+                ui::PLAY_25 => 25,
+                ui::PLAY_HARD => 99,
                 _ => 0,
             };
 
@@ -146,13 +146,20 @@ fn main() -> Result<(), slint::PlatformError> {
             let main_window: MainWindow = main_window_handle.unwrap();
             let input_names: Vec<SharedString> = get::button_data(&main_window);
             let mut model: AnswerData = AnswerData::my_default();
-
             let random_number_get: usize = random_number.get();
-            if index as usize == random_number_get { model.color = pallet::GREEN; }
-            model.selected = input_names[index as usize].clone();
-            model.answer = input_names[random_number_get].clone();
-            main_window.set_answer_data(model);
 
+            match index {
+                ui::TIME_OUT => {
+                    model.selected = "Time out!".to_shared_string();
+                    model.answer = input_names[random_number_get].clone();
+                },
+                _ => {
+                    if index as usize == random_number_get { model.color = pallet::GREEN; }
+                    model.selected = input_names[index as usize].clone();
+                    model.answer = input_names[random_number_get].clone();
+                }
+            }
+            main_window.set_answer_data(model);
             random_number.set(gamelogic::get_rand_universal(4));
 
             let _ = Some(tx_cmd_clone.send(ThreadIn {
@@ -224,9 +231,9 @@ fn main() -> Result<(), slint::PlatformError> {
     let _ = main_window.on_open_url_info({
         move |index: i32| {
             match index {
-                1 => open::that(url::GITHUB).unwrap(),
-                2 => open::that(url::RUST).unwrap(),
-                3 => open::that(url::SLINT).unwrap(),
+                ui::LINK_GITHUB => open::that(url::GITHUB).unwrap(),
+                ui::LINK_RUST => open::that(url::RUST).unwrap(),
+                ui::LINK_SLINT => open::that(url::SLINT).unwrap(),
                 _ => (),
             }
         }

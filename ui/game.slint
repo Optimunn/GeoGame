@@ -2,6 +2,7 @@ import { VerticalBox, GridBox, HorizontalBox } from "std-widgets.slint";
 import { ImageResizable, ImageStatic} from "images.slint";
 import { OnExitWindow } from "onexit.slint";
 import { MyButton } from "mywidget.slint";
+import { GlobalVar } from "globals.slint";
 
 struct AnswerData {
     visible: bool,
@@ -19,7 +20,6 @@ export component GameWindow inherits Rectangle {
     in-out property  <AnswerData> answer-data: { visible: false };
     in property <[string]> button-data: [ "none", "none", "none", "none" ];
     in property <string> question-number: "2/10";
-    in property <int> question-timer: 0;
     in property <image> icon-data;
     in property <string> text-data;
 
@@ -52,9 +52,30 @@ export component GameWindow inherits Rectangle {
                 v-box.padding-left) / 3;
         }
 
+        function timer-stop() {
+            q_timer.running = false;
+        }
+
+        function timer-restart() {
+            GlobalVar.timer-tick = 60;
+            q_timer.running = true;
+        }
+
+        q_timer := Timer {
+            interval: 1000ms;
+            running: root.visible;
+            triggered() => {
+                GlobalVar.timer-tick -= 1;
+                if GlobalVar.timer-tick == 0 {
+                    self.running = false;
+                    button-clicked(5);
+                }
+            }
+        }
+
         hor := HorizontalLayout {
 
-            Text { text: root.question-timer;
+            Text { text: GlobalVar.timer-tick;
                 width: ret-wid();
                 font-size: root.height / 20;
                 horizontal-alignment: center;
@@ -85,13 +106,13 @@ export component GameWindow inherits Rectangle {
 
         if !answer-data.visible: GridBox {
             MyButton {row: 0; width: ret-width(); my-height: ret-height(); text: root.button-data[0];
-                clicked => {root.button-clicked(0);} }
+                clicked => {timer-stop(); root.button-clicked(0);} }
             MyButton { width: ret-width(); my-height: ret-height(); text: root.button-data[1];
-                clicked => {root.button-clicked(1);} }
+                clicked => {timer-stop(); root.button-clicked(1);} }
             MyButton {row: 1; width: ret-width(); my-height: ret-height(); text: root.button-data[2];
-                clicked => {root.button-clicked(2);} }
+                clicked => {timer-stop(); root.button-clicked(2);} }
             MyButton { width: ret-width(); my-height: ret-height(); text: root.button-data[3];
-                clicked => {root.button-clicked(3);} }
+                clicked => {timer-stop(); root.button-clicked(3);} }
         }
 
         timer := Timer {
@@ -100,6 +121,7 @@ export component GameWindow inherits Rectangle {
             triggered() => {
                 self.running = false;
                 root.answer-data.visible = false;
+                timer-restart();
                 root.click-continue();
             }
         }

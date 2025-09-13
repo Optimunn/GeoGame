@@ -5,6 +5,7 @@ pub mod gamelogic {
     use rand::Rng;
 
     use crate::configure::{Country, Continent};
+    use crate::consts::ui;
     use crate::threadfn::GameMode;
 
     pub fn filter_by_continents(countries: &Vec<Country>, target_continents: &[Continent]
@@ -66,36 +67,36 @@ pub mod gamelogic {
     pub fn ret_button_color(index: i32) -> Color {
         use crate::consts::pallet::*;
         match index {
-            0 => GRAY,
-            1 => FREEDOM,
-            2 => LAVENDER,
-            3 => BLUE_SKY,
-            4 => MANDARIN,
-            5 => RIPE_LIME,
+            ui::C_GRAY => GRAY,
+            ui::C_FREEDOM => FREEDOM,
+            ui::C_LAVENDER => LAVENDER,
+            ui::C_BLUE_SKY => BLUE_SKY,
+            ui::C_MANDARIN => MANDARIN,
+            ui::C_RIPE_LIME => RIPE_LIME,
             _ => GRAY
         }
     }
 
     pub fn ret_button_color_index(name: &str) -> i32 {
         match name {
-            "gray" => 0,
-            "freedom" => 1,
-            "lavender" => 2,
-            "blue_sky" => 3,
-            "mandarin" => 4,
-            "ripe_lime" => 5,
-            _ => 0
+            "gray" => ui::C_GRAY,
+            "freedom" => ui::C_FREEDOM,
+            "lavender" => ui::C_LAVENDER,
+            "blue_sky" => ui::C_BLUE_SKY,
+            "mandarin" => ui::C_MANDARIN,
+            "ripe_lime" => ui::C_RIPE_LIME,
+            _ => ui::C_GRAY
         }
     }
 
     pub fn ret_button_color_string(index: i32) -> String {
         match index {
-            0 => "gray",
-            1 => "freedom",
-            2 => "lavender",
-            3 => "blue_sky",
-            4 => "mandarin",
-            5 => "ripe_lime",
+            ui::C_GRAY => "gray",
+            ui::C_FREEDOM => "freedom",
+            ui::C_LAVENDER => "lavender",
+            ui::C_BLUE_SKY => "blue_sky",
+            ui::C_MANDARIN => "mandarin",
+            ui::C_RIPE_LIME => "ripe_lime",
             _ => "gray"
         }.to_string()
     }
@@ -103,24 +104,24 @@ pub mod gamelogic {
     pub fn ret_language(index: i32) -> &'static str {
         use crate::consts::language::*;
         match index {
-            0 => EN,
-            1 => RU,
+            ui::I_EN => EN,
+            ui::I_RU => RU,
             _ => EN
         }
     }
 
     pub fn ret_language_index(name: &str) -> i32 {
         match name {
-            "en" => 0,
-            "ru" => 1,
-            _ => 0
+            "en" => ui::I_EN,
+            "ru" => ui::I_RU,
+            _ => ui::I_EN
         }
     }
 
     pub fn ret_language_string(index: i32) -> String {
         match index {
-            0 => "en",
-            1 => "ru",
+            ui::I_EN => "en",
+            ui::I_RU => "ru",
             _ => "en"
         }.to_string()
     }

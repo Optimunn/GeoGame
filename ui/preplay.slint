@@ -2,6 +2,7 @@ import { VerticalBox, CheckBox, HorizontalBox, TabWidget, GridBox } from "std-wi
 import { OnExitWindow } from "onexit.slint";
 import { ImageStatic } from "images.slint";
 import { MyButton, MyCheckBox, MyText } from "mywidget.slint";
+import { GlobalVar } from "globals.slint";
 
 export component PrePlayWindow inherits Rectangle {
     callback scene-visible(int);
@@ -128,7 +129,7 @@ export component PrePlayWindow inherits Rectangle {
 
         for index[item] in play-mode: MyButton { text: index;
             height: ret-height();
-            clicked => { root.run-process(item); root.scene-visible(0) }
+            clicked => { root.run-process(item); GlobalVar.timer-tick = 60; root.scene-visible(0) }
         }
     }
 

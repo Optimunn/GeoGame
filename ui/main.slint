@@ -4,7 +4,7 @@ import { PrePlayWindow } from "preplay.slint";
 import { WelcomeWindow } from "welcome.slint";
 import { AboutApplication } from "about.slint";
 import { OnExitWindow } from "onexit.slint";
-import { MyPalette } from "globals.slint";
+import { GlobalVar } from "globals.slint";
 
 export component MainWindow inherits Window {
     //in game button witch answer
@@ -25,14 +25,13 @@ export component MainWindow inherits Window {
     in-out property selected-button-color-index <=> window-settings.selected-color-index;
     in-out property selected-language-index <=> window-settings.selected-language-index;
 
-    in-out property uniq-button-color <=> MyPalette.button-color;
+    in-out property uniq-button-color <=> GlobalVar.button-color;
     in property image-welcome <=> window-welcome.image-welcome;
 
     in-out property button-data <=> window-game.button-data;
     in-out property answer-data <=> window-game.answer-data;
     in-out property img-or-text <=> window-game.img-or-text;
     in-out property question-number <=> window-game.question-number;
-    in-out property question-timer <=> window-game.question-timer;
     in property loaded-image <=> window-game.icon-data;
     in property loaded-text <=> window-game.text-data;
 

@@ -66,6 +66,29 @@ pub mod pallet {
     pub const RIPE_LIME: Color = Color::from_argb_encoded(0xff45f931);
 }
 
+pub mod ui {
+//in game timer
+    pub const TIME_OUT: i32 = 5;
+//links
+    pub const LINK_GITHUB: i32 = 1;
+    pub const LINK_RUST: i32 = 2;
+    pub const LINK_SLINT: i32 = 3;
+//game mode
+    pub const PLAY_10: i32 = 0;
+    pub const PLAY_25: i32 = 1;
+    pub const PLAY_HARD: i32 = 2;
+//button color
+    pub const C_GRAY: i32 = 0;
+    pub const C_FREEDOM: i32 = 1;
+    pub const C_LAVENDER: i32 = 2;
+    pub const C_BLUE_SKY: i32 = 3;
+    pub const C_MANDARIN: i32 = 4;
+    pub const C_RIPE_LIME: i32 = 5;
+//language
+    pub const I_EN: i32 = 0;
+    pub const I_RU: i32 = 1;
+}
+
 #[macro_export]
 macro_rules! drop_rc {
     ($model:expr) => {
