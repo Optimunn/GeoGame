@@ -27,6 +27,20 @@ export component GameWindow inherits Rectangle {
 
     background: @linear-gradient(135deg,#fff1fc 0%, #4e4e4e 100%);
 
+    function timer-stop() {
+        GlobalVar.game-timer-run = false;
+    }
+
+    function timer-restart() {
+        GlobalVar.timer-tick = 60;
+        GlobalVar.game-timer-run = true;
+    }
+
+    function timer-reset() {
+        GlobalVar.timer-tick = 60;
+        GlobalVar.game-timer-run = false;
+    }
+
     v-box:= VerticalBox {
         alignment: center;
         padding-right: 20px;
@@ -52,22 +66,13 @@ export component GameWindow inherits Rectangle {
                 v-box.padding-left) / 3;
         }
 
-        function timer-stop() {
-            q_timer.running = false;
-        }
-
-        function timer-restart() {
-            GlobalVar.timer-tick = 60;
-            q_timer.running = true;
-        }
-
-        q_timer := Timer {
-            interval: 1000ms;
-            running: root.visible;
+        Timer {
+            interval: 999ms;
+            running: GlobalVar.game-timer-run;
             triggered() => {
                 GlobalVar.timer-tick -= 1;
                 if GlobalVar.timer-tick == 0 {
-                    self.running = false;
+                    timer-stop();
                     button-clicked(5);
                 }
             }
@@ -161,7 +166,7 @@ export component GameWindow inherits Rectangle {
         text: @tr("Exit or pause?");
         text-one: @tr("Exit");
         text-two: @tr("Pause");
-        button-one => { exit.visible = false; root.scene-visible-type(true) }
-        button-two => { exit.visible = false; root.scene-visible-type(false) }
+        button-one => { timer-reset(); exit.visible = false; root.scene-visible-type(true) }
+        button-two => { timer-stop(); exit.visible = false; root.scene-visible-type(false) }
     }
 }

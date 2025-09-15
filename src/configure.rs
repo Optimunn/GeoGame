@@ -120,6 +120,10 @@ pub mod set {
     use crate::{block_checkbox, drop_rc};
 
 #[inline(always)]
+    pub fn scene(window: &MainWindow, scene: i32) {
+        window.set_scene_visible(scene);
+    }
+#[inline(always)]
     pub fn screen_size(size: (u32, u32)) -> PhysicalSize {
         PhysicalSize::new(size.0, size.1)
     }
@@ -131,6 +135,14 @@ pub mod set {
     pub fn checkbox_continent_blocked(window: &MainWindow, cont: &Vec<bool>) {
         let checkbox_blocked: bool = block_checkbox!(&cont, 6);
         window.set_checkbox_continent_blocked(checkbox_blocked)
+    }
+#[inline(always)]
+    pub fn game_timer_stop(window: &MainWindow) {
+        window.set_run_game_timer(false);
+    }
+#[inline(always)]
+    pub fn game_timer_run(window: &MainWindow) {
+        window.set_run_game_timer(true);
     }
 #[inline(always)]
     pub fn checkbox_mode_blocked(window: &MainWindow, mode: &Vec<bool>) {

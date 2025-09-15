@@ -33,6 +33,7 @@ export component MainWindow inherits Window {
     in-out property answer-data <=> window-game.answer-data;
     in-out property img-or-text <=> window-game.img-or-text;
     in-out property question-number <=> window-game.question-number;
+    in-out property run-game-timer <=> GlobalVar.game-timer-run;
     in property loaded-image <=> window-game.icon-data;
     in property loaded-text <=> window-game.text-data;
 
@@ -40,6 +41,8 @@ export component MainWindow inherits Window {
     in-out property checkbox-mode-checked <=> window-preplay.mode-check;
     in-out property checkbox-continent-blocked <=> window-preplay.checkbox-block;
     in-out property checkbox-mode-blocked <=> window-preplay.checkbox-mode-block;
+
+    in-out property end-game-events <=> windows-endgame.game-events;
 
     in-out property <int> scene-visible: 1;
 

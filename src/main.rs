@@ -7,6 +7,7 @@ use std::rc::Rc;
 
 use process::gamelogic;
 use consts::*;
+use consts::ui::scene;
 use configure::configurationsettings as ConfSet;
 use configure::{set, get};
 use configure::{InputConfig, Country, Continent};
@@ -28,6 +29,18 @@ impl AnswerData {
             visible: true
         }
     }
+}
+
+impl EndGame {
+    fn my_default() -> Self {
+        EndGame {
+            animation: true,
+            timer_run: true,
+            prev_store: 1000,
+            cur_store: 1000
+        }
+    }
+
 }
 
 fn main() -> Result<(), slint::PlatformError> {
@@ -208,7 +221,10 @@ fn main() -> Result<(), slint::PlatformError> {
                 let q_num: i32 = question_number.get();
                 let m_q_num: i32 = max_question_number.get();
                 if m_q_num < q_num {
-                    main_window.set_scene_visible(ui::scene::END_GAME_WINDOW);
+                    let game: EndGame  = EndGame::my_default();
+                    set::game_timer_stop(&main_window);
+                    set::scene(&main_window, scene::END_GAME_WINDOW);
+                    main_window.set_end_game_events(game);
                     return;
                 }
                 use GameMode::*;
@@ -226,6 +242,7 @@ fn main() -> Result<(), slint::PlatformError> {
                 }
                 let question: SharedString = format!("{}/{}", q_num, m_q_num).to_shared_string();
                 main_window.set_question_number(question);
+                set::game_timer_run(&main_window);
                 question_number.set(q_num + 1);
             }
         }
