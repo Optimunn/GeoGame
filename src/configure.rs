@@ -254,3 +254,31 @@ pub mod get {
         }
     }
 }
+
+mod generated {
+    use slint::ToSharedString;
+    use crate::consts::pallet::RED;
+    use crate::slint_generatedMainWindow::{AnswerData, EndGame};
+
+    impl AnswerData {
+        pub fn my_default() -> Self {
+            AnswerData {
+                answer: "null".to_shared_string(),
+                color: RED,
+                selected: "null".to_shared_string(),
+                visible: true
+            }
+        }
+    }
+
+    impl EndGame {
+        pub fn my_default() -> Self {
+            EndGame {
+                animation: true,
+                timer_run: true,
+                prev_store: 1000,
+                cur_store: 1000
+            }
+        }
+    }
+}

@@ -20,29 +20,6 @@ mod threadfn;
 
 slint::include_modules!();
 
-impl AnswerData {
-    fn my_default() -> Self {
-        AnswerData {
-            answer: "null".to_shared_string(),
-            color: pallet::RED,
-            selected: "null".to_shared_string(),
-            visible: true
-        }
-    }
-}
-
-impl EndGame {
-    fn my_default() -> Self {
-        EndGame {
-            animation: true,
-            timer_run: true,
-            prev_store: 1000,
-            cur_store: 1000
-        }
-    }
-
-}
-
 fn main() -> Result<(), slint::PlatformError> {
     //* Drop app window
     let main_window: MainWindow = MainWindow::new().unwrap();
