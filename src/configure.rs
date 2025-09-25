@@ -115,7 +115,7 @@ pub mod set {
     use std::path::PathBuf;
     use std::fs;
     use std::rc::Rc;
-    use crate::slint_generatedMainWindow::MainWindow;
+    use crate::slint_generatedMainWindow::{MainWindow, EndGame};
     use crate::process::gamelogic;
     use crate::{block_checkbox, drop_rc};
 
@@ -170,6 +170,10 @@ pub mod set {
     pub fn settings_language(window: &MainWindow, lang: &String) {
         let index: i32 = gamelogic::ret_language_index(lang);
         window.set_selected_language_index(index);
+    }
+#[inline(always)]
+    pub fn end_game_events(window: &MainWindow, game: EndGame) {
+        window.set_end_game_events(game);
     }
 #[inline(always)]
     pub fn game_window_with_image(window: &MainWindow, data: &[u8], model: Vec<SharedString>) {

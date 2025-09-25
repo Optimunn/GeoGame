@@ -99,8 +99,8 @@ fn main() -> Result<(), slint::PlatformError> {
     set::settings_button_color(&main_window, &loaded_config.color);
     //* Blocking last checkbox
     set::checkbox_continent_blocked(&main_window, &loaded_config.continents);
-    set::checkbox_mode_blocked(&main_window, &loaded_config.mode);
     set::checkbox_continent_checked(&main_window, loaded_config.continents.clone());
+    set::checkbox_mode_blocked(&main_window, &loaded_config.mode);
     set::checkbox_mode_checked(&main_window, loaded_config.mode.clone());
 
     //* When click on run button
@@ -201,7 +201,7 @@ fn main() -> Result<(), slint::PlatformError> {
                     let game: EndGame  = EndGame::my_default();
                     set::game_timer_stop(&main_window);
                     set::scene(&main_window, scene::END_GAME_WINDOW);
-                    main_window.set_end_game_events(game);
+                    set::end_game_events(&main_window, game);
                     return;
                 }
                 use GameMode::*;
