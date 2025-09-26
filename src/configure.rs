@@ -14,6 +14,23 @@ pub enum Continent {
     Other,
 }
 
+use slint::{SharedString, ToSharedString};
+
+impl Continent {
+    pub fn ret_continent_name(&self) -> SharedString {
+        use Continent::*;
+        match self {
+            Africa => "Africa",
+            Asia => "Asia",
+            Europe => "Europe",
+            NorthAmerica => "North America",
+            SouthAmerica => "South America",
+            Oceania => "Oceania",
+            Other => "Other"
+        }.to_shared_string()
+    }
+}
+
 #[derive(Debug, Deserialize, Clone)]
 pub struct Country {
 #[allow(dead_code)]
@@ -263,13 +280,14 @@ mod generated {
     use slint::ToSharedString;
     use crate::consts::pallet::RED;
     use crate::slint_generatedMainWindow::{AnswerData, EndGame};
+    use crate::null_ss;
 
     impl AnswerData {
         pub fn my_default() -> Self {
             AnswerData {
-                answer: "null".to_shared_string(),
+                answer: null_ss!(),
                 color: RED,
-                selected: "null".to_shared_string(),
+                selected: null_ss!(),
                 visible: true
             }
         }

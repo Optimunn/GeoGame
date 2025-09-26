@@ -97,7 +97,6 @@ fn main() -> Result<(), slint::PlatformError> {
 
     set::settings_language(&main_window, &loaded_config.language);
     set::settings_button_color(&main_window, &loaded_config.color);
-    //* Blocking last checkbox
     set::checkbox_continent_blocked(&main_window, &loaded_config.continents);
     set::checkbox_continent_checked(&main_window, loaded_config.continents.clone());
     set::checkbox_mode_blocked(&main_window, &loaded_config.mode);
@@ -207,10 +206,10 @@ fn main() -> Result<(), slint::PlatformError> {
                 use GameMode::*;
                 match data.mode {
                     Flags => {
-                        set::game_window_with_image(&main_window, &data.img.unwrap(), data.names);
+                        set::game_window_with_image(&main_window, &data.data.img, data.names);
                     }
                     Capitals => {
-                        set::game_window_no_image(&main_window, data.text.unwrap(), data.names);
+                        set::game_window_no_image(&main_window, data.data.name, data.names);
                     }
                     Fandc => {
                         main_window.set_img_or_text(false);

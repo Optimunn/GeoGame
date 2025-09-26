@@ -130,3 +130,10 @@ macro_rules! block_checkbox {
         count <= 1
     }};
 }
+
+#[macro_export]
+macro_rules! null_ss {
+    () => {
+        "null".to_shared_string()
+    };
+}
