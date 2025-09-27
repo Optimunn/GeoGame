@@ -1,3 +1,19 @@
-export global MyPalette {
+struct Information {
+    name: string,
+    capital: string,
+    code: string,
+    continent: string,
+    img: image,
+}
+
+export global GlobalVar {
+    in property <Information> country-information: {
+        name: "null",
+        capital: "null",
+        code: "null",
+        continent: "null",
+    };
     in-out property <color> button-color: #e786d2;
+    in-out property <int> timer-tick: 60;
+    in-out property <bool> game-timer-run: false;
 }

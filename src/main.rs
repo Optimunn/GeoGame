@@ -1,4 +1,4 @@
-use slint::{ModelRc, SharedString, ToSharedString, VecModel, Weak};
+use slint::{SharedString, ToSharedString, Weak};
 use std::sync::mpsc::{Sender, Receiver, channel};
 use std::path::PathBuf;
 use std::thread;
@@ -7,6 +7,7 @@ use std::rc::Rc;
 
 use process::gamelogic;
 use consts::*;
+use consts::ui::scene;
 use configure::configurationsettings as ConfSet;
 use configure::{set, get};
 use configure::{InputConfig, Country, Continent};
@@ -18,17 +19,6 @@ mod configure;
 mod threadfn;
 
 slint::include_modules!();
-
-impl AnswerData {
-    fn my_default() -> Self {
-        AnswerData {
-            answer: "null".to_shared_string(),
-            color: pallet::RED,
-            selected: "null".to_shared_string(),
-            visible: true
-        }
-    }
-}
 
 fn main() -> Result<(), slint::PlatformError> {
     //* Drop app window
@@ -79,7 +69,12 @@ fn main() -> Result<(), slint::PlatformError> {
                         mode = input.mode.unwrap();
                     }
                     Load => {
-                        threadfn::load_data_from_thread(&filtered_cont, &mode, &input, &tx_data, #[cfg(not(debug_assertions))] &image_path_string);
+                        threadfn::load_data_from_thread(
+                            &filtered_cont,
+                            &mode,
+                            &input,
+                            &tx_data, #[cfg(not(debug_assertions))] &image_path_string
+                        );
                     }
                 }
             }
@@ -88,7 +83,9 @@ fn main() -> Result<(), slint::PlatformError> {
     //? <- Thread
 
     //*  Randomize countries
-    let random_number: Rc<Cell<usize>> = drop_cell!(gamelogic::get_rand_universal(4));
+    let random_number: Rc<Cell<usize>> = drop_cell!(gamelogic::get_rand_universal(ui::ANSWER_NUM));
+    let max_question_number: Rc<Cell<i32>> = drop_cell!(ui::RESET);
+    let question_number: Rc<Cell<i32>> = drop_cell!(ui::RESET);
 
     let mode_selected: Vec<GameMode> = gamelogic::create_mode_list(&loaded_config.mode);
     let _ = Some(tx_cmd.send(ThreadIn {
@@ -100,19 +97,30 @@ fn main() -> Result<(), slint::PlatformError> {
 
     set::settings_language(&main_window, &loaded_config.language);
     set::settings_button_color(&main_window, &loaded_config.color);
-    //* Blocking last checkbox
     set::checkbox_continent_blocked(&main_window, &loaded_config.continents);
-    set::checkbox_mode_blocked(&main_window, &loaded_config.mode);
     set::checkbox_continent_checked(&main_window, loaded_config.continents.clone());
+    set::checkbox_mode_blocked(&main_window, &loaded_config.mode);
     set::checkbox_mode_checked(&main_window, loaded_config.mode.clone());
 
     //* When click on run button
     let _ = main_window.on_run_game_process({
         let tx_cmd_clone: Sender<ThreadIn> = tx_cmd.clone();
         let random_number_clone: Rc<Cell<usize>> = random_number.clone();
+        let max_question_number_clone: Rc<Cell<i32>> = max_question_number.clone();
+        let question_number_clone: Rc<Cell<i32>> = question_number.clone();
 
         move |index: i32| {
-            random_number_clone.set(gamelogic::get_rand_universal(4));
+            random_number_clone.set(gamelogic::get_rand_universal(ui::ANSWER_NUM));
+            question_number_clone.set(ui::RESET);
+
+            let number: i32 = match index {
+                ui::PLAY_10 => ui::PLAY_10_CNT,
+                ui::PLAY_25 => ui::PLAY_25_CNT,
+                ui::PLAY_HARD => ui::PLAY_HARD_CNT,
+                _ => 0,
+            };
+
+            max_question_number_clone.set(number);
 
             let _ = Some(tx_cmd_clone.send(ThreadIn {
                 mode: None,
@@ -132,14 +140,21 @@ fn main() -> Result<(), slint::PlatformError> {
             let main_window: MainWindow = main_window_handle.unwrap();
             let input_names: Vec<SharedString> = get::button_data(&main_window);
             let mut model: AnswerData = AnswerData::my_default();
-
             let random_number_get: usize = random_number.get();
-            if index as usize == random_number_get { model.color = pallet::GREEN; }
-            model.selected = input_names[index as usize].clone();
-            model.answer = input_names[random_number_get].clone();
-            main_window.set_answer_data(model);
 
-            random_number.set(gamelogic::get_rand_universal(4));
+            match index {
+                ui::TIME_OUT => {
+                    model.selected = "Time out!".to_shared_string();
+                    model.answer = input_names[random_number_get].clone();
+                },
+                _ => {
+                    if index as usize == random_number_get { model.color = pallet::GREEN; }
+                    model.selected = input_names[index as usize].clone();
+                    model.answer = input_names[random_number_get].clone();
+                }
+            }
+            main_window.set_answer_data(model);
+            random_number.set(gamelogic::get_rand_universal(ui::ANSWER_NUM));
 
             let _ = Some(tx_cmd_clone.send(ThreadIn {
                 mode: None,
@@ -178,24 +193,34 @@ fn main() -> Result<(), slint::PlatformError> {
         move || {
             let main_window: MainWindow = main_window_handle.unwrap();
 
-            if let Ok(data) = rx_data.recv() {
+            if let Ok(input) = rx_data.recv() {
+                let q_num: i32 = question_number.get();
+                let m_q_num: i32 = max_question_number.get();
+                if m_q_num < q_num {
+                    let game: EndGame  = EndGame::my_default();
+                    set::game_timer_stop(&main_window);
+                    set::scene(&main_window, scene::END_GAME_WINDOW);
+                    set::end_game_events(&main_window, game);
+                    return;
+                }
                 use GameMode::*;
-                match data.mode {
+                match input.mode {
                     Flags => {
-                        main_window.set_img_or_text(true);
-                        main_window.set_loaded_image(get::img(&data.img.unwrap()));
-                        main_window.set_button_data(drop_rc!(data.names));
+                        set::game_window_with_image(&main_window, &input.data.img, input.names);
                     }
                     Capitals => {
-                        main_window.set_img_or_text(false);
-                        main_window.set_loaded_text(data.text.unwrap());
-                        main_window.set_button_data(drop_rc!(data.names));
+                        set::game_window_with_text(&main_window, &input.data.name, input.names);
                     }
                     Fandc => {
                         main_window.set_img_or_text(false);
                         println!("FandC");
                     }
                 }
+                let question: SharedString = format!("{}/{}", q_num, m_q_num).to_shared_string();
+                main_window.set_question_number(question);
+                set::game_timer_run(&main_window);
+                question_number.set(q_num + 1);
+                main_window.set_info_about_country(input.data.to_info());
             }
         }
     });
@@ -204,9 +229,9 @@ fn main() -> Result<(), slint::PlatformError> {
     let _ = main_window.on_open_url_info({
         move |index: i32| {
             match index {
-                1 => open::that(url::GITHUB).unwrap(),
-                2 => open::that(url::RUST).unwrap(),
-                3 => open::that(url::SLINT).unwrap(),
+                ui::LINK_GITHUB => open::that(url::GITHUB).unwrap(),
+                ui::LINK_RUST => open::that(url::RUST).unwrap(),
+                ui::LINK_SLINT => open::that(url::SLINT).unwrap(),
                 _ => (),
             }
         }
@@ -216,7 +241,7 @@ fn main() -> Result<(), slint::PlatformError> {
     let _ = main_window.on_selected_button_color({
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
 
-        move |index| {
+        move |index: i32| {
             let main_window: MainWindow = main_window_handle.unwrap();
             main_window.set_uniq_button_color(gamelogic::ret_button_color(index));
         }

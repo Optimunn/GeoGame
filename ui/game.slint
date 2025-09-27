@@ -1,7 +1,40 @@
-import { VerticalBox, GridBox } from "std-widgets.slint";
+import { VerticalBox, GridBox, HorizontalBox } from "std-widgets.slint";
 import { ImageResizable, ImageStatic} from "images.slint";
 import { OnExitWindow } from "onexit.slint";
-import { MyButton } from "mywidget.slint";
+import { MyButton, MyText } from "mywidget.slint";
+import { GlobalVar } from "globals.slint";
+
+component InfoWin inherits Rectangle {
+
+    function ret-tw() -> length {
+        root.height / 20;
+    }
+
+    background: #dfdfdf;
+    border-radius: ret-tw();
+    border-color: gray;
+    border-width: 1px;
+
+    property <length> custom-h: ret-tw();
+
+    VerticalBox {
+        alignment: center;
+
+        ImageResizable {
+            icon: GlobalVar.country-information.img;
+        }
+
+        MyText { height: custom-h; text: "Name: " + GlobalVar.country-information.name; }
+        MyText { height: custom-h; text: "Capital: " + GlobalVar.country-information.capital; }
+        MyText { height: custom-h; text: "Continent: " + GlobalVar.country-information.continent; }
+        MyText { height: custom-h; text: "Code: " + GlobalVar.country-information.code; }
+
+        MyButton {
+            text: @tr("Close");
+            clicked => { root.visible = false }
+        }
+    }
+}
 
 struct AnswerData {
     visible: bool,
@@ -18,12 +51,27 @@ export component GameWindow inherits Rectangle {
     in-out property <bool> img-or-text: false;
     in-out property  <AnswerData> answer-data: { visible: false };
     in property <[string]> button-data: [ "none", "none", "none", "none" ];
+    in property <string> question-number: "2/10";
     in property <image> icon-data;
     in property <string> text-data;
 
     private property <length> my-spacing: 10px;
 
     background: @linear-gradient(135deg,#fff1fc 0%, #4e4e4e 100%);
+
+    function timer-stop() {
+        GlobalVar.game-timer-run = false;
+    }
+
+    function timer-restart() {
+        GlobalVar.timer-tick = 60;
+        GlobalVar.game-timer-run = true;
+    }
+
+    function timer-reset() {
+        GlobalVar.timer-tick = 60;
+        GlobalVar.game-timer-run = false;
+    }
 
     v-box:= VerticalBox {
         alignment: center;
@@ -45,6 +93,48 @@ export component GameWindow inherits Rectangle {
             }
         }
 
+        function ret-wid() -> length {
+            return (root.width - v-box.padding-right -
+                v-box.padding-left) / 3;
+        }
+
+        Timer {
+            interval: 999ms;
+            running: GlobalVar.game-timer-run;
+            triggered() => {
+                GlobalVar.timer-tick -= 1;
+                if GlobalVar.timer-tick == 0 {
+                    timer-stop();
+                    button-clicked(5);
+                }
+            }
+        }
+
+        HorizontalLayout {
+            Text { text: GlobalVar.timer-tick;
+                width: ret-wid();
+                font-size: root.height / 20;
+                horizontal-alignment: center;
+                vertical-alignment: center;
+                wrap: word-wrap;
+            }
+            MyButton { width: ret-wid();
+                text: answer-data.visible? @tr("info"): @tr("help");
+                height: root.height / 15;
+                clicked => {
+                    if answer-data.visible { info-win.visible = true; }
+                    else { debug("nothing"); }
+                }
+            }
+            Text { text: root.question-number;
+                width: ret-wid();
+                font-size: root.height / 20;
+                horizontal-alignment: center;
+                vertical-alignment: center;
+                wrap: word-wrap;
+            }
+        }
+
         function ret-width() -> length {
             return (root.width - my-spacing * 3 -
                 v-box.padding-left - v-box.padding-right) / 2;
@@ -56,13 +146,13 @@ export component GameWindow inherits Rectangle {
 
         if !answer-data.visible: GridBox {
             MyButton {row: 0; width: ret-width(); my-height: ret-height(); text: root.button-data[0];
-                clicked => {root.button-clicked(0);} }
+                clicked => {timer-stop(); root.button-clicked(0);} }
             MyButton { width: ret-width(); my-height: ret-height(); text: root.button-data[1];
-                clicked => {root.button-clicked(1);} }
+                clicked => {timer-stop(); root.button-clicked(1);} }
             MyButton {row: 1; width: ret-width(); my-height: ret-height(); text: root.button-data[2];
-                clicked => {root.button-clicked(2);} }
+                clicked => {timer-stop(); root.button-clicked(2);} }
             MyButton { width: ret-width(); my-height: ret-height(); text: root.button-data[3];
-                clicked => {root.button-clicked(3);} }
+                clicked => {timer-stop(); root.button-clicked(3);} }
         }
 
         timer := Timer {
@@ -71,6 +161,7 @@ export component GameWindow inherits Rectangle {
             triggered() => {
                 self.running = false;
                 root.answer-data.visible = false;
+                timer-restart();
                 root.click-continue();
             }
         }
@@ -96,6 +187,12 @@ export component GameWindow inherits Rectangle {
         }
     }
 
+    info-win:= InfoWin {
+        visible: false;
+        width: root.width / 1.5;
+        height: root.height / 1.5;
+    }
+
     ImageStatic {
         icon: @image-url("../assets/icons/menu.svg");
         x: 0px;
@@ -110,7 +207,7 @@ export component GameWindow inherits Rectangle {
         text: @tr("Exit or pause?");
         text-one: @tr("Exit");
         text-two: @tr("Pause");
-        button-one => { exit.visible = false; root.scene-visible-type(true) }
-        button-two => { exit.visible = false; root.scene-visible-type(false) }
+        button-one => { timer-reset(); exit.visible = false; root.scene-visible-type(true) }
+        button-two => { timer-stop(); exit.visible = false; root.scene-visible-type(false) }
     }
 }

@@ -1,0 +1,102 @@
+import { VerticalBox } from "std-widgets.slint";
+import { MyButton, MyText } from "mywidget.slint";
+
+component WaveImage {
+    in property <length> screen-width;
+    in property <length> wave-period: 1000px;
+    in property <length> wave-size: 50px;
+    in property <length> start-x: 0px;
+    in property <duration> random-duration: 0ms;
+    in property <float> scale: 1;
+    property <duration> baseDuration: 1s;
+    property <duration> total-duration: (baseDuration + random-duration);
+    property <length> total-distance: (screen-width + 150px) + start-x.abs();
+
+    x: -(start-x + 90px) + (total-distance * (animation-tick() / total-duration)).mod(total-distance);
+
+    Image {
+        y: sin(360deg * (root.x / wave-period) ) * wave-size;
+        source: @image-url("../assets/icons/star-icon.svg");
+        width: self.source.width * scale * 1px;
+        height: self.source.height * scale * 1px;
+        //colorize: #f6ff00.mix(white, 1-(scale - 0.3 ));
+    }
+}
+
+struct EndGame {
+    animation: bool,
+    timer-run: bool,
+    prev-store: int,
+    cur-store: int
+}
+
+export component EndGameWindow inherits Rectangle {
+    callback scene-visible;
+    in-out property <EndGame> game-events: { timer-run: false, animation: false };
+
+    private property <int> cur-timer-count: 0;
+
+    background: @linear-gradient(180deg, #10fdca 0%, #68b9ff 60%);
+
+    MyText {
+        y: root.height / 10;
+        text: "End";
+        height: root.width / 4;
+        font-size: self.height / 2.5;
+    }
+
+    Timer {
+        interval: 2ms;
+        running: game-events.timer-run;
+        triggered() => {
+            root.cur-timer-count += 1;
+            if (root.cur-timer-count >= root.game-events.cur-store) {
+                root.game-events.timer-run = false;
+                self.restart();
+            }
+        }
+    }
+
+    Text {
+        y: root.height / 3;
+        text: root.cur-timer-count;
+        height: root.width / 2;
+        font-size: self.height / 2;
+    }
+
+    VerticalBox {
+        alignment: end;
+        padding-right: 20px;
+        padding-left: 20px;
+        padding-bottom: 20px;
+
+        function ret-height() -> length {
+            return root.height / 10;
+        }
+
+        MyButton { text: @tr("Close");
+            height: ret-height();
+            clicked => { root.game-events.timer-run = false;
+                root.game-events.animation = false;
+                root.cur-timer-count = 0;
+                root.scene-visible()
+            }
+        }
+    }
+
+    function random(seed: int) -> float {
+        return (115249 * (seed + 196) * seed).mod(25117) / 25117;
+    }
+
+    if game-events.animation: Rectangle {
+        for i in 50: WaveImage {
+            y: root.height * random(i + 1);
+            screen-width: root.width;
+            random-duration: 5000ms + 10000ms * random(i + 20);
+            wave-period: 800px + 200px * random(i);
+            start-x: root.width * random(i);
+            scale: 0.3 + 0.9 * random(i + 5);
+            wave-size: 50px + 50px * random(i + 6);
+        }
+    }
+}

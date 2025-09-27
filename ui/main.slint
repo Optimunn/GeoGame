@@ -4,7 +4,8 @@ import { PrePlayWindow } from "preplay.slint";
 import { WelcomeWindow } from "welcome.slint";
 import { AboutApplication } from "about.slint";
 import { OnExitWindow } from "onexit.slint";
-import { MyPalette } from "globals.slint";
+import { GlobalVar } from "globals.slint";
+import { EndGameWindow } from "endgame.slint";
 
 export component MainWindow inherits Window {
     //in game button witch answer
@@ -25,12 +26,15 @@ export component MainWindow inherits Window {
     in-out property selected-button-color-index <=> window-settings.selected-color-index;
     in-out property selected-language-index <=> window-settings.selected-language-index;
 
-    in-out property uniq-button-color <=> MyPalette.button-color;
+    in-out property uniq-button-color <=> GlobalVar.button-color;
     in property image-welcome <=> window-welcome.image-welcome;
 
     in-out property button-data <=> window-game.button-data;
     in-out property answer-data <=> window-game.answer-data;
     in-out property img-or-text <=> window-game.img-or-text;
+    in-out property question-number <=> window-game.question-number;
+    in-out property run-game-timer <=> GlobalVar.game-timer-run;
+    in property info-about-country <=> GlobalVar.country-information;
     in property loaded-image <=> window-game.icon-data;
     in property loaded-text <=> window-game.text-data;
 
@@ -39,7 +43,9 @@ export component MainWindow inherits Window {
     in-out property checkbox-continent-blocked <=> window-preplay.checkbox-block;
     in-out property checkbox-mode-blocked <=> window-preplay.checkbox-mode-block;
 
-    private property <int> scene-visible: 1;
+    in-out property end-game-events <=> windows-endgame.game-events;
+
+    in-out property <int> scene-visible: 1;
 
     title: "Geographical game";
     preferred-width:  550px;
@@ -74,6 +80,11 @@ export component MainWindow inherits Window {
     window-about := AboutApplication {
         visible: scene-visible == 4;
         open-url(item) => { root.open-url-info(item) }
+        scene-visible => { root.scene-visible = 1 }
+    }
+
+    windows-endgame := EndGameWindow {
+        visible: scene-visible == 5;
         scene-visible => { root.scene-visible = 1 }
     }
 }

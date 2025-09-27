@@ -14,18 +14,31 @@ pub enum Continent {
     Other,
 }
 
+use slint::{SharedString, ToSharedString};
+
+impl Continent {
+    pub fn ret_continent_name(&self) -> SharedString {
+        use Continent::*;
+        match self {
+            Africa => "Africa",
+            Asia => "Asia",
+            Europe => "Europe",
+            NorthAmerica => "North America",
+            SouthAmerica => "South America",
+            Oceania => "Oceania",
+            Other => "Other"
+        }.to_shared_string()
+    }
+}
+
 #[derive(Debug, Deserialize, Clone)]
 pub struct Country {
-#[allow(dead_code)]
     pub capital: Option<String>,
-#[allow(dead_code)]
     pub code: String,
     pub continent: Option<Continent>,
-#[allow(dead_code)]
     pub flag_4x3: String,
 #[allow(dead_code)]
-    iso: bool,
-#[allow(dead_code)]
+    pub iso: bool,
     pub name: String,
 }
 
@@ -109,16 +122,20 @@ pub mod configurationsettings {
 }
 
 pub mod set {
-    use slint::{PhysicalPosition,
+    use slint::{PhysicalPosition, SharedString,
         PhysicalSize, ModelRc, VecModel, Color};
 #[cfg(not(debug_assertions))]
     use std::path::PathBuf;
     use std::fs;
     use std::rc::Rc;
-    use crate::slint_generatedMainWindow::MainWindow;
+    use crate::slint_generatedMainWindow::{MainWindow, EndGame};
     use crate::process::gamelogic;
     use crate::{block_checkbox, drop_rc};
 
+#[inline(always)]
+    pub fn scene(window: &MainWindow, scene: i32) {
+        window.set_scene_visible(scene);
+    }
 #[inline(always)]
     pub fn screen_size(size: (u32, u32)) -> PhysicalSize {
         PhysicalSize::new(size.0, size.1)
@@ -131,6 +148,14 @@ pub mod set {
     pub fn checkbox_continent_blocked(window: &MainWindow, cont: &Vec<bool>) {
         let checkbox_blocked: bool = block_checkbox!(&cont, 6);
         window.set_checkbox_continent_blocked(checkbox_blocked)
+    }
+#[inline(always)]
+    pub fn game_timer_stop(window: &MainWindow) {
+        window.set_run_game_timer(false);
+    }
+#[inline(always)]
+    pub fn game_timer_run(window: &MainWindow) {
+        window.set_run_game_timer(true);
     }
 #[inline(always)]
     pub fn checkbox_mode_blocked(window: &MainWindow, mode: &Vec<bool>) {
@@ -158,6 +183,23 @@ pub mod set {
     pub fn settings_language(window: &MainWindow, lang: &String) {
         let index: i32 = gamelogic::ret_language_index(lang);
         window.set_selected_language_index(index);
+    }
+#[inline(always)]
+    pub fn end_game_events(window: &MainWindow, game: EndGame) {
+        window.set_end_game_events(game);
+    }
+#[inline(always)]
+    pub fn game_window_with_image(window: &MainWindow, data: &[u8], model: Vec<SharedString>) {
+        use crate::configure::get::img;
+        window.set_img_or_text(true);
+        window.set_loaded_image(img(data));
+        window.set_button_data(drop_rc!(model));
+    }
+#[inline(always)]
+    pub fn game_window_with_text(window: &MainWindow, text: &SharedString, model: Vec<SharedString>) {
+        window.set_img_or_text(false);
+        window.set_loaded_text(text.clone());
+        window.set_button_data(drop_rc!(model));
     }
 
     pub fn image_welcome(window: &MainWindow, #[cfg(not(debug_assertions))] patch: &PathBuf) {
@@ -226,6 +268,35 @@ pub mod get {
         match Image::load_from_svg_data(&image_data) {
             Ok(image) => image,
             Err(_) => panic!("Failed to load image"),
+        }
+    }
+}
+
+mod generated {
+    use slint::ToSharedString;
+    use crate::consts::pallet::RED;
+    use crate::slint_generatedMainWindow::{AnswerData, EndGame};
+    use crate::null_ss;
+
+    impl AnswerData {
+        pub fn my_default() -> Self {
+            AnswerData {
+                answer: null_ss!(),
+                color: RED,
+                selected: null_ss!(),
+                visible: true
+            }
+        }
+    }
+
+    impl EndGame {
+        pub fn my_default() -> Self {
+            EndGame {
+                animation: true,
+                timer_run: true,
+                prev_store: 1000,
+                cur_store: 1000
+            }
         }
     }
 }

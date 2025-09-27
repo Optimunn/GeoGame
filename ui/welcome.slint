@@ -1,6 +1,6 @@
 import { VerticalBox } from "std-widgets.slint";
 import { MyButton, MyText } from "mywidget.slint";
-import { MyPalette } from "globals.slint";
+import { GlobalVar } from "globals.slint";
 
 export component WelcomeWindow inherits Rectangle {
     callback scene-visible(int);
@@ -18,7 +18,7 @@ export component WelcomeWindow inherits Rectangle {
     MyText {
         y: root.height / 10;
         text: "Geographical\nGame";
-        color: MyPalette.button-color.brighter(25%);
+        color: GlobalVar.button-color.brighter(25%);
         height: root.width / 4;
         font-size: self.height / 2.5;
     }
@@ -35,7 +35,7 @@ export component WelcomeWindow inherits Rectangle {
 
         if !game-type: MyButton { text: @tr("Continue");
             height: ret-height();
-            clicked => { root.scene-visible(0) }
+            clicked => { root.scene-visible(0); GlobalVar.game-timer-run = true; }
         }
         MyButton { text: game-type? @tr("Play") : @tr("Restart");
             height: ret-height();

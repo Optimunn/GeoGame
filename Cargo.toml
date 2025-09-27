@@ -1,6 +1,6 @@
 [package]
 name = "geo_game"
-version = "0.4.5"
+version = "0.4.6"
 authors = ["Alex <https://github.com/Optimunn>"]
 license = "MIT"
 edition = "2024"
