@@ -193,7 +193,7 @@ fn main() -> Result<(), slint::PlatformError> {
         move || {
             let main_window: MainWindow = main_window_handle.unwrap();
 
-            if let Ok(data) = rx_data.recv() {
+            if let Ok(input) = rx_data.recv() {
                 let q_num: i32 = question_number.get();
                 let m_q_num: i32 = max_question_number.get();
                 if m_q_num < q_num {
@@ -204,12 +204,12 @@ fn main() -> Result<(), slint::PlatformError> {
                     return;
                 }
                 use GameMode::*;
-                match data.mode {
+                match input.mode {
                     Flags => {
-                        set::game_window_with_image(&main_window, &data.data.img, data.names);
+                        set::game_window_with_image(&main_window, &input.data.img, input.names);
                     }
                     Capitals => {
-                        set::game_window_no_image(&main_window, data.data.name, data.names);
+                        set::game_window_with_text(&main_window, &input.data.name, input.names);
                     }
                     Fandc => {
                         main_window.set_img_or_text(false);
@@ -220,6 +220,7 @@ fn main() -> Result<(), slint::PlatformError> {
                 main_window.set_question_number(question);
                 set::game_timer_run(&main_window);
                 question_number.set(q_num + 1);
+                main_window.set_info_about_country(input.data.to_info());
             }
         }
     });

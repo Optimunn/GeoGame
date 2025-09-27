@@ -1,8 +1,40 @@
 import { VerticalBox, GridBox, HorizontalBox } from "std-widgets.slint";
 import { ImageResizable, ImageStatic} from "images.slint";
 import { OnExitWindow } from "onexit.slint";
-import { MyButton } from "mywidget.slint";
+import { MyButton, MyText } from "mywidget.slint";
 import { GlobalVar } from "globals.slint";
+
+component InfoWin inherits Rectangle {
+
+    function ret-tw() -> length {
+        root.height / 20;
+    }
+
+    background: #dfdfdf;
+    border-radius: ret-tw();
+    border-color: gray;
+    border-width: 1px;
+
+    property <length> custom-h: ret-tw();
+
+    VerticalBox {
+        alignment: center;
+
+        ImageResizable {
+            icon: GlobalVar.country-information.img;
+        }
+
+        MyText { height: custom-h; text: "Name: " + GlobalVar.country-information.name; }
+        MyText { height: custom-h; text: "Capital: " + GlobalVar.country-information.capital; }
+        MyText { height: custom-h; text: "Continent: " + GlobalVar.country-information.continent; }
+        MyText { height: custom-h; text: "Code: " + GlobalVar.country-information.code; }
+
+        MyButton {
+            text: @tr("Close");
+            clicked => { root.visible = false }
+        }
+    }
+}
 
 struct AnswerData {
     visible: bool,
@@ -89,6 +121,10 @@ export component GameWindow inherits Rectangle {
             MyButton { width: ret-wid();
                 text: answer-data.visible? @tr("info"): @tr("help");
                 height: root.height / 15;
+                clicked => {
+                    if answer-data.visible { info-win.visible = true; }
+                    else { debug("nothing"); }
+                }
             }
             Text { text: root.question-number;
                 width: ret-wid();
@@ -149,6 +185,12 @@ export component GameWindow inherits Rectangle {
                 }
             }
         }
+    }
+
+    info-win:= InfoWin {
+        visible: false;
+        width: root.width / 1.5;
+        height: root.height / 1.5;
     }
 
     ImageStatic {

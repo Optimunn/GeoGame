@@ -31,6 +31,9 @@ pub struct CountryData {
     pub img: Vec<u8>,
 }
 
+use crate::slint_generatedMainWindow::Information;
+use crate::configure::get;
+
 impl CountryData {
     pub fn default() -> Self {
         CountryData {
@@ -39,6 +42,16 @@ impl CountryData {
             code: null_ss!(),
             continent: null_ss!(),
             img: vec![1;1],
+        }
+    }
+
+    pub fn to_info(self) -> Information {
+        Information {
+            name: self.name,
+            capital: self.capital,
+            code: self.code,
+            continent: self.continent,
+            img: get::img(&self.img)
         }
     }
 }

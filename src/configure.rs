@@ -33,16 +33,12 @@ impl Continent {
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct Country {
-#[allow(dead_code)]
     pub capital: Option<String>,
-#[allow(dead_code)]
     pub code: String,
     pub continent: Option<Continent>,
-#[allow(dead_code)]
     pub flag_4x3: String,
 #[allow(dead_code)]
-    iso: bool,
-#[allow(dead_code)]
+    pub iso: bool,
     pub name: String,
 }
 
@@ -200,9 +196,9 @@ pub mod set {
         window.set_button_data(drop_rc!(model));
     }
 #[inline(always)]
-    pub fn game_window_no_image(window: &MainWindow, text: SharedString, model: Vec<SharedString>) {
+    pub fn game_window_with_text(window: &MainWindow, text: &SharedString, model: Vec<SharedString>) {
         window.set_img_or_text(false);
-        window.set_loaded_text(text);
+        window.set_loaded_text(text.clone());
         window.set_button_data(drop_rc!(model));
     }
 
