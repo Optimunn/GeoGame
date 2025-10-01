@@ -12,11 +12,13 @@ use configure::configurationsettings as ConfSet;
 use configure::{set, get};
 use configure::{InputConfig, Country, Continent};
 use threadfn::{ThreadIn, ThreadData, GameMode, Action};
+use translation as tr;
 
 mod process;
 mod consts;
 mod configure;
 mod threadfn;
+mod translation;
 
 slint::include_modules!();
 
@@ -34,6 +36,9 @@ fn main() -> Result<(), slint::PlatformError> {
         Ok(config) => config,
         Err(_) => InputConfig::default(),
     };
+
+    let lge = tr::TranslationRs::new().unwrap();
+    main_window.set_current_translation(lge.to_translation());
 
     let config_language: &str = get::settings_language_patch(&loaded_config.language);
     let load_path: PathBuf = ConfSet::input_data_path(config_language, #[cfg(not(debug_assertions))] &data_path_string);

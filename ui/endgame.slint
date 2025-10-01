@@ -1,5 +1,6 @@
 import { VerticalBox } from "std-widgets.slint";
 import { MyButton, MyText } from "mywidget.slint";
+import { Tr } from "translation.slint";
 
 component WaveImage {
     in property <length> screen-width;
@@ -40,7 +41,7 @@ export component EndGameWindow inherits Rectangle {
 
     MyText {
         y: root.height / 10;
-        text: "End";
+        text: Tr.tr.end;
         height: root.width / 4;
         font-size: self.height / 2.5;
     }
@@ -74,7 +75,7 @@ export component EndGameWindow inherits Rectangle {
             return root.height / 10;
         }
 
-        MyButton { text: @tr("Close");
+        MyButton { text: Tr.tr.close;
             height: ret-height();
             clicked => { root.game-events.timer-run = false;
                 root.game-events.animation = false;

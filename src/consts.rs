@@ -137,3 +137,10 @@ macro_rules! null_ss {
         "null".to_shared_string()
     };
 }
+
+#[macro_export]
+macro_rules! to_ss {
+    ($model:expr) => {
+        $model.to_shared_string()
+    };
+}

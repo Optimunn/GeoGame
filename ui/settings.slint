@@ -1,6 +1,7 @@
 import { VerticalBox, CheckBox, ComboBox } from "std-widgets.slint";
 import { ImageStatic } from "images.slint";
 import { MyText } from "mywidget.slint";
+import { Tr } from "translation.slint";
 
 component MyBox inherits VerticalLayout {
     in property text <=> txt.text;
@@ -25,9 +26,9 @@ export component SettingsMenu inherits Rectangle {
     background: @linear-gradient(180deg,#e786d2 0%, #3a98e0 100%);
 
     private property <[string]> select-color:
-        [@tr("Gray"), @tr("Freedom"), @tr("Lavender"), @tr("Blue sky"), @tr("Mandarin"), @tr("Ripe lime")];
+        [ Tr.tr.gray, Tr.tr.freedom, Tr.tr.lavender, Tr.tr.bl-sky, Tr.tr.mandarin, Tr.tr.r-lime ];
     private property <[string]> select-language:
-        ["English", "Russian"];
+        [ "English", "Russian" ];
 
     VerticalBox {
         padding-right: 20px;
@@ -38,12 +39,12 @@ export component SettingsMenu inherits Rectangle {
         width: root.width / 1.8;
 
         MyText {
-            text: @tr("Settings");
+            text: Tr.tr.settings;
             height: root.width / 12;
         }
 
         select-color-box := MyBox {
-            text: @tr("Select button color");
+            text: Tr.tr.sel-b-color;
             model: root.select-color;
             selected() => {
                 root.selected-button-color(root.selected-color-index);
@@ -51,7 +52,7 @@ export component SettingsMenu inherits Rectangle {
         }
 
         select-language-box := MyBox {
-            text: @tr("Select language");
+            text: Tr.tr.sel-lang;
             model: root.select-language;
             selected() => {
                 root.selected-button-language(root.selected-language-index);
