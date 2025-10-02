@@ -126,6 +126,7 @@ pub mod configurationsettings {
 pub mod set {
     use slint::{PhysicalPosition, SharedString,
         PhysicalSize, ModelRc, VecModel, Color};
+#[cfg(not(debug_assertions))]
     use std::path::PathBuf;
     use std::fs;
     use std::rc::Rc;
@@ -217,12 +218,10 @@ pub mod set {
         window.set_image_welcome(img(&image_data));
     }
 
-    use crate::translation as tr;
+    use crate::translation::TranslationRs;
     #[inline(always)]
-    pub fn window_language(window: &MainWindow, path: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
-        let lge: tr::TranslationRs = tr::TranslationRs::load_new(path)?;
-        window.set_current_translation(lge.to_translation());
-        Ok(())
+    pub fn window_language(window: &MainWindow, tr: &TranslationRs) {
+        window.set_current_translation(tr.to_translation());
     }
 }
 
