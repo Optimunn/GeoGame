@@ -91,8 +91,10 @@ pub mod configurationsettings {
             let patch_dbg: String = format!("{LOAD_DATA}{}{}.json", mode, language);
             PathBuf::from(patch_dbg.to_string())
         }
-    #[cfg(not(debug_assertions))]
-        patch.join(mode).join(language).join(".json")
+    #[cfg(not(debug_assertions))] {
+            let patch_rel: String = format!("{}{}.json", mode, language);
+            patch.join(patch_rel)
+        }
     }
 
 	pub fn read_from_file<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
@@ -124,7 +126,6 @@ pub mod configurationsettings {
 pub mod set {
     use slint::{PhysicalPosition, SharedString,
         PhysicalSize, ModelRc, VecModel, Color};
-#[cfg(not(debug_assertions))]
     use std::path::PathBuf;
     use std::fs;
     use std::rc::Rc;
@@ -216,7 +217,6 @@ pub mod set {
         window.set_image_welcome(img(&image_data));
     }
 
-    use std::path::PathBuf;
     use crate::translation as tr;
     #[inline(always)]
     pub fn window_language(window: &MainWindow, path: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
