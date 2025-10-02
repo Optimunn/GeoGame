@@ -96,6 +96,7 @@ pub mod ui {
 //language
     pub const I_EN: i32 = 0;
     pub const I_RU: i32 = 1;
+    pub const I_CN: i32 = 2;
 
     pub mod scene {
     #![allow(dead_code)]
