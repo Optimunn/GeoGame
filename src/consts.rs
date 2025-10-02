@@ -34,9 +34,9 @@ pub mod os {
     pub const LOAD_ICON: &str = "..\\icons\\earth.svg";
 }
 
-pub mod language {
-    pub const EN: &str = "country_en.json";
-    pub const RU: &str = "country_ru.json";
+pub mod data {
+    pub const DATA: &str = "country_";
+    pub const TRANSLATION: &str = "tr_";
 }
 
 pub mod url {

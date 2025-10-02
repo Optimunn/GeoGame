@@ -1,5 +1,6 @@
 use serde::Deserialize;
 use serde_json::Result;
+use std::path::PathBuf;
 use std::fs;
 use slint::ToSharedString;
 use crate::slint_generatedMainWindow::Translation;
@@ -54,8 +55,8 @@ pub struct TranslationRs {
 }
 
 impl TranslationRs {
-    pub fn new() -> Result<Self> {
-        let data: String = match fs::read_to_string("data/tr_ru.json") {
+    pub fn load_new(patch: &PathBuf) -> Result<Self> {
+        let data: String = match fs::read_to_string(patch) {
             Ok(data) => data,
             Err(_) => String::from(""),
         };
