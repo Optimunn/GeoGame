@@ -7,6 +7,8 @@ use std::rc::Rc;
 use process::gamelogic;
 use consts::*;
 use configure::configurationsettings as ConfSet;
+use translation::TranslationRs as TrRs;
+use translation::LocalTranslation;
 use configure::{set, get};
 use configure::{InputConfig, Country, Continent};
 use threadfn::{ThreadIn, ThreadData, GameMode, Action};
@@ -35,7 +37,9 @@ fn main() -> Result<(), slint::PlatformError> {
     };
 
     let load_path: PathBuf = ConfSet::input_data_path(&loaded_config.language, data::TRANSLATION, #[cfg(not(debug_assertions))] &data_path_string);
-    set::window_language(&main_window, &load_path).unwrap();
+    let tr: TrRs = TrRs::load_new(&load_path).unwrap();
+    let local_translation: LocalTranslation = tr.local_translation();
+    set::window_language(&main_window, &tr);
 
     let load_path: PathBuf = ConfSet::input_data_path(&loaded_config.language, data::DATA, #[cfg(not(debug_assertions))] &data_path_string);
 
@@ -146,7 +150,7 @@ fn main() -> Result<(), slint::PlatformError> {
 
             match index {
                 ui::TIME_OUT => {
-                    model.selected = "Time out!".to_shared_string();
+                    model.selected = local_translation.time_out.to_shared_string();
                     model.answer = input_names[random_number_get].clone();
                 },
                 _ => {

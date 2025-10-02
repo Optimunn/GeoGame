@@ -43,15 +43,14 @@ pub struct TranslationRs {
     p_25_n: String,
     p_hard: String,
 
-    gray: String,
-    freedom: String,
-    lavender: String,
-    bl_sky: String,
-    mandarin: String,
-    r_lime: String,
-
     sel_b_color: String,
     sel_lang: String,
+
+    time_out: String,
+}
+
+pub struct LocalTranslation {
+    pub time_out: String,
 }
 
 impl TranslationRs {
@@ -62,6 +61,12 @@ impl TranslationRs {
         };
         let result: TranslationRs = serde_json::from_str(&data)?;
         Ok(result)
+    }
+
+    pub fn local_translation(&self) -> LocalTranslation {
+        LocalTranslation {
+            time_out: self.time_out.clone(),
+        }
     }
 
     pub fn to_translation(&self) -> Translation {
@@ -100,13 +105,6 @@ impl TranslationRs {
             p_10_n: to_ss!(self.p_10_n),
             p_25_n: to_ss!(self.p_25_n),
             p_hard: to_ss!(self.p_hard),
-
-            gray: to_ss!(self.gray),
-            freedom: to_ss!(self.freedom),
-            lavender: to_ss!(self.lavender),
-            bl_sky: to_ss!(self.bl_sky),
-            mandarin: to_ss!(self.mandarin),
-            r_lime: to_ss!(self.r_lime),
 
             sel_b_color: to_ss!(self.sel_b_color),
             sel_lang: to_ss!(self.sel_lang),

@@ -91,8 +91,10 @@ pub mod configurationsettings {
             let patch_dbg: String = format!("{LOAD_DATA}{}{}.json", mode, language);
             PathBuf::from(patch_dbg.to_string())
         }
-    #[cfg(not(debug_assertions))]
-        patch.join(mode).join(language).join(".json")
+    #[cfg(not(debug_assertions))] {
+            let patch_rel: String = format!("{}{}.json", mode, language);
+            patch.join(patch_rel)
+        }
     }
 
 	pub fn read_from_file<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
@@ -216,13 +218,10 @@ pub mod set {
         window.set_image_welcome(img(&image_data));
     }
 
-    use std::path::PathBuf;
-    use crate::translation as tr;
+    use crate::translation::TranslationRs;
     #[inline(always)]
-    pub fn window_language(window: &MainWindow, path: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
-        let lge: tr::TranslationRs = tr::TranslationRs::load_new(path)?;
-        window.set_current_translation(lge.to_translation());
-        Ok(())
+    pub fn window_language(window: &MainWindow, tr: &TranslationRs) {
+        window.set_current_translation(tr.to_translation());
     }
 }
 
