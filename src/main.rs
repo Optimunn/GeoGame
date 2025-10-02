@@ -1,13 +1,11 @@
 use slint::{SharedString, ToSharedString, Weak};
 use std::sync::mpsc::{Sender, Receiver, channel};
 use std::path::PathBuf;
-use std::thread;
 use std::cell::Cell;
 use std::rc::Rc;
 
 use process::gamelogic;
 use consts::*;
-use consts::ui::scene;
 use configure::configurationsettings as ConfSet;
 use configure::{set, get};
 use configure::{InputConfig, Country, Continent};
@@ -17,6 +15,7 @@ mod process;
 mod consts;
 mod configure;
 mod threadfn;
+mod translation;
 
 slint::include_modules!();
 
@@ -24,7 +23,7 @@ fn main() -> Result<(), slint::PlatformError> {
     //* Drop app window
     let main_window: MainWindow = MainWindow::new().unwrap();
 
-    #[cfg(not(debug_assertions))]
+#[cfg(not(debug_assertions))]
     let (data_path_string,  image_path_string) = ConfSet::load_file_ways();
 
     //*  Load app configuration data
@@ -35,8 +34,10 @@ fn main() -> Result<(), slint::PlatformError> {
         Err(_) => InputConfig::default(),
     };
 
-    let config_language: &str = get::settings_language_patch(&loaded_config.language);
-    let load_path: PathBuf = ConfSet::input_data_path(config_language, #[cfg(not(debug_assertions))] &data_path_string);
+    let load_path: PathBuf = ConfSet::input_data_path(&loaded_config.language, data::TRANSLATION, #[cfg(not(debug_assertions))] &data_path_string);
+    set::window_language(&main_window, &load_path).unwrap();
+
+    let load_path: PathBuf = ConfSet::input_data_path(&loaded_config.language, data::DATA, #[cfg(not(debug_assertions))] &data_path_string);
 
     //*  Load app data
     let serialized_countries: Vec<Country> = match ConfSet::read_from_file(&load_path)
@@ -54,6 +55,7 @@ fn main() -> Result<(), slint::PlatformError> {
     let (tx_data, rx_data): (Sender<ThreadData>, Receiver<ThreadData>) = channel();
 
     //*  Drop thread to filter countries
+    use std::thread;
     //? -> Thread
     let _ = thread::spawn({
         let mut filtered_cont: Vec<Country> = Vec::new();
@@ -188,6 +190,7 @@ fn main() -> Result<(), slint::PlatformError> {
 
     //* When update window after selected country
     let _ = main_window.on_update_window({
+        use consts::ui::scene;
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
 
         move || {

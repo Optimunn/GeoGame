@@ -1,0 +1,2136 @@
+[
+  {
+    "capital": "喀布尔",
+    "code": "af",
+    "continent": "Asia",
+    "flag_4x3": "af.svg",
+    "iso": true,
+    "name": "阿富汗"
+  },
+  {
+    "capital": "玛丽港",
+    "code": "ax",
+    "continent": "Europe",
+    "flag_4x3": "ax.svg",
+    "iso": true,
+    "name": "奥兰群岛"
+  },
+  {
+    "capital": "地拉那",
+    "code": "al",
+    "continent": "Europe",
+    "flag_4x3": "al.svg",
+    "iso": true,
+    "name": "阿尔巴尼亚"
+  },
+  {
+    "capital": "阿尔及尔",
+    "code": "dz",
+    "continent": "Africa",
+    "flag_4x3": "dz.svg",
+    "iso": true,
+    "name": "阿尔及利亚"
+  },
+  {
+    "capital": "帕果帕果",
+    "code": "as",
+    "continent": "Oceania",
+    "flag_4x3": "as.svg",
+    "iso": true,
+    "name": "美属萨摩亚"
+  },
+  {
+    "capital": "安道尔城",
+    "code": "ad",
+    "continent": "Europe",
+    "flag_4x3": "ad.svg",
+    "iso": true,
+    "name": "安道尔"
+  },
+  {
+    "capital": "罗安达",
+    "code": "ao",
+    "continent": "Africa",
+    "flag_4x3": "ao.svg",
+    "iso": true,
+    "name": "安哥拉"
+  },
+  {
+    "capital": "山谷",
+    "code": "ai",
+    "continent": "North America",
+    "flag_4x3": "ai.svg",
+    "iso": true,
+    "name": "安圭拉"
+  },
+  {
+    "code": "aq",
+    "flag_4x3": "aq.svg",
+    "iso": true,
+    "name": "南极洲"
+  },
+  {
+    "capital": "圣约翰",
+    "code": "ag",
+    "continent": "North America",
+    "flag_4x3": "ag.svg",
+    "iso": true,
+    "name": "安提瓜和巴布达"
+  },
+  {
+    "capital": "布宜诺斯艾利斯",
+    "code": "ar",
+    "continent": "South America",
+    "flag_4x3": "ar.svg",
+    "iso": true,
+    "name": "阿根廷"
+  },
+  {
+    "capital": "埃里温",
+    "code": "am",
+    "continent": "Asia",
+    "flag_4x3": "am.svg",
+    "iso": true,
+    "name": "亚美尼亚"
+  },
+  {
+    "capital": "奥拉涅斯塔德",
+    "code": "aw",
+    "continent": "South America",
+    "flag_4x3": "aw.svg",
+    "iso": true,
+    "name": "阿鲁巴"
+  },
+  {
+    "capital": "乔治敦",
+    "code": "sh-ac",
+    "continent": "Africa",
+    "flag_4x3": "sh-ac.svg",
+    "iso": false,
+    "name": "阿森松岛"
+  },
+  {
+    "code": "asean",
+    "flag_4x3": "asean.svg",
+    "iso": false,
+    "name": "东南亚国家联盟"
+  },
+  {
+    "capital": "堪培拉",
+    "code": "au",
+    "continent": "Oceania",
+    "flag_4x3": "au.svg",
+    "iso": true,
+    "name": "澳大利亚"
+  },
+  {
+    "capital": "维也纳",
+    "code": "at",
+    "continent": "Europe",
+    "flag_4x3": "at.svg",
+    "iso": true,
+    "name": "奥地利"
+  },
+  {
+    "capital": "巴库",
+    "code": "az",
+    "continent": "Asia",
+    "flag_4x3": "az.svg",
+    "iso": true,
+    "name": "阿塞拜疆"
+  },
+  {
+    "capital": "拿骚",
+    "code": "bs",
+    "continent": "North America",
+    "flag_4x3": "bs.svg",
+    "iso": true,
+    "name": "巴哈马"
+  },
+  {
+    "capital": "麦纳麦",
+    "code": "bh",
+    "continent": "Asia",
+    "flag_4x3": "bh.svg",
+    "iso": true,
+    "name": "巴林"
+  },
+  {
+    "capital": "达卡",
+    "code": "bd",
+    "continent": "Asia",
+    "flag_4x3": "bd.svg",
+    "iso": true,
+    "name": "孟加拉国"
+  },
+  {
+    "capital": "布里奇敦",
+    "code": "bb",
+    "continent": "North America",
+    "flag_4x3": "bb.svg",
+    "iso": true,
+    "name": "巴巴多斯"
+  },
+  {
+    "code": "es-pv",
+    "flag_4x3": "es-pv.svg",
+    "iso": false,
+    "name": "巴斯克"
+  },
+  {
+    "capital": "明斯克",
+    "code": "by",
+    "continent": "Europe",
+    "flag_4x3": "by.svg",
+    "iso": true,
+    "name": "白俄罗斯"
+  },
+  {
+    "capital": "布鲁塞尔",
+    "code": "be",
+    "continent": "Europe",
+    "flag_4x3": "be.svg",
+    "iso": true,
+    "name": "比利时"
+  },
+  {
+    "capital": "贝尔莫潘",
+    "code": "bz",
+    "continent": "North America",
+    "flag_4x3": "bz.svg",
+    "iso": true,
+    "name": "伯利兹"
+  },
+  {
+    "capital": "波多诺伏",
+    "code": "bj",
+    "continent": "Africa",
+    "flag_4x3": "bj.svg",
+    "iso": true,
+    "name": "贝宁"
+  },
+  {
+    "capital": "汉密尔顿",
+    "code": "bm",
+    "continent": "North America",
+    "flag_4x3": "bm.svg",
+    "iso": true,
+    "name": "百慕大"
+  },
+  {
+    "capital": "廷布",
+    "code": "bt",
+    "continent": "Asia",
+    "flag_4x3": "bt.svg",
+    "iso": true,
+    "name": "不丹"
+  },
+  {
+    "capital": "苏克雷",
+    "code": "bo",
+    "continent": "South America",
+    "flag_4x3": "bo.svg",
+    "iso": true,
+    "name": "玻利维亚"
+  },
+  {
+    "capital": "克拉伦代克",
+    "code": "bq",
+    "continent": "South America",
+    "flag_4x3": "bq.svg",
+    "iso": true,
+    "name": "博内尔、圣尤斯塔修斯和萨巴"
+  },
+  {
+    "capital": "萨拉热窝",
+    "code": "ba",
+    "continent": "Europe",
+    "flag_4x3": "ba.svg",
+    "iso": true,
+    "name": "波斯尼亚和黑塞哥维那"
+  },
+  {
+    "capital": "哈博罗内",
+    "code": "bw",
+    "continent": "Africa",
+    "flag_4x3": "bw.svg",
+    "iso": true,
+    "name": "博茨瓦纳"
+  },
+  {
+    "code": "bv",
+    "flag_4x3": "bv.svg",
+    "iso": true,
+    "name": "布韦岛"
+  },
+  {
+    "capital": "巴西利亚",
+    "code": "br",
+    "continent": "South America",
+    "flag_4x3": "br.svg",
+    "iso": true,
+    "name": "巴西"
+  },
+  {
+    "capital": "迭戈加西亚",
+    "code": "io",
+    "continent": "Asia",
+    "flag_4x3": "io.svg",
+    "iso": true,
+    "name": "英属印度洋领地"
+  },
+  {
+    "capital": "斯里巴加湾市",
+    "code": "bn",
+    "continent": "Asia",
+    "flag_4x3": "bn.svg",
+    "iso": true,
+    "name": "文莱"
+  },
+  {
+    "capital": "索菲亚",
+    "code": "bg",
+    "continent": "Europe",
+    "flag_4x3": "bg.svg",
+    "iso": true,
+    "name": "保加利亚"
+  },
+  {
+    "capital": "瓦加杜古",
+    "code": "bf",
+    "continent": "Africa",
+    "flag_4x3": "bf.svg",
+    "iso": true,
+    "name": "布基纳法索"
+  },
+  {
+    "capital": "布琼布拉",
+    "code": "bi",
+    "continent": "Africa",
+    "flag_4x3": "bi.svg",
+    "iso": true,
+    "name": "布隆迪"
+  },
+  {
+    "capital": "普拉亚",
+    "code": "cv",
+    "continent": "Africa",
+    "flag_4x3": "cv.svg",
+    "iso": true,
+    "name": "佛得角"
+  },
+  {
+    "capital": "金边",
+    "code": "kh",
+    "continent": "Asia",
+    "flag_4x3": "kh.svg",
+    "iso": true,
+    "name": "柬埔寨"
+  },
+  {
+    "capital": "雅温得",
+    "code": "cm",
+    "continent": "Africa",
+    "flag_4x3": "cm.svg",
+    "iso": true,
+    "name": "喀麦隆"
+  },
+  {
+    "capital": "渥太华",
+    "code": "ca",
+    "continent": "North America",
+    "flag_4x3": "ca.svg",
+    "iso": true,
+    "name": "加拿大"
+  },
+  {
+    "code": "ic",
+    "flag_4x3": "ic.svg",
+    "iso": false,
+    "name": "加那利群岛"
+  },
+  {
+    "code": "es-ct",
+    "flag_4x3": "es-ct.svg",
+    "iso": false,
+    "name": "加泰罗尼亚"
+  },
+  {
+    "capital": "乔治敦",
+    "code": "ky",
+    "continent": "North America",
+    "flag_4x3": "ky.svg",
+    "iso": true,
+    "name": "开曼群岛"
+  },
+  {
+    "capital": "班吉",
+    "code": "cf",
+    "continent": "Africa",
+    "flag_4x3": "cf.svg",
+    "iso": true,
+    "name": "中非共和国"
+  },
+  {
+    "code": "cefta",
+    "flag_4x3": "cefta.svg",
+    "iso": false,
+    "name": "中欧自由贸易协定"
+  },
+  {
+    "capital": "恩贾梅纳",
+    "code": "td",
+    "continent": "Africa",
+    "flag_4x3": "td.svg",
+    "iso": true,
+    "name": "乍得"
+  },
+  {
+    "capital": "圣地亚哥",
+    "code": "cl",
+    "continent": "South America",
+    "flag_4x3": "cl.svg",
+    "iso": true,
+    "name": "智利"
+  },
+  {
+    "capital": "北京",
+    "code": "cn",
+    "continent": "Asia",
+    "flag_4x3": "cn.svg",
+    "iso": true,
+    "name": "中国"
+  },
+  {
+    "capital": "飞鱼湾",
+    "code": "cx",
+    "continent": "Asia",
+    "flag_4x3": "cx.svg",
+    "iso": true,
+    "name": "圣诞岛"
+  },
+  {
+    "code": "cp",
+    "flag_4x3": "cp.svg",
+    "iso": false,
+    "name": "克利珀顿岛"
+  },
+  {
+    "capital": "西岛",
+    "code": "cc",
+    "continent": "Asia",
+    "flag_4x3": "cc.svg",
+    "iso": true,
+    "name": "科科斯群岛"
+  },
+  {
+    "capital": "波哥大",
+    "code": "co",
+    "continent": "South America",
+    "flag_4x3": "co.svg",
+    "iso": true,
+    "name": "哥伦比亚"
+  },
+  {
+    "capital": "莫罗尼",
+    "code": "km",
+    "continent": "Africa",
+    "flag_4x3": "km.svg",
+    "iso": true,
+    "name": "科摩罗"
+  },
+  {
+    "capital": "阿瓦鲁阿",
+    "code": "ck",
+    "continent": "Oceania",
+    "flag_4x3": "ck.svg",
+    "iso": true,
+    "name": "库克群岛"
+  },
+  {
+    "capital": "圣何塞",
+    "code": "cr",
+    "continent": "North America",
+    "flag_4x3": "cr.svg",
+    "iso": true,
+    "name": "哥斯达黎加"
+  },
+  {
+    "capital": "萨格勒布",
+    "code": "hr",
+    "continent": "Europe",
+    "flag_4x3": "hr.svg",
+    "iso": true,
+    "name": "克罗地亚"
+  },
+  {
+    "capital": "哈瓦那",
+    "code": "cu",
+    "continent": "North America",
+    "flag_4x3": "cu.svg",
+    "iso": true,
+    "name": "古巴"
+  },
+  {
+    "capital": "威廉斯塔德",
+    "code": "cw",
+    "continent": "South America",
+    "flag_4x3": "cw.svg",
+    "iso": true,
+    "name": "库拉索"
+  },
+  {
+    "capital": "尼科西亚",
+    "code": "cy",
+    "continent": "Europe",
+    "flag_4x3": "cy.svg",
+    "iso": true,
+    "name": "塞浦路斯"
+  },
+  {
+    "capital": "布拉格",
+    "code": "cz",
+    "continent": "Europe",
+    "flag_4x3": "cz.svg",
+    "iso": true,
+    "name": "捷克"
+  },
+  {
+    "capital": "亚穆苏克罗",
+    "code": "ci",
+    "continent": "Africa",
+    "flag_4x3": "ci.svg",
+    "iso": true,
+    "name": "科特迪瓦"
+  },
+  {
+    "capital": "金沙萨",
+    "code": "cd",
+    "continent": "Africa",
+    "flag_4x3": "cd.svg",
+    "iso": true,
+    "name": "刚果民主共和国"
+  },
+  {
+    "capital": "哥本哈根",
+    "code": "dk",
+    "continent": "Europe",
+    "flag_4x3": "dk.svg",
+    "iso": true,
+    "name": "丹麦"
+  },
+  {
+    "code": "dg",
+    "flag_4x3": "dg.svg",
+    "iso": false,
+    "name": "迭戈加西亚"
+  },
+  {
+    "capital": "吉布提",
+    "code": "dj",
+    "continent": "Africa",
+    "flag_4x3": "dj.svg",
+    "iso": true,
+    "name": "吉布提"
+  },
+  {
+    "capital": "罗索",
+    "code": "dm",
+    "continent": "North America",
+    "flag_4x3": "dm.svg",
+    "iso": true,
+    "name": "多米尼克"
+  },
+  {
+    "capital": "圣多明戈",
+    "code": "do",
+    "continent": "North America",
+    "flag_4x3": "do.svg",
+    "iso": true,
+    "name": "多米尼加共和国"
+  },
+  {
+    "code": "eac",
+    "flag_4x3": "eac.svg",
+    "iso": false,
+    "name": "东非共同体"
+  },
+  {
+    "capital": "基多",
+    "code": "ec",
+    "continent": "South America",
+    "flag_4x3": "ec.svg",
+    "iso": true,
+    "name": "厄瓜多尔"
+  },
+  {
+    "capital": "开罗",
+    "code": "eg",
+    "continent": "Africa",
+    "flag_4x3": "eg.svg",
+    "iso": true,
+    "name": "埃及"
+  },
+  {
+    "capital": "圣萨尔瓦多",
+    "code": "sv",
+    "continent": "North America",
+    "flag_4x3": "sv.svg",
+    "iso": true,
+    "name": "萨尔瓦多"
+  },
+  {
+    "capital": "伦敦",
+    "code": "gb-eng",
+    "continent": "Europe",
+    "flag_4x3": "gb-eng.svg",
+    "iso": false,
+    "name": "英格兰"
+  },
+  {
+    "capital": "马拉博",
+    "code": "gq",
+    "continent": "Africa",
+    "flag_4x3": "gq.svg",
+    "iso": true,
+    "name": "赤道几内亚"
+  },
+  {
+    "capital": "阿斯马拉",
+    "code": "er",
+    "continent": "Africa",
+    "flag_4x3": "er.svg",
+    "iso": true,
+    "name": "厄立特里亚"
+  },
+  {
+    "capital": "塔林",
+    "code": "ee",
+    "continent": "Europe",
+    "flag_4x3": "ee.svg",
+    "iso": true,
+    "name": "爱沙尼亚"
+  },
+  {
+    "capital": "洛班巴, 姆巴巴内",
+    "code": "sz",
+    "continent": "Africa",
+    "flag_4x3": "sz.svg",
+    "iso": true,
+    "name": "斯瓦蒂尼"
+  },
+  {
+    "capital": "亚的斯亚贝巴",
+    "code": "et",
+    "continent": "Africa",
+    "flag_4x3": "et.svg",
+    "iso": true,
+    "name": "埃塞俄比亚"
+  },
+  {
+    "code": "eu",
+    "flag_4x3": "eu.svg",
+    "iso": false,
+    "name": "欧洲"
+  },
+  {
+    "capital": "斯坦利",
+    "code": "fk",
+    "continent": "South America",
+    "flag_4x3": "fk.svg",
+    "iso": true,
+    "name": "福克兰群岛"
+  },
+  {
+    "capital": "托尔斯港",
+    "code": "fo",
+    "continent": "Europe",
+    "flag_4x3": "fo.svg",
+    "iso": true,
+    "name": "法罗群岛"
+  },
+  {
+    "capital": "帕利基尔",
+    "code": "fm",
+    "continent": "Oceania",
+    "flag_4x3": "fm.svg",
+    "iso": true,
+    "name": "密克罗尼西亚联邦"
+  },
+  {
+    "capital": "苏瓦",
+    "code": "fj",
+    "continent": "Oceania",
+    "flag_4x3": "fj.svg",
+    "iso": true,
+    "name": "斐济"
+  },
+  {
+    "capital": "赫尔辛基",
+    "code": "fi",
+    "continent": "Europe",
+    "flag_4x3": "fi.svg",
+    "iso": true,
+    "name": "芬兰"
+  },
+  {
+    "capital": "巴黎",
+    "code": "fr",
+    "continent": "Europe",
+    "flag_4x3": "fr.svg",
+    "iso": true,
+    "name": "法国"
+  },
+  {
+    "capital": "卡宴",
+    "code": "gf",
+    "continent": "South America",
+    "flag_4x3": "gf.svg",
+    "iso": true,
+    "name": "法属圭亚那"
+  },
+  {
+    "capital": "帕皮提",
+    "code": "pf",
+    "continent": "Oceania",
+    "flag_4x3": "pf.svg",
+    "iso": true,
+    "name": "法属波利尼西亚"
+  },
+  {
+    "capital": "圣皮埃尔, 留尼旺",
+    "code": "tf",
+    "continent": "Africa",
+    "flag_4x3": "tf.svg",
+    "iso": true,
+    "name": "法属南部领地"
+  },
+  {
+    "capital": "利伯维尔",
+    "code": "ga",
+    "continent": "Africa",
+    "flag_4x3": "ga.svg",
+    "iso": true,
+    "name": "加蓬"
+  },
+  {
+    "code": "es-ga",
+    "flag_4x3": "es-ga.svg",
+    "iso": false,
+    "name": "加利西亚"
+  },
+  {
+    "capital": "班珠尔",
+    "code": "gm",
+    "continent": "Africa",
+    "flag_4x3": "gm.svg",
+    "iso": true,
+    "name": "冈比亚"
+  },
+  {
+    "capital": "第比利斯",
+    "code": "ge",
+    "continent": "Asia",
+    "flag_4x3": "ge.svg",
+    "iso": true,
+    "name": "格鲁吉亚"
+  },
+  {
+    "capital": "柏林",
+    "code": "de",
+    "continent": "Europe",
+    "flag_4x3": "de.svg",
+    "iso": true,
+    "name": "德国"
+  },
+  {
+    "capital": "阿克拉",
+    "code": "gh",
+    "continent": "Africa",
+    "flag_4x3": "gh.svg",
+    "iso": true,
+    "name": "加纳"
+  },
+  {
+    "capital": "直布罗陀",
+    "code": "gi",
+    "continent": "Europe",
+    "flag_4x3": "gi.svg",
+    "iso": true,
+    "name": "直布罗陀"
+  },
+  {
+    "capital": "雅典",
+    "code": "gr",
+    "continent": "Europe",
+    "flag_4x3": "gr.svg",
+    "iso": true,
+    "name": "希腊"
+  },
+  {
+    "capital": "努克",
+    "code": "gl",
+    "continent": "North America",
+    "flag_4x3": "gl.svg",
+    "iso": true,
+    "name": "格陵兰"
+  },
+  {
+    "capital": "圣乔治",
+    "code": "gd",
+    "continent": "North America",
+    "flag_4x3": "gd.svg",
+    "iso": true,
+    "name": "格林纳达"
+  },
+  {
+    "capital": "巴斯特尔",
+    "code": "gp",
+    "continent": "North America",
+    "flag_4x3": "gp.svg",
+    "iso": true,
+    "name": "瓜德罗普"
+  },
+  {
+    "capital": "阿加尼亚",
+    "code": "gu",
+    "continent": "Oceania",
+    "flag_4x3": "gu.svg",
+    "iso": true,
+    "name": "关岛"
+  },
+  {
+    "capital": "危地马拉城",
+    "code": "gt",
+    "continent": "North America",
+    "flag_4x3": "gt.svg",
+    "iso": true,
+    "name": "危地马拉"
+  },
+  {
+    "capital": "圣彼得港",
+    "code": "gg",
+    "continent": "Europe",
+    "flag_4x3": "gg.svg",
+    "iso": true,
+    "name": "根西岛"
+  },
+  {
+    "capital": "科纳克里",
+    "code": "gn",
+    "continent": "Africa",
+    "flag_4x3": "gn.svg",
+    "iso": true,
+    "name": "几内亚"
+  },
+  {
+    "capital": "比绍",
+    "code": "gw",
+    "continent": "Africa",
+    "flag_4x3": "gw.svg",
+    "iso": true,
+    "name": "几内亚比绍"
+  },
+  {
+    "capital": "乔治敦",
+    "code": "gy",
+    "continent": "South America",
+    "flag_4x3": "gy.svg",
+    "iso": true,
+    "name": "圭亚那"
+  },
+  {
+    "capital": "太子港",
+    "code": "ht",
+    "continent": "North America",
+    "flag_4x3": "ht.svg",
+    "iso": true,
+    "name": "海地"
+  },
+  {
+    "code": "hm",
+    "flag_4x3": "hm.svg",
+    "iso": true,
+    "name": "赫德岛和麦克唐纳群岛"
+  },
+  {
+    "capital": "梵蒂冈城",
+    "code": "va",
+    "continent": "Europe",
+    "flag_4x3": "va.svg",
+    "iso": true,
+    "name": "梵蒂冈"
+  },
+  {
+    "capital": "特古西加尔帕",
+    "code": "hn",
+    "continent": "North America",
+    "flag_4x3": "hn.svg",
+    "iso": true,
+    "name": "洪都拉斯"
+  },
+  {
+    "capital": "香港",
+    "code": "hk",
+    "continent": "Asia",
+    "flag_4x3": "hk.svg",
+    "iso": true,
+    "name": "香港"
+  },
+  {
+    "capital": "布达佩斯",
+    "code": "hu",
+    "continent": "Europe",
+    "flag_4x3": "hu.svg",
+    "iso": true,
+    "name": "匈牙利"
+  },
+  {
+    "capital": "雷克雅未克",
+    "code": "is",
+    "continent": "Europe",
+    "flag_4x3": "is.svg",
+    "iso": true,
+    "name": "冰岛"
+  },
+  {
+    "capital": "新德里",
+    "code": "in",
+    "continent": "Asia",
+    "flag_4x3": "in.svg",
+    "iso": true,
+    "name": "印度"
+  },
+  {
+    "capital": "雅加达",
+    "code": "id",
+    "continent": "Asia",
+    "flag_4x3": "id.svg",
+    "iso": true,
+    "name": "印度尼西亚"
+  },
+  {
+    "capital": "德黑兰",
+    "code": "ir",
+    "continent": "Asia",
+    "flag_4x3": "ir.svg",
+    "iso": true,
+    "name": "伊朗"
+  },
+  {
+    "capital": "巴格达",
+    "code": "iq",
+    "continent": "Asia",
+    "flag_4x3": "iq.svg",
+    "iso": true,
+    "name": "伊拉克"
+  },
+  {
+    "capital": "都柏林",
+    "code": "ie",
+    "continent": "Europe",
+    "flag_4x3": "ie.svg",
+    "iso": true,
+    "name": "爱尔兰"
+  },
+  {
+    "capital": "道格拉斯",
+    "code": "im",
+    "continent": "Europe",
+    "flag_4x3": "im.svg",
+    "iso": true,
+    "name": "马恩岛"
+  },
+  {
+    "capital": "耶路撒冷",
+    "code": "il",
+    "continent": "Asia",
+    "flag_4x3": "il.svg",
+    "iso": true,
+    "name": "以色列"
+  },
+  {
+    "capital": "罗马",
+    "code": "it",
+    "continent": "Europe",
+    "flag_4x3": "it.svg",
+    "iso": true,
+    "name": "意大利"
+  },
+  {
+    "capital": "金斯敦",
+    "code": "jm",
+    "continent": "North America",
+    "flag_4x3": "jm.svg",
+    "iso": true,
+    "name": "牙买加"
+  },
+  {
+    "capital": "东京",
+    "code": "jp",
+    "continent": "Asia",
+    "flag_4x3": "jp.svg",
+    "iso": true,
+    "name": "日本"
+  },
+  {
+    "capital": "圣赫利尔",
+    "code": "je",
+    "continent": "Europe",
+    "flag_4x3": "je.svg",
+    "iso": true,
+    "name": "泽西岛"
+  },
+  {
+    "capital": "安曼",
+    "code": "jo",
+    "continent": "Asia",
+    "flag_4x3": "jo.svg",
+    "iso": true,
+    "name": "约旦"
+  },
+  {
+    "capital": "阿斯塔纳",
+    "code": "kz",
+    "continent": "Asia",
+    "flag_4x3": "kz.svg",
+    "iso": true,
+    "name": "哈萨克斯坦"
+  },
+  {
+    "capital": "内罗毕",
+    "code": "ke",
+    "continent": "Africa",
+    "flag_4x3": "ke.svg",
+    "iso": true,
+    "name": "肯尼亚"
+  },
+  {
+    "capital": "南塔拉瓦",
+    "code": "ki",
+    "continent": "Oceania",
+    "flag_4x3": "ki.svg",
+    "iso": true,
+    "name": "基里巴斯"
+  },
+  {
+    "capital": "普里什蒂纳",
+    "code": "xk",
+    "continent": "Europe",
+    "flag_4x3": "xk.svg",
+    "iso": false,
+    "name": "科索沃"
+  },
+  {
+    "capital": "科威特城",
+    "code": "kw",
+    "continent": "Asia",
+    "flag_4x3": "kw.svg",
+    "iso": true,
+    "name": "科威特"
+  },
+  {
+    "capital": "比什凯克",
+    "code": "kg",
+    "continent": "Asia",
+    "flag_4x3": "kg.svg",
+    "iso": true,
+    "name": "吉尔吉斯斯坦"
+  },
+  {
+    "capital": "万象",
+    "code": "la",
+    "continent": "Asia",
+    "flag_4x3": "la.svg",
+    "iso": true,
+    "name": "老挝"
+  },
+  {
+    "capital": "里加",
+    "code": "lv",
+    "continent": "Europe",
+    "flag_4x3": "lv.svg",
+    "iso": true,
+    "name": "拉脱维亚"
+  },
+  {
+    "code": "arab",
+    "flag_4x3": "arab.svg",
+    "iso": false,
+    "name": "阿拉伯国家联盟"
+  },
+  {
+    "capital": "贝鲁特",
+    "code": "lb",
+    "continent": "Asia",
+    "flag_4x3": "lb.svg",
+    "iso": true,
+    "name": "黎巴嫩"
+  },
+  {
+    "capital": "马塞鲁",
+    "code": "ls",
+    "continent": "Africa",
+    "flag_4x3": "ls.svg",
+    "iso": true,
+    "name": "莱索托"
+  },
+  {
+    "capital": "蒙罗维亚",
+    "code": "lr",
+    "continent": "Africa",
+    "flag_4x3": "lr.svg",
+    "iso": true,
+    "name": "利比里亚"
+  },
+  {
+    "capital": "的黎波里",
+    "code": "ly",
+    "continent": "Africa",
+    "flag_4x3": "ly.svg",
+    "iso": true,
+    "name": "利比亚"
+  },
+  {
+    "capital": "瓦杜兹",
+    "code": "li",
+    "continent": "Europe",
+    "flag_4x3": "li.svg",
+    "iso": true,
+    "name": "列支敦士登"
+  },
+  {
+    "capital": "维尔纽斯",
+    "code": "lt",
+    "continent": "Europe",
+    "flag_4x3": "lt.svg",
+    "iso": true,
+    "name": "立陶宛"
+  },
+  {
+    "capital": "卢森堡市",
+    "code": "lu",
+    "continent": "Europe",
+    "flag_4x3": "lu.svg",
+    "iso": true,
+    "name": "卢森堡"
+  },
+  {
+    "capital": "澳门",
+    "code": "mo",
+    "continent": "Asia",
+    "flag_4x3": "mo.svg",
+    "iso": true,
+    "name": "澳门"
+  },
+  {
+    "capital": "塔那那利佛",
+    "code": "mg",
+    "continent": "Africa",
+    "flag_4x3": "mg.svg",
+    "iso": true,
+    "name": "马达加斯加"
+  },
+  {
+    "capital": "利隆圭",
+    "code": "mw",
+    "continent": "Africa",
+    "flag_4x3": "mw.svg",
+    "iso": true,
+    "name": "马拉维"
+  },
+  {
+    "capital": "吉隆坡",
+    "code": "my",
+    "continent": "Asia",
+    "flag_4x3": "my.svg",
+    "iso": true,
+    "name": "马来西亚"
+  },
+  {
+    "capital": "马累",
+    "code": "mv",
+    "continent": "Asia",
+    "flag_4x3": "mv.svg",
+    "iso": true,
+    "name": "马尔代夫"
+  },
+  {
+    "capital": "巴马科",
+    "code": "ml",
+    "continent": "Africa",
+    "flag_4x3": "ml.svg",
+    "iso": true,
+    "name": "马里"
+  },
+  {
+    "capital": "瓦莱塔",
+    "code": "mt",
+    "continent": "Europe",
+    "flag_4x3": "mt.svg",
+    "iso": true,
+    "name": "马耳他"
+  },
+  {
+    "capital": "马朱罗",
+    "code": "mh",
+    "continent": "Oceania",
+    "flag_4x3": "mh.svg",
+    "iso": true,
+    "name": "马绍尔群岛"
+  },
+  {
+    "capital": "法兰西堡",
+    "code": "mq",
+    "continent": "North America",
+    "flag_4x3": "mq.svg",
+    "iso": true,
+    "name": "马提尼克"
+  },
+  {
+    "capital": "努瓦克肖特",
+    "code": "mr",
+    "continent": "Africa",
+    "flag_4x3": "mr.svg",
+    "iso": true,
+    "name": "毛里塔尼亚"
+  },
+  {
+    "capital": "路易港",
+    "code": "mu",
+    "continent": "Africa",
+    "flag_4x3": "mu.svg",
+    "iso": true,
+    "name": "毛里求斯"
+  },
+  {
+    "capital": "马穆楚",
+    "code": "yt",
+    "continent": "Africa",
+    "flag_4x3": "yt.svg",
+    "iso": true,
+    "name": "马约特"
+  },
+  {
+    "capital": "墨西哥城",
+    "code": "mx",
+    "continent": "North America",
+    "flag_4x3": "mx.svg",
+    "iso": true,
+    "name": "墨西哥"
+  },
+  {
+    "capital": "基希讷乌",
+    "code": "md",
+    "continent": "Europe",
+    "flag_4x3": "md.svg",
+    "iso": true,
+    "name": "摩尔多瓦"
+  },
+  {
+    "capital": "摩纳哥",
+    "code": "mc",
+    "continent": "Europe",
+    "flag_4x3": "mc.svg",
+    "iso": true,
+    "name": "摩纳哥"
+  },
+  {
+    "capital": "乌兰巴托",
+    "code": "mn",
+    "continent": "Asia",
+    "flag_4x3": "mn.svg",
+    "iso": true,
+    "name": "蒙古"
+  },
+  {
+    "capital": "波德戈里察",
+    "code": "me",
+    "continent": "Europe",
+    "flag_4x3": "me.svg",
+    "iso": true,
+    "name": "黑山"
+  },
+  {
+    "capital": "小湾, 布拉德斯, 普利茅斯",
+    "code": "ms",
+    "continent": "North America",
+    "flag_4x3": "ms.svg",
+    "iso": true,
+    "name": "蒙特塞拉特"
+  },
+  {
+    "capital": "拉巴特",
+    "code": "ma",
+    "continent": "Africa",
+    "flag_4x3": "ma.svg",
+    "iso": true,
+    "name": "摩洛哥"
+  },
+  {
+    "capital": "马普托",
+    "code": "mz",
+    "continent": "Africa",
+    "flag_4x3": "mz.svg",
+    "iso": true,
+    "name": "莫桑比克"
+  },
+  {
+    "capital": "内比都",
+    "code": "mm",
+    "continent": "Asia",
+    "flag_4x3": "mm.svg",
+    "iso": true,
+    "name": "缅甸"
+  },
+  {
+    "capital": "温得和克",
+    "code": "na",
+    "continent": "Africa",
+    "flag_4x3": "na.svg",
+    "iso": true,
+    "name": "纳米比亚"
+  },
+  {
+    "capital": "亚伦区",
+    "code": "nr",
+    "continent": "Oceania",
+    "flag_4x3": "nr.svg",
+    "iso": true,
+    "name": "瑙鲁"
+  },
+  {
+    "capital": "加德满都",
+    "code": "np",
+    "continent": "Asia",
+    "flag_4x3": "np.svg",
+    "iso": true,
+    "name": "尼泊尔"
+  },
+  {
+    "capital": "阿姆斯特丹",
+    "code": "nl",
+    "continent": "Europe",
+    "flag_4x3": "nl.svg",
+    "iso": true,
+    "name": "荷兰"
+  },
+  {
+    "capital": "努美阿",
+    "code": "nc",
+    "continent": "Oceania",
+    "flag_4x3": "nc.svg",
+    "iso": true,
+    "name": "新喀里多尼亚"
+  },
+  {
+    "capital": "惠灵顿",
+    "code": "nz",
+    "continent": "Oceania",
+    "flag_4x3": "nz.svg",
+    "iso": true,
+    "name": "新西兰"
+  },
+  {
+    "capital": "马那瓜",
+    "code": "ni",
+    "continent": "North America",
+    "flag_4x3": "ni.svg",
+    "iso": true,
+    "name": "尼加拉瓜"
+  },
+  {
+    "capital": "尼亚美",
+    "code": "ne",
+    "continent": "Africa",
+    "flag_4x3": "ne.svg",
+    "iso": true,
+    "name": "尼日尔"
+  },
+  {
+    "capital": "阿布贾",
+    "code": "ng",
+    "continent": "Africa",
+    "flag_4x3": "ng.svg",
+    "iso": true,
+    "name": "尼日利亚"
+  },
+  {
+    "capital": "阿洛菲",
+    "code": "nu",
+    "continent": "Oceania",
+    "flag_4x3": "nu.svg",
+    "iso": true,
+    "name": "纽埃"
+  },
+  {
+    "capital": "金斯敦",
+    "code": "nf",
+    "continent": "Oceania",
+    "flag_4x3": "nf.svg",
+    "iso": true,
+    "name": "诺福克岛"
+  },
+  {
+    "capital": "平壤",
+    "code": "kp",
+    "continent": "Asia",
+    "flag_4x3": "kp.svg",
+    "iso": true,
+    "name": "朝鲜"
+  },
+  {
+    "capital": "斯科普里",
+    "code": "mk",
+    "continent": "Europe",
+    "flag_4x3": "mk.svg",
+    "iso": true,
+    "name": "北马其顿"
+  },
+  {
+    "capital": "贝尔法斯特",
+    "code": "gb-nir",
+    "continent": "Europe",
+    "flag_4x3": "gb-nir.svg",
+    "iso": false,
+    "name": "北爱尔兰"
+  },
+  {
+    "capital": "塞班岛",
+    "code": "mp",
+    "continent": "Oceania",
+    "flag_4x3": "mp.svg",
+    "iso": true,
+    "name": "北马里亚纳群岛"
+  },
+  {
+    "capital": "奥斯陆",
+    "code": "no",
+    "continent": "Europe",
+    "flag_4x3": "no.svg",
+    "iso": true,
+    "name": "挪威"
+  },
+  {
+    "capital": "马斯喀特",
+    "code": "om",
+    "continent": "Asia",
+    "flag_4x3": "om.svg",
+    "iso": true,
+    "name": "阿曼"
+  },
+  {
+    "code": "pc",
+    "flag_4x3": "pc.svg",
+    "iso": false,
+    "name": "太平洋共同体"
+  },
+  {
+    "capital": "伊斯兰堡",
+    "code": "pk",
+    "continent": "Asia",
+    "flag_4x3": "pk.svg",
+    "iso": true,
+    "name": "巴基斯坦"
+  },
+  {
+    "capital": "恩格尔穆德",
+    "code": "pw",
+    "continent": "Oceania",
+    "flag_4x3": "pw.svg",
+    "iso": true,
+    "name": "帕劳"
+  },
+  {
+    "capital": "巴拿马城",
+    "code": "pa",
+    "continent": "North America",
+    "flag_4x3": "pa.svg",
+    "iso": true,
+    "name": "巴拿马"
+  },
+  {
+    "capital": "莫尔兹比港",
+    "code": "pg",
+    "continent": "Oceania",
+    "flag_4x3": "pg.svg",
+    "iso": true,
+    "name": "巴布亚新几内亚"
+  },
+  {
+    "capital": "亚松森",
+    "code": "py",
+    "continent": "South America",
+    "flag_4x3": "py.svg",
+    "iso": true,
+    "name": "巴拉圭"
+  },
+  {
+    "capital": "利马",
+    "code": "pe",
+    "continent": "South America",
+    "flag_4x3": "pe.svg",
+    "iso": true,
+    "name": "秘鲁"
+  },
+  {
+    "capital": "马尼拉",
+    "code": "ph",
+    "continent": "Asia",
+    "flag_4x3": "ph.svg",
+    "iso": true,
+    "name": "菲律宾"
+  },
+  {
+    "capital": "亚当斯敦",
+    "code": "pn",
+    "continent": "Oceania",
+    "flag_4x3": "pn.svg",
+    "iso": true,
+    "name": "皮特凯恩群岛"
+  },
+  {
+    "capital": "华沙",
+    "code": "pl",
+    "continent": "Europe",
+    "flag_4x3": "pl.svg",
+    "iso": true,
+    "name": "波兰"
+  },
+  {
+    "capital": "里斯本",
+    "code": "pt",
+    "continent": "Europe",
+    "flag_4x3": "pt.svg",
+    "iso": true,
+    "name": "葡萄牙"
+  },
+  {
+    "capital": "圣胡安",
+    "code": "pr",
+    "continent": "North America",
+    "flag_4x3": "pr.svg",
+    "iso": true,
+    "name": "波多黎各"
+  },
+  {
+    "capital": "多哈",
+    "code": "qa",
+    "continent": "Asia",
+    "flag_4x3": "qa.svg",
+    "iso": true,
+    "name": "卡塔尔"
+  },
+  {
+    "capital": "布拉柴维尔",
+    "code": "cg",
+    "continent": "Africa",
+    "flag_4x3": "cg.svg",
+    "iso": true,
+    "name": "刚果共和国"
+  },
+  {
+    "capital": "布加勒斯特",
+    "code": "ro",
+    "continent": "Europe",
+    "flag_4x3": "ro.svg",
+    "iso": true,
+    "name": "罗马尼亚"
+  },
+  {
+    "capital": "莫斯科",
+    "code": "ru",
+    "continent": "Europe",
+    "flag_4x3": "ru.svg",
+    "iso": true,
+    "name": "俄罗斯"
+  },
+  {
+    "capital": "基加利",
+    "code": "rw",
+    "continent": "Africa",
+    "flag_4x3": "rw.svg",
+    "iso": true,
+    "name": "卢旺达"
+  },
+  {
+    "capital": "圣但尼",
+    "code": "re",
+    "continent": "Africa",
+    "flag_4x3": "re.svg",
+    "iso": true,
+    "name": "留尼汪"
+  },
+  {
+    "capital": "古斯塔维亚",
+    "code": "bl",
+    "continent": "North America",
+    "flag_4x3": "bl.svg",
+    "iso": true,
+    "name": "圣巴泰勒米"
+  },
+  {
+    "capital": "詹姆斯敦",
+    "code": "sh-hl",
+    "continent": "Africa",
+    "flag_4x3": "sh-hl.svg",
+    "iso": false,
+    "name": "圣赫勒拿岛"
+  },
+  {
+    "capital": "詹姆斯敦",
+    "code": "sh",
+    "continent": "Africa",
+    "flag_4x3": "sh.svg",
+    "iso": true,
+    "name": "圣赫勒拿、阿森松和特里斯坦-达库尼亚"
+  },
+  {
+    "capital": "巴斯特尔",
+    "code": "kn",
+    "continent": "North America",
+    "flag_4x3": "kn.svg",
+    "iso": true,
+    "name": "圣基茨和尼维斯"
+  },
+  {
+    "capital": "卡斯特里",
+    "code": "lc",
+    "continent": "North America",
+    "flag_4x3": "lc.svg",
+    "iso": true,
+    "name": "圣卢西亚"
+  },
+  {
+    "capital": "马里戈",
+    "code": "mf",
+    "continent": "North America",
+    "flag_4x3": "mf.svg",
+    "iso": true,
+    "name": "圣马丁 (法属)"
+  },
+  {
+    "capital": "圣皮埃尔",
+    "code": "pm",
+    "continent": "North America",
+    "flag_4x3": "pm.svg",
+    "iso": true,
+    "name": "圣皮埃尔和密克隆"
+  },
+  {
+    "capital": "金斯敦",
+    "code": "vc",
+    "continent": "North America",
+    "flag_4x3": "vc.svg",
+    "iso": true,
+    "name": "圣文森特和格林纳丁斯"
+  },
+  {
+    "capital": "阿皮亚",
+    "code": "ws",
+    "continent": "Oceania",
+    "flag_4x3": "ws.svg",
+    "iso": true,
+    "name": "萨摩亚"
+  },
+  {
+    "capital": "圣马力诺",
+    "code": "sm",
+    "continent": "Europe",
+    "flag_4x3": "sm.svg",
+    "iso": true,
+    "name": "圣马力诺"
+  },
+  {
+    "capital": "圣多美",
+    "code": "st",
+    "continent": "Africa",
+    "flag_4x3": "st.svg",
+    "iso": true,
+    "name": "圣多美和普林西比"
+  },
+  {
+    "capital": "利雅得",
+    "code": "sa",
+    "continent": "Asia",
+    "flag_4x3": "sa.svg",
+    "iso": true,
+    "name": "沙特阿拉伯"
+  },
+  {
+    "capital": "爱丁堡",
+    "code": "gb-sct",
+    "continent": "Europe",
+    "flag_4x3": "gb-sct.svg",
+    "iso": false,
+    "name": "苏格兰"
+  },
+  {
+    "capital": "达喀尔",
+    "code": "sn",
+    "continent": "Africa",
+    "flag_4x3": "sn.svg",
+    "iso": true,
+    "name": "塞内加尔"
+  },
+  {
+    "capital": "贝尔格莱德",
+    "code": "rs",
+    "continent": "Europe",
+    "flag_4x3": "rs.svg",
+    "iso": true,
+    "name": "塞尔维亚"
+  },
+  {
+    "capital": "维多利亚",
+    "code": "sc",
+    "continent": "Africa",
+    "flag_4x3": "sc.svg",
+    "iso": true,
+    "name": "塞舌尔"
+  },
+  {
+    "capital": "弗里敦",
+    "code": "sl",
+    "continent": "Africa",
+    "flag_4x3": "sl.svg",
+    "iso": true,
+    "name": "塞拉利昂"
+  },
+  {
+    "capital": "新加坡",
+    "code": "sg",
+    "continent": "Asia",
+    "flag_4x3": "sg.svg",
+    "iso": true,
+    "name": "新加坡"
+  },
+  {
+    "capital": "菲利普斯堡",
+    "code": "sx",
+    "continent": "North America",
+    "flag_4x3": "sx.svg",
+    "iso": true,
+    "name": "圣马丁 (荷属)"
+  },
+  {
+    "capital": "布拉迪斯拉发",
+    "code": "sk",
+    "continent": "Europe",
+    "flag_4x3": "sk.svg",
+    "iso": true,
+    "name": "斯洛伐克"
+  },
+  {
+    "capital": "卢布尔雅那",
+    "code": "si",
+    "continent": "Europe",
+    "flag_4x3": "si.svg",
+    "iso": true,
+    "name": "斯洛文尼亚"
+  },
+  {
+    "capital": "霍尼亚拉",
+    "code": "sb",
+    "continent": "Oceania",
+    "flag_4x3": "sb.svg",
+    "iso": true,
+    "name": "所罗门群岛"
+  },
+  {
+    "capital": "摩加迪沙",
+    "code": "so",
+    "continent": "Africa",
+    "flag_4x3": "so.svg",
+    "iso": true,
+    "name": "索马里"
+  },
+  {
+    "capital": "比勒陀利亚",
+    "code": "za",
+    "continent": "Africa",
+    "flag_4x3": "za.svg",
+    "iso": true,
+    "name": "南非"
+  },
+  {
+    "capital": "爱德华国王点",
+    "code": "gs",
+    "continent": "Antarctica",
+    "flag_4x3": "gs.svg",
+    "iso": true,
+    "name": "南乔治亚和南桑威奇群岛"
+  },
+  {
+    "capital": "首尔",
+    "code": "kr",
+    "continent": "Asia",
+    "flag_4x3": "kr.svg",
+    "iso": true,
+    "name": "韩国"
+  },
+  {
+    "capital": "朱巴",
+    "code": "ss",
+    "continent": "Africa",
+    "flag_4x3": "ss.svg",
+    "iso": true,
+    "name": "南苏丹"
+  },
+  {
+    "capital": "马德里",
+    "code": "es",
+    "continent": "Europe",
+    "flag_4x3": "es.svg",
+    "iso": true,
+    "name": "西班牙"
+  },
+  {
+    "capital": "科特, 科伦坡",
+    "code": "lk",
+    "continent": "Asia",
+    "flag_4x3": "lk.svg",
+    "iso": true,
+    "name": "斯里兰卡"
+  },
+  {
+    "capital": "拉姆安拉",
+    "code": "ps",
+    "continent": "Asia",
+    "flag_4x3": "ps.svg",
+    "iso": true,
+    "name": "巴勒斯坦国"
+  },
+  {
+    "capital": "喀土穆",
+    "code": "sd",
+    "continent": "Africa",
+    "flag_4x3": "sd.svg",
+    "iso": true,
+    "name": "苏丹"
+  },
+  {
+    "capital": "帕拉马里博",
+    "code": "sr",
+    "continent": "South America",
+    "flag_4x3": "sr.svg",
+    "iso": true,
+    "name": "苏里南"
+  },
+  {
+    "capital": "朗伊尔城",
+    "code": "sj",
+    "continent": "Europe",
+    "flag_4x3": "sj.svg",
+    "iso": true,
+    "name": "斯瓦尔巴和扬马延"
+  },
+  {
+    "capital": "斯德哥尔摩",
+    "code": "se",
+    "continent": "Europe",
+    "flag_4x3": "se.svg",
+    "iso": true,
+    "name": "瑞典"
+  },
+  {
+    "capital": "伯尔尼",
+    "code": "ch",
+    "continent": "Europe",
+    "flag_4x3": "ch.svg",
+    "iso": true,
+    "name": "瑞士"
+  },
+  {
+    "capital": "大马士革",
+    "code": "sy",
+    "continent": "Asia",
+    "flag_4x3": "sy.svg",
+    "iso": true,
+    "name": "叙利亚"
+  },
+  {
+    "capital": "台北",
+    "code": "tw",
+    "continent": "Asia",
+    "flag_4x3": "tw.svg",
+    "iso": true,
+    "name": "台湾 (中国台湾省)"
+  },
+  {
+    "capital": "杜尚别",
+    "code": "tj",
+    "continent": "Asia",
+    "flag_4x3": "tj.svg",
+    "iso": true,
+    "name": "塔吉克斯坦"
+  },
+  {
+    "capital": "多多马",
+    "code": "tz",
+    "continent": "Africa",
+    "flag_4x3": "tz.svg",
+    "iso": true,
+    "name": "坦桑尼亚"
+  },
+  {
+    "capital": "曼谷",
+    "code": "th",
+    "continent": "Asia",
+    "flag_4x3": "th.svg",
+    "iso": true,
+    "name": "泰国"
+  },
+  {
+    "capital": "帝力 (Dili)",
+    "code": "tl",
+    "continent": "Asia",
+    "flag_4x3": "tl.svg",
+    "iso": true,
+    "name": "东帝汶"
+  },
+  {
+    "capital": "洛美",
+    "code": "tg",
+    "continent": "Africa",
+    "flag_4x3": "tg.svg",
+    "iso": true,
+    "name": "多哥"
+  },
+  {
+    "capital": "努库诺努, 阿塔富, 托克劳",
+    "code": "tk",
+    "continent": "Oceania",
+    "flag_4x3": "tk.svg",
+    "iso": true,
+    "name": "托克劳"
+  },
+  {
+    "capital": "努库阿洛法",
+    "code": "to",
+    "continent": "Oceania",
+    "flag_4x3": "to.svg",
+    "iso": true,
+    "name": "汤加"
+  },
+  {
+    "capital": "西班牙港",
+    "code": "tt",
+    "continent": "South America",
+    "flag_4x3": "tt.svg",
+    "iso": true,
+    "name": "特立尼达和多巴戈"
+  },
+  {
+    "capital": "七海爱丁堡",
+    "code": "sh-ta",
+    "continent": "Africa",
+    "flag_4x3": "sh-ta.svg",
+    "iso": false,
+    "name": "特里斯坦达库尼亚"
+  },
+  {
+    "capital": "突尼斯",
+    "code": "tn",
+    "continent": "Africa",
+    "flag_4x3": "tn.svg",
+    "iso": true,
+    "name": "突尼斯"
+  },
+  {
+    "capital": "阿什哈巴德",
+    "code": "tm",
+    "continent": "Asia",
+    "flag_4x3": "tm.svg",
+    "iso": true,
+    "name": "土库曼斯坦"
+  },
+  {
+    "capital": "科伯恩镇",
+    "code": "tc",
+    "continent": "North America",
+    "flag_4x3": "tc.svg",
+    "iso": true,
+    "name": "特克斯和凯科斯群岛"
+  },
+  {
+    "capital": "富纳富提",
+    "code": "tv",
+    "continent": "Oceania",
+    "flag_4x3": "tv.svg",
+    "iso": true,
+    "name": "图瓦卢"
+  },
+  {
+    "capital": "安卡拉",
+    "code": "tr",
+    "continent": "Asia",
+    "flag_4x3": "tr.svg",
+    "iso": true,
+    "name": "土耳其"
+  },
+  {
+    "capital": "坎帕拉",
+    "code": "ug",
+    "continent": "Africa",
+    "flag_4x3": "ug.svg",
+    "iso": true,
+    "name": "乌干达"
+  },
+  {
+    "capital": "基辅",
+    "code": "ua",
+    "continent": "Europe",
+    "flag_4x3": "ua.svg",
+    "iso": true,
+    "name": "乌克兰"
+  },
+  {
+    "capital": "阿布扎比",
+    "code": "ae",
+    "continent": "Asia",
+    "flag_4x3": "ae.svg",
+    "iso": true,
+    "name": "阿拉伯联合酋长国"
+  },
+  {
+    "capital": "伦敦",
+    "code": "gb",
+    "continent": "Europe",
+    "flag_4x3": "gb.svg",
+    "iso": true,
+    "name": "英国 (联合王国)"
+  },
+  {
+    "code": "un",
+    "flag_4x3": "un.svg",
+    "iso": false,
+    "name": "联合国"
+  },
+  {
+    "capital": "华盛顿",
+    "code": "um",
+    "continent": "North America",
+    "flag_4x3": "um.svg",
+    "iso": true,
+    "name": "美国本土外小岛屿"
+  },
+  {
+    "capital": "华盛顿",
+    "code": "us",
+    "continent": "North America",
+    "flag_4x3": "us.svg",
+    "iso": true,
+    "name": "美国"
+  },
+  {
+    "code": "xx",
+    "flag_4x3": "xx.svg",
+    "iso": false,
+    "name": "未知"
+  },
+  {
+    "capital": "蒙得维的亚",
+    "code": "uy",
+    "continent": "South America",
+    "flag_4x3": "uy.svg",
+    "iso": true,
+    "name": "乌拉圭"
+  },
+  {
+    "capital": "塔什干",
+    "code": "uz",
+    "continent": "Asia",
+    "flag_4x3": "uz.svg",
+    "iso": true,
+    "name": "乌兹别克斯坦"
+  },
+  {
+    "capital": "维拉港",
+    "code": "vu",
+    "continent": "Oceania",
+    "flag_4x3": "vu.svg",
+    "iso": true,
+    "name": "瓦努阿图"
+  },
+  {
+    "capital": "加拉加斯",
+    "code": "ve",
+    "continent": "South America",
+    "flag_4x3": "ve.svg",
+    "iso": true,
+    "name": "委内瑞拉"
+  },
+  {
+    "capital": "河内",
+    "code": "vn",
+    "continent": "Asia",
+    "flag_4x3": "vn.svg",
+    "iso": true,
+    "name": "越南"
+  },
+  {
+    "capital": "罗德城",
+    "code": "vg",
+    "continent": "North America",
+    "flag_4x3": "vg.svg",
+    "iso": true,
+    "name": "英属维尔京群岛"
+  },
+  {
+    "capital": "夏洛特阿马利亚",
+    "code": "vi",
+    "continent": "North America",
+    "flag_4x3": "vi.svg",
+    "iso": true,
+    "name": "美属维尔京群岛"
+  },
+  {
+    "capital": "加的夫",
+    "code": "gb-wls",
+    "continent": "Europe",
+    "flag_4x3": "gb-wls.svg",
+    "iso": false,
+    "name": "威尔士"
+  },
+  {
+    "capital": "马塔乌图",
+    "code": "wf",
+    "continent": "Oceania",
+    "flag_4x3": "wf.svg",
+    "iso": true,
+    "name": "瓦利斯和富图纳"
+  },
+  {
+    "capital": "阿尤恩",
+    "code": "eh",
+    "continent": "Africa",
+    "flag_4x3": "eh.svg",
+    "iso": true,
+    "name": "西撒哈拉"
+  },
+  {
+    "capital": "萨那",
+    "code": "ye",
+    "continent": "Asia",
+    "flag_4x3": "ye.svg",
+    "iso": true,
+    "name": "也门"
+  },
+  {
+    "capital": "卢萨卡",
+    "code": "zm",
+    "continent": "Africa",
+    "flag_4x3": "zm.svg",
+    "iso": true,
+    "name": "赞比亚"
+  },
+  {
+    "capital": "哈拉雷",
+    "code": "zw",
+    "continent": "Africa",
+    "flag_4x3": "zw.svg",
+    "iso": true,
+    "name": "津巴布韦"
+  }
+]

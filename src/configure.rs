@@ -86,13 +86,13 @@ pub mod configurationsettings {
         config_dir.join(CONFIG_FILE)
     }
 
-    pub fn input_data_path(language: &str, #[cfg(not(debug_assertions))]  patch: &PathBuf) -> PathBuf {
+    pub fn input_data_path(language: &String, mode: &str, #[cfg(not(debug_assertions))]  patch: &PathBuf) -> PathBuf {
     #[cfg(debug_assertions)] {
-            let patch_dbg: String = format!("{LOAD_DATA}{}", language);
+            let patch_dbg: String = format!("{LOAD_DATA}{}{}.json", mode, language);
             PathBuf::from(patch_dbg.to_string())
         }
     #[cfg(not(debug_assertions))]
-        patch.join(language)
+        patch.join(mode).join(language).join(".json")
     }
 
 	pub fn read_from_file<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
@@ -215,6 +215,15 @@ pub mod set {
         };
         window.set_image_welcome(img(&image_data));
     }
+
+    use std::path::PathBuf;
+    use crate::translation as tr;
+    #[inline(always)]
+    pub fn window_language(window: &MainWindow, path: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
+        let lge: tr::TranslationRs = tr::TranslationRs::load_new(path)?;
+        window.set_current_translation(lge.to_translation());
+        Ok(())
+    }
 }
 
 macro_rules! position_bug { // !!! WTF
@@ -249,11 +258,6 @@ pub mod get {
     pub fn settings_language(window: &MainWindow) -> String {
         let index: i32 = window.get_selected_language_index();
         gamelogic::ret_language_string(index)
-    }
-#[inline(always)]
-    pub fn settings_language_patch(lang: &String) -> &'static str {
-        let index: i32 = gamelogic::ret_language_index(lang);
-        gamelogic::ret_language(index)
     }
 #[inline(always)]
     pub fn checkbox_continent_checked(window: &MainWindow) -> Vec<bool> {

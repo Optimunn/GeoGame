@@ -6,6 +6,7 @@ import { AboutApplication } from "about.slint";
 import { OnExitWindow } from "onexit.slint";
 import { GlobalVar } from "globals.slint";
 import { EndGameWindow } from "endgame.slint";
+import { Tr } from "translation.slint";
 
 export component MainWindow inherits Window {
     //in game button witch answer
@@ -22,6 +23,8 @@ export component MainWindow inherits Window {
     callback selected-button-color(int);
     //ret current selected language
     callback selected-language(int);
+
+    in property current-translation <=> Tr.tr;
 
     in-out property selected-button-color-index <=> window-settings.selected-color-index;
     in-out property selected-language-index <=> window-settings.selected-language-index;

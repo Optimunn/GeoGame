@@ -3,6 +3,7 @@ import { ImageResizable, ImageStatic} from "images.slint";
 import { OnExitWindow } from "onexit.slint";
 import { MyButton, MyText } from "mywidget.slint";
 import { GlobalVar } from "globals.slint";
+import { Tr } from "translation.slint";
 
 component InfoWin inherits Rectangle {
 
@@ -24,13 +25,13 @@ component InfoWin inherits Rectangle {
             icon: GlobalVar.country-information.img;
         }
 
-        MyText { height: custom-h; text: "Name: " + GlobalVar.country-information.name; }
-        MyText { height: custom-h; text: "Capital: " + GlobalVar.country-information.capital; }
-        MyText { height: custom-h; text: "Continent: " + GlobalVar.country-information.continent; }
-        MyText { height: custom-h; text: "Code: " + GlobalVar.country-information.code; }
+        MyText { height: custom-h; text: Tr.tr.name + GlobalVar.country-information.name; }
+        MyText { height: custom-h; text: Tr.tr.capital + GlobalVar.country-information.capital; }
+        MyText { height: custom-h; text: Tr.tr.continent + GlobalVar.country-information.continent; }
+        MyText { height: custom-h; text: Tr.tr.code + GlobalVar.country-information.code; }
 
         MyButton {
-            text: @tr("Close");
+            text: Tr.tr.close;
             clicked => { root.visible = false }
         }
     }
@@ -82,7 +83,7 @@ export component GameWindow inherits Rectangle {
             vertical-alignment: center;
             horizontal-alignment: center;
             font-size: 32px;
-            text: @tr("Answer?");
+            text: Tr.tr.answer;
         }
 
         if img-or-text: ImageResizable { icon: root.icon-data; }
@@ -119,7 +120,7 @@ export component GameWindow inherits Rectangle {
                 wrap: word-wrap;
             }
             MyButton { width: ret-wid();
-                text: answer-data.visible? @tr("info"): @tr("help");
+                text: answer-data.visible? Tr.tr.info: Tr.tr.help;
                 height: root.height / 15;
                 clicked => {
                     if answer-data.visible { info-win.visible = true; }
@@ -204,9 +205,9 @@ export component GameWindow inherits Rectangle {
 
     exit := OnExitWindow {
         visible: false;
-        text: @tr("Exit or pause?");
-        text-one: @tr("Exit");
-        text-two: @tr("Pause");
+        text: Tr.tr.exit-o-p;
+        text-one: Tr.tr.exit;
+        text-two: Tr.tr.pause;
         button-one => { timer-reset(); exit.visible = false; root.scene-visible-type(true) }
         button-two => { timer-stop(); exit.visible = false; root.scene-visible-type(false) }
     }

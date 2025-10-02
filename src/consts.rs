@@ -34,9 +34,9 @@ pub mod os {
     pub const LOAD_ICON: &str = "..\\icons\\earth.svg";
 }
 
-pub mod language {
-    pub const EN: &str = "country_en.json";
-    pub const RU: &str = "country_ru.json";
+pub mod data {
+    pub const DATA: &str = "country_";
+    pub const TRANSLATION: &str = "tr_";
 }
 
 pub mod url {
@@ -96,6 +96,7 @@ pub mod ui {
 //language
     pub const I_EN: i32 = 0;
     pub const I_RU: i32 = 1;
+    pub const I_CN: i32 = 2;
 
     pub mod scene {
     #![allow(dead_code)]
@@ -135,5 +136,12 @@ macro_rules! block_checkbox {
 macro_rules! null_ss {
     () => {
         "null".to_shared_string()
+    };
+}
+
+#[macro_export]
+macro_rules! to_ss {
+    ($model:expr) => {
+        $model.to_shared_string()
     };
 }
