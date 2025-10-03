@@ -7,8 +7,8 @@ use std::rc::Rc;
 use process::gamelogic;
 use consts::*;
 use configure::configurationsettings as ConfSet;
-use translation::TranslationRs as TrRs;
-use translation::LocalTranslation;
+use translation::TranslationRs;
+use translation::{LocalTranslation, ContinentsTranslation};
 use configure::{set, get};
 use configure::{InputConfig, Country, Continent};
 use threadfn::{ThreadIn, ThreadData, GameMode, Action};
@@ -37,23 +37,17 @@ fn main() -> Result<(), slint::PlatformError> {
     };
 
     let load_path: PathBuf = ConfSet::input_data_path(&loaded_config.language, data::TRANSLATION, #[cfg(not(debug_assertions))] &data_path_string);
-    let tr: TrRs = TrRs::load_new(&load_path).unwrap();
-    let local_translation: LocalTranslation = tr.local_translation();
-    set::window_language(&main_window, &tr);
-
-    let load_path: PathBuf = ConfSet::input_data_path(&loaded_config.language, data::DATA, #[cfg(not(debug_assertions))] &data_path_string);
+    let tr: TranslationRs = TranslationRs::load_new(&load_path).unwrap();
+    let local_tr: LocalTranslation = tr.get_local_translation();
+    let continents_tr: ContinentsTranslation = tr.get_continents_translation();
 
     //*  Load app data
+    let load_path: PathBuf = ConfSet::input_data_path(&loaded_config.language, data::DATA, #[cfg(not(debug_assertions))] &data_path_string);
     let serialized_countries: Vec<Country> = match ConfSet::read_from_file(&load_path)
     {
         Ok(config) => config,
         Err(_) => panic!("Failed to load app data"),
     };
-
-    main_window.window().set_size(set::screen_size(loaded_config.size));
-    main_window.window().set_position(set::screen_position(loaded_config.position));
-
-    set::image_welcome(&main_window, #[cfg(not(debug_assertions))] &image_path_string);
 
     let (tx_cmd, rx_cmd): (Sender<ThreadIn>, Receiver<ThreadIn>) = channel();
     let (tx_data, rx_data): (Sender<ThreadData>, Receiver<ThreadData>) = channel();
@@ -79,7 +73,9 @@ fn main() -> Result<(), slint::PlatformError> {
                             &filtered_cont,
                             &mode,
                             &input,
-                            &tx_data, #[cfg(not(debug_assertions))] &image_path_string
+                            &tx_data,
+                            &continents_tr,
+                            #[cfg(not(debug_assertions))] &image_path_string
                         );
                     }
                 }
@@ -87,6 +83,17 @@ fn main() -> Result<(), slint::PlatformError> {
         }
     });
     //? <- Thread
+
+    main_window.window().set_size(set::screen_size(loaded_config.size));
+    main_window.window().set_position(set::screen_position(loaded_config.position));
+    set::window_language(&main_window, &tr);
+    set::image_welcome(&main_window, #[cfg(not(debug_assertions))] &image_path_string);
+    set::settings_language(&main_window, &loaded_config.language);
+    set::settings_button_color(&main_window, &loaded_config.color);
+    set::checkbox_continent_blocked(&main_window, &loaded_config.continents);
+    set::checkbox_continent_checked(&main_window, loaded_config.continents.clone());
+    set::checkbox_mode_blocked(&main_window, &loaded_config.mode);
+    set::checkbox_mode_checked(&main_window, loaded_config.mode.clone());
 
     //*  Randomize countries
     let random_number: Rc<Cell<usize>> = drop_cell!(gamelogic::get_rand_universal(ui::ANSWER_NUM));
@@ -100,13 +107,6 @@ fn main() -> Result<(), slint::PlatformError> {
         checkbox: Some(loaded_config.continents.clone()),
         random: None
     }));
-
-    set::settings_language(&main_window, &loaded_config.language);
-    set::settings_button_color(&main_window, &loaded_config.color);
-    set::checkbox_continent_blocked(&main_window, &loaded_config.continents);
-    set::checkbox_continent_checked(&main_window, loaded_config.continents.clone());
-    set::checkbox_mode_blocked(&main_window, &loaded_config.mode);
-    set::checkbox_mode_checked(&main_window, loaded_config.mode.clone());
 
     //* When click on run button
     let _ = main_window.on_run_game_process({
@@ -150,7 +150,7 @@ fn main() -> Result<(), slint::PlatformError> {
 
             match index {
                 ui::TIME_OUT => {
-                    model.selected = local_translation.time_out.to_shared_string();
+                    model.selected = local_tr.time_out.to_shared_string();
                     model.answer = input_names[random_number_get].clone();
                 },
                 _ => {

@@ -4,6 +4,7 @@ use std::fs;
 #[cfg(not(debug_assertions))]
 use std::path::PathBuf;
 #[cfg(debug_assertions)]
+use crate::translation::ContinentsTranslation;
 use crate::consts::os::LOAD_IMAGE;
 use crate::consts::ui;
 use crate::process::gamelogic;
@@ -75,6 +76,7 @@ pub fn load_data_from_thread(
     mode: &Vec<GameMode>,
     input: &ThreadIn,
     tx_data: &Sender<ThreadData>,
+    tr_cont: &ContinentsTranslation,
 #[cfg(not(debug_assertions))]
     image_path_string: &PathBuf
 ) {
@@ -121,7 +123,7 @@ pub fn load_data_from_thread(
     };
     data_out.code = used_countries[rand_unwrap].code.to_shared_string();
     data_out.continent = match &used_countries[rand_unwrap].continent {
-        Some(continent) => { continent.ret_continent_name() },
+        Some(continent) => { continent.ret_continent_name(&tr_cont) },
         None => { null_ss!() }
     };
     data_out.img = image_data;

@@ -15,18 +15,19 @@ pub enum Continent {
 }
 
 use slint::{SharedString, ToSharedString};
+use crate::translation::ContinentsTranslation;
 
 impl Continent {
-    pub fn ret_continent_name(&self) -> SharedString {
+    pub fn ret_continent_name(&self, tr: &ContinentsTranslation) -> SharedString {
         use Continent::*;
         match self {
-            Africa => "Africa",
-            Asia => "Asia",
-            Europe => "Europe",
-            NorthAmerica => "North America",
-            SouthAmerica => "South America",
-            Oceania => "Oceania",
-            Other => "Other"
+            Africa => &tr.afr,
+            Asia => &tr.asi,
+            Europe => &tr.eur,
+            NorthAmerica => &tr.nam,
+            SouthAmerica => &tr.sam,
+            Oceania => &tr.oce,
+            Other => &tr.other
         }.to_shared_string()
     }
 }
