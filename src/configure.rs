@@ -131,7 +131,8 @@ pub mod set {
     use std::path::PathBuf;
     use std::fs;
     use std::rc::Rc;
-    use crate::slint_generatedMainWindow::{MainWindow, EndGame};
+    use crate::slint_generatedMainWindow::{
+        MainWindow, EndGame, Information, AnswerData};
     use crate::process::gamelogic;
     use crate::{block_checkbox, drop_rc};
 
@@ -183,6 +184,10 @@ pub mod set {
         window.set_uniq_button_color(color);
     }
 #[inline(always)]
+    pub fn uniq_button_color(window: &MainWindow, index: i32) {
+        window.set_uniq_button_color(gamelogic::ret_button_color(index));
+    }
+#[inline(always)]
     pub fn settings_language(window: &MainWindow, lang: &String) {
         let index: i32 = gamelogic::ret_language_index(lang);
         window.set_selected_language_index(index);
@@ -190,6 +195,28 @@ pub mod set {
 #[inline(always)]
     pub fn end_game_events(window: &MainWindow, game: EndGame) {
         window.set_end_game_events(game);
+    }
+#[inline(always)]
+    pub fn question_number(window: &MainWindow, question: SharedString) {
+        window.set_question_number(question);
+    }
+#[inline(always)]
+    pub fn info_about_country(window: &MainWindow, value: Information) {
+        window.set_info_about_country(value);
+    }
+#[inline(always)]
+    pub fn answer_data(window: &MainWindow, model: AnswerData) {
+        window.set_answer_data(model);
+    }
+use crate::consts::ui;
+#[inline(always)]
+    pub fn enabled_buttons(window: &MainWindow, rand: usize) {
+        let mode: Vec<bool> = gamelogic::get_bad_answers(rand, ui::ANSWER_NUM, ui::BAD_ANSWER);
+        window.set_enabled_buttons(drop_rc!(mode));
+    }
+#[inline(always)]
+    pub fn reset_enabled_buttons(window: &MainWindow) {
+        window.set_enabled_buttons(drop_rc!(vec![true; ui::ANSWER_NUM]));
     }
 #[inline(always)]
     pub fn game_window_with_image(window: &MainWindow, data: &[u8], model: Vec<SharedString>) {

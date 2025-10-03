@@ -141,12 +141,13 @@ fn main() -> Result<(), slint::PlatformError> {
     let _ = main_window.on_button_clicked({
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
         let tx_cmd_clone: Sender<ThreadIn> = tx_cmd.clone();
+        let random_number_clone: Rc<Cell<usize>> = random_number.clone();
 
         move |index: i32| {
             let main_window: MainWindow = main_window_handle.unwrap();
             let input_names: Vec<SharedString> = get::button_data(&main_window);
             let mut model: AnswerData = AnswerData::my_default();
-            let random_number_get: usize = random_number.get();
+            let random_number_get: usize = random_number_clone.get();
 
             match index {
                 ui::TIME_OUT => {
@@ -159,14 +160,14 @@ fn main() -> Result<(), slint::PlatformError> {
                     model.answer = input_names[random_number_get].clone();
                 }
             }
-            main_window.set_answer_data(model);
-            random_number.set(gamelogic::get_rand_universal(ui::ANSWER_NUM));
+            set::answer_data(&main_window, model);
+            random_number_clone.set(gamelogic::get_rand_universal(ui::ANSWER_NUM));
 
             let _ = Some(tx_cmd_clone.send(ThreadIn {
                 mode: None,
                 action: Action::Load,
                 checkbox: None,
-                random: Some(random_number.get())
+                random: Some(random_number_clone.get())
             }));
         }
     });
@@ -223,11 +224,13 @@ fn main() -> Result<(), slint::PlatformError> {
                         println!("FandC");
                     }
                 }
+                set::reset_enabled_buttons(&main_window);
+
                 let question: SharedString = format!("{}/{}", q_num, m_q_num).to_shared_string();
-                main_window.set_question_number(question);
+                set::question_number(&main_window, question);
                 set::game_timer_run(&main_window);
                 question_number.set(q_num + 1);
-                main_window.set_info_about_country(input.data.to_info());
+                set::info_about_country(&main_window, input.data.to_info());
             }
         }
     });
@@ -250,7 +253,17 @@ fn main() -> Result<(), slint::PlatformError> {
 
         move |index: i32| {
             let main_window: MainWindow = main_window_handle.unwrap();
-            main_window.set_uniq_button_color(gamelogic::ret_button_color(index));
+            set::uniq_button_color(&main_window, index);
+        }
+    });
+
+    //* Help
+    let _ = main_window.on_help_chance({
+        let main_window_handle: Weak<MainWindow> = main_window.as_weak();
+
+        move || {
+            let main_window: MainWindow = main_window_handle.unwrap();
+            set::enabled_buttons(&main_window, random_number.get());
         }
     });
 

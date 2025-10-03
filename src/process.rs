@@ -1,5 +1,4 @@
 pub mod gamelogic {
-
     use slint::Color;
     use rand::seq::IteratorRandom;
     use rand::Rng;
@@ -28,6 +27,26 @@ pub mod gamelogic {
         .into_iter()
         .cloned()
         .collect()
+    }
+
+    pub fn get_bad_answers(excluded: usize, count: usize, num: usize) -> Vec<bool> {
+        let mut vec: Vec<bool> = vec![true; count];
+        let available_indices: Vec<usize> = (0..count)
+        .filter(|&i| i != excluded)
+        .collect();
+
+        let mut rng = rand::rng();
+        let indices_to_change: Vec<usize> = available_indices
+        .iter()
+        .choose_multiple(&mut rng, num)
+        .into_iter()
+        .cloned()
+        .collect();
+
+        for &idx in &indices_to_change {
+            vec[idx] = false;
+        }
+        vec
     }
 
     pub fn get_rand_universal(count: usize) -> usize {
