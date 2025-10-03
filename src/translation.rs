@@ -53,6 +53,16 @@ pub struct LocalTranslation {
     pub time_out: String,
 }
 
+pub struct ContinentsTranslation {
+    pub eur: String,
+    pub asi: String,
+    pub afr: String,
+    pub nam: String,
+    pub sam: String,
+    pub oce: String,
+    pub other: String
+}
+
 impl TranslationRs {
     pub fn load_new(patch: &PathBuf) -> Result<Self> {
         let data: String = match fs::read_to_string(patch) {
@@ -63,9 +73,21 @@ impl TranslationRs {
         Ok(result)
     }
 
-    pub fn local_translation(&self) -> LocalTranslation {
+    pub fn get_local_translation(&self) -> LocalTranslation {
         LocalTranslation {
             time_out: self.time_out.clone(),
+        }
+    }
+
+    pub fn get_continents_translation(&self) -> ContinentsTranslation {
+        ContinentsTranslation {
+            eur: self.eur.clone(),
+            asi: self.asi.clone(),
+            afr: self.afr.clone(),
+            nam: self.nam.clone(),
+            sam: self.sam.clone(),
+            oce: self.oce.clone(),
+            other: "Other".to_string(),
         }
     }
 

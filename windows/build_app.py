@@ -5,7 +5,7 @@ import platform
 import subprocess
 import shutil
 
-APP_VERSION = "0.5.0"
+APP_VERSION = "0.6.0"
 APP_NAME = "Geographical game"
 BIN_NAME = "geo_game"
 OUTPUT_DIR = "."

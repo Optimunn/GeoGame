@@ -48,9 +48,11 @@ export component GameWindow inherits Rectangle {
     callback scene-visible-type(bool);
     callback button-clicked(int);
     callback click-continue;
+    callback help-chance;
 
     in-out property <bool> img-or-text: false;
     in-out property  <AnswerData> answer-data: { visible: false };
+    in-out property <[bool]> enabled-buttons: [ true, true, true, true ];
     in property <[string]> button-data: [ "none", "none", "none", "none" ];
     in property <string> question-number: "2/10";
     in property <image> icon-data;
@@ -124,7 +126,7 @@ export component GameWindow inherits Rectangle {
                 height: root.height / 15;
                 clicked => {
                     if answer-data.visible { info-win.visible = true; }
-                    else { debug("nothing"); }
+                    else { root.help-chance() }
                 }
             }
             Text { text: root.question-number;
@@ -147,12 +149,16 @@ export component GameWindow inherits Rectangle {
 
         if !answer-data.visible: GridBox {
             MyButton {row: 0; width: ret-width(); my-height: ret-height(); text: root.button-data[0];
+                enabled: root.enabled-buttons[0];
                 clicked => {timer-stop(); root.button-clicked(0);} }
             MyButton { width: ret-width(); my-height: ret-height(); text: root.button-data[1];
+                enabled: root.enabled-buttons[1];
                 clicked => {timer-stop(); root.button-clicked(1);} }
             MyButton {row: 1; width: ret-width(); my-height: ret-height(); text: root.button-data[2];
+                enabled: root.enabled-buttons[2];
                 clicked => {timer-stop(); root.button-clicked(2);} }
             MyButton { width: ret-width(); my-height: ret-height(); text: root.button-data[3];
+                enabled: root.enabled-buttons[3];
                 clicked => {timer-stop(); root.button-clicked(3);} }
         }
 
@@ -190,7 +196,7 @@ export component GameWindow inherits Rectangle {
 
     info-win:= InfoWin {
         visible: false;
-        width: root.width / 1.5;
+        width: root.width / 1.4;
         height: root.height / 1.5;
     }
 

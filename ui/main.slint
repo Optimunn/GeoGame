@@ -23,6 +23,8 @@ export component MainWindow inherits Window {
     callback selected-button-color(int);
     //ret current selected language
     callback selected-language(int);
+    //add help
+    callback help-chance <=> window-game.help-chance;
 
     in property current-translation <=> Tr.tr;
 
@@ -32,6 +34,7 @@ export component MainWindow inherits Window {
     in-out property uniq-button-color <=> GlobalVar.button-color;
     in property image-welcome <=> window-welcome.image-welcome;
 
+    in-out property enabled-buttons <=> window-game.enabled-buttons;
     in-out property button-data <=> window-game.button-data;
     in-out property answer-data <=> window-game.answer-data;
     in-out property img-or-text <=> window-game.img-or-text;

@@ -72,6 +72,7 @@ pub mod ui {
     pub const TIME_OUT: i32 = 5;
 //number of answers in game
     pub const ANSWER_NUM: usize = 4;
+    pub const BAD_ANSWER: usize = 2;
 //reset
     pub const RESET: i32 = 1;
 //links
