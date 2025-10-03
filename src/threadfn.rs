@@ -4,7 +4,6 @@ use std::fs;
 #[cfg(not(debug_assertions))]
 use std::path::PathBuf;
 #[cfg(debug_assertions)]
-use crate::translation::ContinentsTranslation;
 use crate::consts::os::LOAD_IMAGE;
 use crate::consts::ui;
 use crate::process::gamelogic;
@@ -69,6 +68,8 @@ pub struct ThreadIn {
     pub checkbox: Option<Vec<bool>>,
     pub random: Option<usize>
 }
+
+use crate::translation::ContinentsTranslation;
 
 #[inline(always)]
 pub fn load_data_from_thread(

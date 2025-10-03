@@ -49,6 +49,17 @@ fn main() -> Result<(), slint::PlatformError> {
         Err(_) => panic!("Failed to load app data"),
     };
 
+    set::image_welcome(&main_window, #[cfg(not(debug_assertions))] &image_path_string);
+    main_window.window().set_size(set::screen_size(loaded_config.size));
+    main_window.window().set_position(set::screen_position(loaded_config.position));
+    set::window_language(&main_window, &tr);
+    set::settings_language(&main_window, &loaded_config.language);
+    set::settings_button_color(&main_window, &loaded_config.color);
+    set::checkbox_continent_blocked(&main_window, &loaded_config.continents);
+    set::checkbox_continent_checked(&main_window, loaded_config.continents.clone());
+    set::checkbox_mode_blocked(&main_window, &loaded_config.mode);
+    set::checkbox_mode_checked(&main_window, loaded_config.mode.clone());
+
     let (tx_cmd, rx_cmd): (Sender<ThreadIn>, Receiver<ThreadIn>) = channel();
     let (tx_data, rx_data): (Sender<ThreadData>, Receiver<ThreadData>) = channel();
 
@@ -83,17 +94,6 @@ fn main() -> Result<(), slint::PlatformError> {
         }
     });
     //? <- Thread
-
-    main_window.window().set_size(set::screen_size(loaded_config.size));
-    main_window.window().set_position(set::screen_position(loaded_config.position));
-    set::window_language(&main_window, &tr);
-    set::image_welcome(&main_window, #[cfg(not(debug_assertions))] &image_path_string);
-    set::settings_language(&main_window, &loaded_config.language);
-    set::settings_button_color(&main_window, &loaded_config.color);
-    set::checkbox_continent_blocked(&main_window, &loaded_config.continents);
-    set::checkbox_continent_checked(&main_window, loaded_config.continents.clone());
-    set::checkbox_mode_blocked(&main_window, &loaded_config.mode);
-    set::checkbox_mode_checked(&main_window, loaded_config.mode.clone());
 
     //*  Randomize countries
     let random_number: Rc<Cell<usize>> = drop_cell!(gamelogic::get_rand_universal(ui::ANSWER_NUM));
