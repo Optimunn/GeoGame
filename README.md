@@ -1,6 +1,9 @@
 # Countries app
 
 Alpha version 0.6.0
+
+---
+
 ![Game welcome](/pictures/geo_welcome.png "Game welcome")
 ![Game mode](/pictures/geo_mode.png "Game mode")
 ![Geographical game](/pictures/geo_game.png "Geographical game")
@@ -19,7 +22,7 @@ Then you must jump to folder `GeoGame-master` and run
 Also how in first way you must check your `cargo`, then
 in terminal go to folder `GeoGame-master/macos` and run `./build_app_sh --all`, application must be created.
 
-#### Build from source (Windows)
+#### Build from source (Windows) (Not tested)
 
 ***Attention!***
 To build on Windows, you must have [Python3](https://www.python.org) installed.
