@@ -151,7 +151,7 @@ fn main() -> Result<(), slint::PlatformError> {
 
             match index {
                 ui::TIME_OUT => {
-                    model.selected = local_tr.time_out.to_shared_string();
+                    model.selected = to_ss!(local_tr.time_out);
                     model.answer = input_names[random_number_get].clone();
                 },
                 _ => {
@@ -226,7 +226,7 @@ fn main() -> Result<(), slint::PlatformError> {
                 }
                 set::reset_enabled_buttons(&main_window);
 
-                let question: SharedString = format!("{}/{}", q_num, m_q_num).to_shared_string();
+                let question: SharedString = to_ss!(format!("{}/{}", q_num, m_q_num));
                 set::question_number(&main_window, question);
                 set::game_timer_run(&main_window);
                 question_number.set(q_num + 1);

@@ -51,6 +51,7 @@ pub struct InputConfig {
     pub mode: Vec<bool>,
     pub language: String,
     pub color: String,
+    pub store: u32,
 }
 
 impl InputConfig {
@@ -62,6 +63,7 @@ impl InputConfig {
             mode: vec![true, false, false],
             language: "en".to_string(),
             color: "gray".to_string(),
+            store: 0,
         }
     }
 }
