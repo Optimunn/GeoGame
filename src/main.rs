@@ -100,6 +100,8 @@ fn main() -> Result<(), slint::PlatformError> {
     let max_question_number: Rc<Cell<i32>> = drop_cell!(ui::RESET);
     let question_number: Rc<Cell<i32>> = drop_cell!(ui::RESET);
 
+    let lock_chance: Rc<Cell<bool>> = drop_cell!(false);
+
     let mode_selected: Vec<GameMode> = gamelogic::create_mode_list(&loaded_config.mode);
     let _ = Some(tx_cmd.send(ThreadIn {
         mode: Some(mode_selected),
@@ -197,9 +199,11 @@ fn main() -> Result<(), slint::PlatformError> {
     let _ = main_window.on_update_window({
         use consts::ui::scene;
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
+        let lock_chance_clone: Rc<Cell<bool>> = lock_chance.clone();
 
         move || {
             let main_window: MainWindow = main_window_handle.unwrap();
+            lock_chance_clone.set(false);
 
             if let Ok(input) = rx_data.recv() {
                 let q_num: i32 = question_number.get();
@@ -262,8 +266,11 @@ fn main() -> Result<(), slint::PlatformError> {
         let main_window_handle: Weak<MainWindow> = main_window.as_weak();
 
         move || {
-            let main_window: MainWindow = main_window_handle.unwrap();
-            set::enabled_buttons(&main_window, random_number.get());
+            if !lock_chance.get() {
+                let main_window: MainWindow = main_window_handle.unwrap();
+                set::enabled_buttons(&main_window, random_number.get());
+                lock_chance.set(true);
+            }
         }
     });
 
